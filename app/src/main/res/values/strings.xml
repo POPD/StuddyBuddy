@@ -6,4 +6,10 @@
     <string name="home">Home</string>
     <string name="Stats">Stats</string>
     <string name="Account">Account</string>
+    <string name="Choose_A_Class">Choose a class:</string>
+    <string name="Time_Studied">Time Studied:</string>
+    <string name="Date" >Date:</string>
+    <string name="cancel_button_extra_activity">Cancel</string>
+    <string name="save_button_extra_activity">Save</string>
+    <string name="title_activity_extra">ExtraActivity</string>
 </resources>
