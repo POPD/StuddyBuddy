@@ -12,4 +12,7 @@
     <string name="cancel_button_extra_activity">Cancel</string>
     <string name="save_button_extra_activity">Save</string>
     <string name="title_activity_extra">ExtraActivity</string>
+    <string name="session">Session</string>
+    <string name="extraSession">Extra Session</string>
+    <string name="calendar">Exam Calendar</string>
 </resources>
