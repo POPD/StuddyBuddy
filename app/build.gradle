@@ -20,5 +20,6 @@ android {
 }
 
 dependencies {
+    compile 'com.roomorama:caldroid:2.2.1'
     compile fileTree(dir: 'libs', include: ['*.jar'])
 }
