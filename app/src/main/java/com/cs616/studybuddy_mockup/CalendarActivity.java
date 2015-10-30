@@ -9,7 +9,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.CalendarView;
+import android.widget.ListView;
 import android.widget.Toast;
 
 import com.roomorama.caldroid.CaldroidFragment;
@@ -22,6 +24,7 @@ import java.util.Date;
 public class CalendarActivity extends FragmentActivity {
     public static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     final CaldroidFragment caldroidFragment = new CaldroidFragment();
+    String[] testArray = {"Exam 1: example","Exam 2: example"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +33,11 @@ public class CalendarActivity extends FragmentActivity {
         getActionBar().setLogo(R.mipmap.book);
         getActionBar().setDisplayShowHomeEnabled(true);
         createCalendar();
+
+        ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.exams_listview, testArray);
+
+        ListView listView = (ListView) findViewById(R.id.listView);
+        listView.setAdapter(adapter);
 
     }
     public void createCalendar(){
