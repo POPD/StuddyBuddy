@@ -13,7 +13,6 @@ public class MainActivity extends Activity {
         setContentView(R.layout.activity_main);
         getActionBar().setLogo(R.mipmap.book);
         getActionBar().setDisplayShowHomeEnabled(true);
-
     }
 
     @Override
