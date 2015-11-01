@@ -15,4 +15,5 @@
     <string name="session">Session</string>
     <string name="extraSession">Extra Session</string>
     <string name="calendar">Exam Calendar</string>
+    <string name="title_activity_statistics">StatisticsActivity</string>
 </resources>
