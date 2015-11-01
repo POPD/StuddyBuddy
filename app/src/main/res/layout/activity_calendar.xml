@@ -33,6 +33,7 @@
             android:layout_margin="5dp" />
     </LinearLayout>
 
+
     <CalendarView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -47,7 +48,6 @@
         android:layout_below="@+id/calendarView"
         android:layout_alignParentEnd="true"
         android:layout_above="@+id/footer" />
-
     <!-- ********************************************** -->
 
 

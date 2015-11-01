@@ -1,29 +1,30 @@
 package com.cs616.studybuddy_mockup;
 
-import android.app.Activity;
-import android.graphics.Color;
-import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentTransaction;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.CalendarView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
+
+import hirondelle.date4j.DateTime;
 
 public class CalendarActivity extends FragmentActivity {
     public static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    final CaldroidFragment caldroidFragment = new CaldroidFragment();
+    //OUR CALENDAR FRAGMENT
+    final CalendarFragment calfragment = new CalendarFragment();
+
+    //SAMPLE STRINGS FOR MOCKUP
     String[] testArray = {"Exam 1: example","Exam 2: example"};
 
     @Override
@@ -44,16 +45,56 @@ public class CalendarActivity extends FragmentActivity {
 
         Bundle args = new Bundle();
         final Calendar cal = Calendar.getInstance();
+
+        //*** OPTIONS FOR OUR CALENDAR *** //
+        args.putInt(CaldroidFragment.THEME_RESOURCE, R.style.Default);
         args.putInt(CaldroidFragment.MONTH, cal.get(Calendar.MONTH) + 1);
         args.putInt(CaldroidFragment.YEAR, cal.get(Calendar.YEAR));
         args.putBoolean(CaldroidFragment.ENABLE_SWIPE, true);
         args.putBoolean(CaldroidFragment.SQUARE_TEXT_VIEW_CELL, true);
         args.putBoolean(CaldroidFragment.SIX_WEEKS_IN_CALENDAR, false);
-        caldroidFragment.setArguments(args);
+        calfragment.setArguments(args);
 
         android.support.v4.app.FragmentTransaction t = getSupportFragmentManager().beginTransaction();
-        t.replace(R.id.calendarView, caldroidFragment);
+        t.replace(R.id.calendarView, calfragment);
         t.commit();
+
+
+        // ***** TESTING OUR EVENTs ***** //
+        //**NOTE: replace this code with our database once completed
+        //get some dates to test
+        List<DateTime> dates = new ArrayList<>();
+        dates.add(new DateTime("2015-11-05 00:00:00.000000000"));
+        dates.add(new DateTime("2015-11-07 00:00:00.000000000"));
+        dates.add(new DateTime("2015-11-11 00:00:00.000000000"));
+        dates.add(new DateTime("2015-11-15 00:00:00.000000000"));
+
+        for (int i=0; i < dates.size(); i++) {
+            DateTime date = dates.get(i);
+            calfragment.events.put(date, new ArrayList<Event>());
+            if(calfragment.events.containsKey(date)) {
+                switch(i){
+                    case 0:
+                        calfragment.events.get(date).add(new Event(date, "Exam1"));
+                        calfragment.events.get(date).add(new Event(date, "Exam2"));
+                        break;
+                    case 1:
+                        calfragment.events.get(date).add(new Event(date, "Exam1"));
+                        break;
+                    case 2:
+                        calfragment.events.get(date).add(new Event(date, "Exam1"));
+                        calfragment.events.get(date).add(new Event(date, "Exam2"));
+                        break;
+                    case 3:
+                        calfragment.events.get(date).add(new Event(date, "Exam1"));
+                        calfragment.events.get(date).add(new Event(date, "Exam2"));
+                        calfragment.events.get(date).add(new Event(date, "Exam3"));
+                        calfragment.events.get(date).add(new Event(date, "Exam4"));
+                        break;
+                }
+            }
+        }
+        // ****************************//
 
         // *** LISTENER FOR CALENDAR
         final CaldroidListener listener = new CaldroidListener() {
@@ -61,35 +102,14 @@ public class CalendarActivity extends FragmentActivity {
             @Override
             public void onSelectDate(Date date, View view) {
                 //move to select cell and display the events for that day in list
-                caldroidFragment.clearSelectedDates();
-                caldroidFragment.setSelectedDate(date);
-                caldroidFragment.refreshView();
-            }
-
-            @Override
-            public void onChangeMonth(int month, int year) {
-                String text = "month: " + month + " year: " + year;
-                Toast.makeText(getApplicationContext(), text,
-                        Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onLongClickDate(Date date, View view) {
-                Toast.makeText(getApplicationContext(),
-                        "Long click " + formatter.format(date),
-                        Toast.LENGTH_SHORT).show();
-            }
-
-            @Override
-            public void onCaldroidViewCreated() {
-                Toast.makeText(getApplicationContext(),
-                        "Caldroid view is created",
-                        Toast.LENGTH_SHORT).show();
+                calfragment.clearSelectedDates();
+                calfragment.setSelectedDate(date);
+                calfragment.refreshView();
             }
 
         };
 
-        caldroidFragment.setCaldroidListener(listener);
+        calfragment.setCaldroidListener(listener);
     }
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
