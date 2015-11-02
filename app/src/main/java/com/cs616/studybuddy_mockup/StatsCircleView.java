@@ -89,9 +89,9 @@ public class StatsCircleView extends View {
         // Each sweep angle is proportional to: (Total study time / Course study time)
         double sweepAngle;
         // Padding between different arcs
-        int padding = 5;
+        int padding = courses.size() == 1 ? 0 : 5;
 
-        // FOr each course in courses
+        // For each course in courses
         for (Course course : courses) {
             // Calculate the arc length
             sweepAngle = FullCircle / (totalStudyTime/course.get_studyTime());
