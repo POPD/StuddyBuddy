@@ -1,9 +1,12 @@
 package com.cs616.studybuddy_mockup;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.Button;
 
 public class ExtraActivity extends Activity {
 
@@ -14,6 +17,29 @@ public class ExtraActivity extends Activity {
         getActionBar().setLogo(R.mipmap.book);
         getActionBar().setDisplayShowHomeEnabled(true);
 
+        //SETTING UP THE MENU BUTTONS
+        final Button home = (Button) findViewById(R.id.btn_home);
+        final Button stats = (Button) findViewById(R.id.btn_stats);
+        final Button account = (Button) findViewById(R.id.btn_account);
+
+        home.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(ExtraActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        stats.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(ExtraActivity.this, StatisticsActivity.class);
+                startActivity(intent);
+            }
+        });
+        account.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(ExtraActivity.this, StatisticsActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override

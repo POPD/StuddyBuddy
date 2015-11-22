@@ -1,11 +1,13 @@
 package com.cs616.studybuddy_mockup;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import com.roomorama.caldroid.CaldroidFragment;
@@ -39,6 +41,29 @@ public class CalendarActivity extends FragmentActivity {
 
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
+        //SETTING UP THE MENU BUTTONS
+        final Button home = (Button) findViewById(R.id.btn_home);
+        final Button stats = (Button) findViewById(R.id.btn_stats);
+        final Button account = (Button) findViewById(R.id.btn_account);
+
+        home.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(CalendarActivity.this, MainActivity.class);
+                startActivity(intent);
+            }
+        });
+        stats.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(CalendarActivity.this, StatisticsActivity.class);
+                startActivity(intent);
+            }
+        });
+        account.setOnClickListener(new View.OnClickListener() {
+            public void onClick(View v) {
+                Intent intent = new Intent(CalendarActivity.this, StatisticsActivity.class);
+                startActivity(intent);
+            }
+        });
 
     }
     public void createCalendar(){
