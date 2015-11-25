@@ -25,5 +25,11 @@
     <string name="friday">FRI</string>
     <string name="saturday">SAT</string>
     <string name="sunday">SUN</string>
+    <string name="title_activity_session_list">SessionList</string>
+    <string name="Stop">Stop</string>
+    <string name="Pause">Pause</string>
+    <string name="Alarms">Set Alarms</string>
+    <string name="CourseTitle" />
+    <string name="Finish">Finish</string>
 
 </resources>
