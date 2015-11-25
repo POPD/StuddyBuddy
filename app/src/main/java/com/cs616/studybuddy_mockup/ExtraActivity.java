@@ -47,7 +47,7 @@ public class ExtraActivity extends Activity {
         });
         account.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(ExtraActivity.this, StatisticsActivity.class);
+                Intent intent = new Intent(ExtraActivity.this, MyAccount.class);
                 startActivity(intent);
             }
         });
