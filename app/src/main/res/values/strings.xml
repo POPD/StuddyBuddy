@@ -31,5 +31,7 @@
     <string name="Alarms">Set Alarms</string>
     <string name="CourseTitle" />
     <string name="Finish">Finish</string>
+    <string name="title_activity_login">login</string>
+    <string name="button_login">Login</string>
 
 </resources>

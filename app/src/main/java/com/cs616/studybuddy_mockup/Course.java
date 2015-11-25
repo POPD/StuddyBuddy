@@ -8,10 +8,13 @@ import android.graphics.Paint;
 public class Course {
 
     // Backing fields
-    double _studyTime;
-    Paint _paint;
+    private String _name;
+    private double _studyTime;
+    private Paint _paint;
+    private long _id;
 
-    public Course(double studyTime, int color){
+
+    public Course(long id,String courseName, double studyTime, int color){
 
         // Initialize the paint object
         this._paint = new Paint();
@@ -20,8 +23,11 @@ public class Course {
         this._paint.setStyle(Paint.Style.STROKE);
 
         // Set the backing fields
+        this._id = id;
         this._paint.setColor(color);
         this._studyTime = studyTime;
+        this._name = courseName;
+
 
 
     }
@@ -32,5 +38,10 @@ public class Course {
     }
     public Paint get_paint(){
         return _paint;
+    }
+    public String get_name() {return _name;}
+
+    public long getId() {
+        return _id;
     }
 }
