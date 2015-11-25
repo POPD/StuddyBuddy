@@ -47,7 +47,7 @@
     <Spinner
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/spinner"
+        android:id="@+id/spinner_courseSpinner_extra_activity"
         android:layout_below="@+id/textView"
         android:layout_centerHorizontal="true" />
 
@@ -57,7 +57,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="@string/Time_Studied"
         android:id="@+id/textView2"
-        android:layout_below="@+id/spinner"
+        android:layout_below="@+id/spinner_courseSpinner_extra_activity"
         android:layout_alignParentStart="true" />
 
     <LinearLayout
@@ -149,7 +149,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/cancel_button_extra_activity"
-            android:id="@+id/button"
+            android:id="@+id/button_cancel_extra_activity"
             android:layout_marginLeft="70dp"
             style="@style/MyBackgroundColor"/>
 
@@ -157,7 +157,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/save_button_extra_activity"
-            android:id="@+id/button2"
+            android:id="@+id/button_save_extra_activity"
             android:layout_marginLeft="70dp"
             style="@style/MyBackgroundColor"/>
     </LinearLayout>

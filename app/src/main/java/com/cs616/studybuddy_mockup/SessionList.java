@@ -16,27 +16,26 @@ import java.util.List;
 public class SessionList extends Activity {
 
     public static final int MAX_COURSES = 8;
+    private Mockup_Database mdb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //
+
         setContentView(R.layout.activity_session_list);
-        List<String> courseList = new ArrayList<String>();
-        //hardcoded list for now, add i max number of courses to the list
-        for(int i = 0; i < MAX_COURSES; i++) {
-            courseList.add("course"+i);
-        }
 
-        ArrayAdapter<String> courseAdapter = new ArrayAdapter<String>(this, R.layout.adapter_list,courseList);
-        ListView courseListView = (ListView) findViewById(R.id.Course_List);
-        courseListView.setAdapter(courseAdapter);
+        ListView courseList = (ListView) findViewById(R.id.Course_List);
+        mdb = new Mockup_Database();
+        CourseArrayAdapter adapter = new CourseArrayAdapter(this,mdb.get_Student().getCourses());
 
-        courseListView.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+        courseList.setAdapter(adapter);
+
+
+        courseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent intent = new Intent(SessionList.this, SessionActivity.class);
                 //Todo: httprequest to get the course and title
-                intent.putExtra("sentCourseTitle", "PlaceHolder");
+                intent.putExtra("sentCourseTitle", mdb.get_Student().getCourses().get(position).get_name());
                 startActivity(intent);
             }
         });

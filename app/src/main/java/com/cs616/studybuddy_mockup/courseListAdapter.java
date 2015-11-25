@@ -55,4 +55,9 @@ public class courseListAdapter  extends ArrayAdapter<Course>{
 
         return newRow;
     }
+
+    @Override
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+        return getView(position,convertView,parent);
+    }
 }
