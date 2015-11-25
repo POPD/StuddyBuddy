@@ -45,16 +45,10 @@ public class StatsCircleView extends View {
 
     private void init() {
 
+        Mockup_Database mdb = new Mockup_Database();
         oval = new RectF();
         colors = new ArrayList<Integer>();
-        courses = new ArrayList<Course>();
-
-        // Create sample courses
-        courses.add(new Course(15, Color.parseColor("#FF4E00")));
-        courses.add(new Course(5, Color.parseColor("#8EA604")));
-        courses.add(new Course(3, Color.parseColor("#EC9F05")));
-        courses.add(new Course(7, Color.parseColor("#BF3100")));
-        courses.add(new Course(9, Color.parseColor("#F5BB00")));
+        courses = mdb.getCourseList();
     }
 
     @Override
