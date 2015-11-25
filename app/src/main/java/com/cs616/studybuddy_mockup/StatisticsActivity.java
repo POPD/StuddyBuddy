@@ -8,15 +8,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 
-public class ExtraActivity extends Activity {
+public class StatisticsActivity extends Activity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_extra);
-        getActionBar().setLogo(R.mipmap.book);
-        getActionBar().setDisplayShowHomeEnabled(true);
-
+        setContentView(R.layout.activity_statistics);
         //SETTING UP THE MENU BUTTONS
         final Button home = (Button) findViewById(R.id.btn_home);
         final Button stats = (Button) findViewById(R.id.btn_stats);
@@ -24,19 +21,19 @@ public class ExtraActivity extends Activity {
 
         home.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(ExtraActivity.this, MainActivity.class);
+                Intent intent = new Intent(StatisticsActivity.this, MainActivity.class);
                 startActivity(intent);
             }
         });
         stats.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(ExtraActivity.this, StatisticsActivity.class);
+                Intent intent = new Intent(StatisticsActivity.this, StatisticsActivity.class);
                 startActivity(intent);
             }
         });
         account.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(ExtraActivity.this, StatisticsActivity.class);
+                Intent intent = new Intent(StatisticsActivity.this, StatisticsActivity.class);
                 startActivity(intent);
             }
         });
@@ -45,7 +42,7 @@ public class ExtraActivity extends Activity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_extra, menu);
+        getMenuInflater().inflate(R.menu.menu_statistics, menu);
         return true;
     }
 

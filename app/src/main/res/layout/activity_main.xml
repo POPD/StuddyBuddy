@@ -3,11 +3,10 @@
     android:layout_height="match_parent" android:paddingLeft="0dp"
     android:paddingRight="0dp"
     android:paddingTop="0dp"
-    android:paddingBottom="0dp" tools:context=".MainActivity">
+    android:paddingBottom="0dp" tools:context=".MainActivity"
+    android:background="@android:color/background_light">
 
-    <TextView android:text="@string/hello_world" android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-
+    <!-- **** BOTTOM ACTION BAR **** -->
     <LinearLayout android:id="@+id/footer"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -18,17 +17,72 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/home" />
+            android:text="@string/home"
+            style="@style/MyBackgroundColor"
+            android:layout_margin="5dp" />
 
         <Button android:id="@+id/btn_stats"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/Stats" />
+            android:text="@string/Stats"
+            style="@style/MyBackgroundColor"
+            android:layout_margin="5dp" />
         <Button android:id="@+id/btn_account"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/Account" />
+            android:text="@string/Account"
+            style="@style/MyBackgroundColor"
+            android:layout_margin="5dp" />
     </LinearLayout>
+    <!-- ********************************************** -->
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Welcome Student Example"
+        android:id="@+id/welcomeText_main_activity"
+        android:textSize="26sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/session"
+        android:id="@+id/btn_session"
+        android:layout_below="@+id/welcomeText_main_activity"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true"
+        android:layout_margin="20dp"
+        android:textSize="20sp"
+        style="@style/MyBackgroundColor"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/extraSession"
+        android:id="@+id/btn_extra"
+        android:layout_below="@+id/btn_session"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="20dp"
+        android:textSize="20sp"
+        style="@style/MyBackgroundColor"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/calendar"
+        android:id="@+id/btn_calendar"
+        android:layout_below="@+id/btn_extra"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentStart="true"
+        android:layout_margin="20dp"
+        android:textSize="20sp"
+        style="@style/MyBackgroundColor"/>
+
 </RelativeLayout>
