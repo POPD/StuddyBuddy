@@ -23,12 +23,7 @@ public class MainActivity extends Activity {
         final Button account = (Button) findViewById(R.id.btn_account);
 
 
-        home.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
+
         stats.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(MainActivity.this, StatisticsActivity.class);
@@ -49,7 +44,7 @@ public class MainActivity extends Activity {
 
         session.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(MainActivity.this, SessionActivity.class);
+                Intent intent = new Intent(MainActivity.this, SessionList.class);
                 startActivity(intent);
             }
         });
