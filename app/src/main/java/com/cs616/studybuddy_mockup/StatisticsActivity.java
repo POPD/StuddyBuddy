@@ -31,12 +31,6 @@ public class StatisticsActivity extends Activity {
                 startActivity(intent);
             }
         });
-        stats.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(StatisticsActivity.this, StatisticsActivity.class);
-                startActivity(intent);
-            }
-        });
         account.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Intent intent = new Intent(StatisticsActivity.this, StatisticsActivity.class);
