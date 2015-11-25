@@ -46,7 +46,7 @@ public class LoginActivity extends Activity {
                     startActivity(intent);
                 }
                 else{
-                    Toast toast = Toast.makeText(LoginActivity.this,"Invalid login credentials.", Toast.LENGTH_SHORT);
+                    Toast toast = Toast.makeText(LoginActivity.this,"Invalid login credentials.Use 101010, testing", Toast.LENGTH_SHORT);
                     toast.show();
                 }
             }

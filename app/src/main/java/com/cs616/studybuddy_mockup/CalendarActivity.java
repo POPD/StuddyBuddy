@@ -114,7 +114,6 @@ public class CalendarActivity extends FragmentActivity {
                         calfragment.events.get(date).add(new Event(date, "Exam1"));
                         calfragment.events.get(date).add(new Event(date, "Exam2"));
                         calfragment.events.get(date).add(new Event(date, "Exam3"));
-                        calfragment.events.get(date).add(new Event(date, "Exam4"));
                         break;
                 }
             }

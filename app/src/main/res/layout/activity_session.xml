@@ -57,18 +57,18 @@
         android:layout_height="wrap_content"
         android:text="@string/Alarms"
         android:id="@+id/btn_Alarms"
-        android:layout_below="@+id/btn_Toggle"
-        android:layout_alignEnd="@+id/btn_Finish"
-        android:layout_alignStart="@+id/btn_Finish" />
+        android:layout_centerVertical="true"
+        android:layout_alignEnd="@+id/DisplayTimer"
+        android:layout_alignStart="@+id/btn_Toggle" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/Finish"
         android:id="@+id/btn_Finish"
-        android:layout_below="@+id/btn_Alarms"
-        android:layout_alignStart="@+id/text_Title"
-        android:layout_alignEnd="@+id/DisplayTimer" />
+        android:layout_alignTop="@+id/btn_Toggle"
+        android:layout_alignEnd="@+id/DisplayTimer"
+        android:layout_toEndOf="@+id/chronometer" />
 
     <Chronometer
         android:layout_width="wrap_content"
@@ -88,7 +88,9 @@
         android:textOn="Stop Timer"
         android:textOff="Start Timer"
         android:layout_below="@+id/DisplayTimer"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignStart="@+id/DisplayTimer"
+        android:layout_marginTop="30dp"
+        android:layout_toStartOf="@+id/chronometer" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -98,6 +100,8 @@
         android:id="@+id/DisplayTimer"
         android:textAlignment="center"
         android:layout_below="@+id/chronometer"
-        android:layout_centerHorizontal="true" />
+        android:layout_centerHorizontal="true"
+        android:gravity="center"
+        android:textSize="26dp" />
 
 </RelativeLayout>

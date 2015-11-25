@@ -41,6 +41,7 @@ public class SessionActivity extends Activity {
         final TextView title = (TextView) findViewById(R.id.text_Title);
         title.setText((String) intent.getExtras().get("sentCourseTitle"));
 
+        timer.setVisibility(View.INVISIBLE);
         //Time Functionality
         timer.setBase(SystemClock.elapsedRealtime());
         toggle.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {

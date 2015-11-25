@@ -24,7 +24,7 @@ public class Mockup_Database {
         _courseList.add(new Course(5,"Telecommunications",9, Color.parseColor("#F5BB00")));
         _courseList.add(new Course(6,"Human Relations",1, Color.parseColor("#888888")));
 
-        this._Student = new Student(1286947,"Dominic Morin","kerbalspacekerbal" ,this._courseList);
+        this._Student = new Student(101010,"Dominic Morin","testing" ,this._courseList);
     }
 
     public List<Course> getCourseList() {
