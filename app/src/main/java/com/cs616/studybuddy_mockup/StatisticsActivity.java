@@ -6,7 +6,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListAdapter;
+import android.widget.ListView;
+import android.widget.Spinner;
+import android.widget.Toast;
 
 public class StatisticsActivity extends Activity {
 
@@ -43,6 +49,8 @@ public class StatisticsActivity extends Activity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_statistics, menu);
+
+        refreshcourseAdapter();
         return true;
     }
 
@@ -59,5 +67,21 @@ public class StatisticsActivity extends Activity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    public void refreshcourseAdapter(){
+        ListView courseSpinner = (ListView) findViewById(R.id.spinner_courseSpinner_statistics_activity);
+        Mockup_Database mdb = new Mockup_Database();
+        courseListAdapter adapter = new courseListAdapter(this,mdb.getCourseList());
+
+        courseSpinner.setAdapter(adapter);
+
+        courseSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                Toast toast  = Toast.makeText(StatisticsActivity.this,"Course Details",Toast.LENGTH_SHORT);
+                toast.show();
+            }
+        });
     }
 }
