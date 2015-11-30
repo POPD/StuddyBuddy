@@ -37,7 +37,10 @@ public class SessionList extends Activity {
                 //Todo: httprequest to get the course and title
                 intent.putExtra("sentCourseTitle", mdb.get_Student().getCourses().get(position).get_name());
                 startActivity(intent);
+                finish();
+
             }
         });
+
     }
 }

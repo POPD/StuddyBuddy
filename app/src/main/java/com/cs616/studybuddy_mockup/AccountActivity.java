@@ -2,43 +2,33 @@ package com.cs616.studybuddy_mockup;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Fragment;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.os.Bundle;
-import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.Spinner;
+
 import java.util.List;
 import java.util.ArrayList;
-
-import android.widget.TextView;
-import android.widget.Toolbar;
-
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by 1102764 on 2015-11-25.
  */
-public class MyAccount extends Activity {
+public class AccountActivity extends Fragment {
 
 
         private String[] arraySpinner;
@@ -52,83 +42,41 @@ public class MyAccount extends Activity {
         ArrayAdapter<String> adapter;
         private int counter;
 
+    @Override
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        final FragmentActivity faActivity  = (FragmentActivity)    super.getActivity();
+        LinearLayout llLayout    = (LinearLayout)    inflater.inflate(R.layout.activity_account, container, false);
 
-        @Override
-        protected void onCreate(Bundle savedInstanceState) {
+        userInfo    = new String[3];
+        passwdReset = (Button) llLayout.findViewById(R.id.passwdbtn);
+        editText    = (Button) llLayout.findViewById(R.id.editbtn);
+        s       =  (Spinner) llLayout.findViewById(R.id.Spinner01);
+        adapter =  new ArrayAdapter<String>(super.getActivity(), android.R.layout.simple_spinner_item, c);
+        addbtn = (Button) llLayout.findViewById(R.id.addbtn);
 
-            super.onCreate(savedInstanceState);
-            setContentView(R.layout.activity_account);
-            //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-            //setSupportActionBar(toolbar);
+        //add.setOnClickListener(this);
 
-            userInfo    = new String[3];
-            passwdReset = (Button) findViewById(R.id.passwdbtn);
-            editText    = (Button) findViewById(R.id.editbtn);
-            s       =  (Spinner) findViewById(R.id.Spinner01);
-            adapter =  new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, c);
-            addbtn = (Button) findViewById(R.id.addbtn);
-
-            //add.setOnClickListener(this);
-
-            userInfo[1] = "Tom";  //name
-            userInfo[0] = "2345"; //id
+        userInfo[1] = "Tom";  //name
+        userInfo[0] = "2345"; //id
 
 
-            c.add("Chemistry");
-            c.add("Calculus 3");
-            c.add("Programming 4");
-            c.add( "Algorithms & DataStructures");
-            c.add("DataBase");
-            update();
-
-            //Button remove = (Button) findViewById(R.id.remove);
-            //remove.setOnClickListener(this);
-
-        /* this.arraySpinner = new String[] {
-                "Chemistry", "Calculus 3", "Programming 4", "Algorithms & DataStructures", "DataBase"
-        }; */
+        c.add("Chemistry");
+        c.add("Calculus 3");
+        c.add("Programming 4");
+        c.add("Algorithms & DataStructures");
+        c.add("DataBase");
+        update();
 
 
-
-
-
-            addbtn.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    addClass(v);
-                }
-            });
-
-
-            s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                @Override
-                public void onItemSelected(AdapterView<?> arg0, View v, int arg2, long arg3) {
-                    removeClass(v);
-                }
-
-                @Override
-                public void onNothingSelected(AdapterView<?> arg0) {
-                    //optionally do something here
-                }
-            });
-
-
-
-/*/
-        s.setOnClickListener(new AdapterView.OnClickListener() {
-
+        addbtn.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                removeClass(v);
-
+                addClass(v);
             }
         });
-        */
 
 
-
-          /*
-        s.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener() {
+        s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View v, int arg2, long arg3) {
                 removeClass(v);
@@ -139,50 +87,32 @@ public class MyAccount extends Activity {
                 //optionally do something here
             }
         });
-        */
 
-            passwdReset.setOnClickListener(new View.OnClickListener() {
+        passwdReset.setOnClickListener(new View.OnClickListener() {
 
-                @Override
-                public void onClick(View v) {
-                    resetPassword(v);
-                }
-            });
+            @Override
+            public void onClick(View v) {
+                resetPassword(v);
+            }
+        });
 
-            editText.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
+        editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
 
-                    editUserInfo(v);
-                }
-            });
-            //SETTING UP THE MENU BUTTONS
-            final Button home    = (Button) findViewById(R.id.btn_home);
-            final Button stats   = (Button) findViewById(R.id.btn_stats);
-            final Button account = (Button) findViewById(R.id.btn_account);
+                editUserInfo(v);
+            }
+        });
 
+        return llLayout; // We must return the loaded Layout
+    }
 
-            home.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Intent intent = new Intent(MyAccount.this, MainActivity.class);
-                    startActivity(intent);
-                }
-            });
-            stats.setOnClickListener(new View.OnClickListener() {
-                public void onClick(View v) {
-                    Intent intent = new Intent(MyAccount.this, StatisticsActivity.class);
-                    startActivity(intent);
-                }
-            });
-
-        }
-
-        @Override
-        public boolean onCreateOptionsMenu(Menu menu) {
-            // Inflate the menu; this adds items to the action bar if it is present.
-            getMenuInflater().inflate(R.menu.menu_main, menu);
-            return true;
-        }
+    @Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+        // Inflate the menu; this adds items to the action bar if it is present.
+        this.getActivity().getMenuInflater().inflate(R.menu.menu_main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
+    }
 
         @Override
         public boolean onOptionsItemSelected(MenuItem item) {
@@ -203,12 +133,12 @@ public class MyAccount extends Activity {
 
         public void addClass(View v) {
 
-            AlertDialog.Builder builder =  new AlertDialog.Builder(this);
+            AlertDialog.Builder builder =  new AlertDialog.Builder(super.getActivity());
 
             builder.setTitle("Add entry");
 
             // Set up the input
-            final EditText in = new EditText(this);
+            final EditText in = new EditText(super.getActivity());
             builder.setView(in);
 
             builder.setMessage("Add entry?");
@@ -241,7 +171,7 @@ public class MyAccount extends Activity {
 
         public void removeClass(View v){
 
-            new AlertDialog.Builder(this)
+            new AlertDialog.Builder(super.getActivity())
                     .setTitle("Delete entry")
                     .setMessage("Are you sure you want to delete this entry?")
 
@@ -269,7 +199,7 @@ public class MyAccount extends Activity {
 
         public void update(){
 
-            adapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, c);
+            adapter = new ArrayAdapter<String>(super.getActivity(), android.R.layout.simple_spinner_item, c);
             adapter.notifyDataSetChanged();
             s.setAdapter(adapter);
 
@@ -277,7 +207,7 @@ public class MyAccount extends Activity {
 
         public void resetPassword(View v){
 
-            new AlertDialog.Builder(this)
+            new AlertDialog.Builder(super.getActivity())
                     .setTitle("Resset password")
                     .setMessage("An email has been sent to reset your password")
 
@@ -304,7 +234,7 @@ public class MyAccount extends Activity {
 
 
 
-            AlertDialog.Builder builder =  new AlertDialog.Builder(this);
+            AlertDialog.Builder builder =  new AlertDialog.Builder(super.getActivity());
             //
             builder.setTitle("Change User info");
 
@@ -326,7 +256,7 @@ public class MyAccount extends Activity {
           */
 
             builder.setMessage("NAME");
-            final EditText name = new EditText(this);
+            final EditText name = new EditText(super.getActivity());
             name.setText(userInfo[1], TextView.BufferType.EDITABLE);
             builder.setView(name);
 

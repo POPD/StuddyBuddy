@@ -25,10 +25,6 @@ public class SessionActivity extends Activity {
         //CONSTANTS
         final long[] lastPause = {SystemClock.elapsedRealtime()};
 
-        //SETTING UP THE MENU BUTTONS
-        final Button home = (Button) findViewById(R.id.btn_home);
-        final Button stats = (Button) findViewById(R.id.btn_stats);
-        final Button account = (Button) findViewById(R.id.btn_account);
         final Button alarms = (Button) findViewById(R.id.btn_Alarms);
         final Button finish = (Button) findViewById(R.id.btn_Finish);
 
@@ -66,27 +62,7 @@ public class SessionActivity extends Activity {
 
         finish.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
-                Intent intent = new Intent(SessionActivity.this, MainActivity.class);
-                startActivity(intent);
                 finish();
-            }
-        });
-        home.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(SessionActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-        stats.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(SessionActivity.this, StatisticsActivity.class);
-                startActivity(intent);
-            }
-        });
-        account.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(SessionActivity.this, StatisticsActivity.class);
-                startActivity(intent);
             }
         });
     }

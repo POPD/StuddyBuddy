@@ -9,37 +9,6 @@
     android:paddingBottom="0dp"
     tools:context="com.cs616.studybuddy_mockup.SessionActivity">
 
-    <!-- **** BOTTOM ACTION BAR **** -->
-    <LinearLayout android:id="@+id/footer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        style="@android:style/ButtonBar">
-        <Button android:id="@+id/btn_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/home"
-            style="@style/MyBackgroundColor"
-            android:layout_margin="5dp" />
-
-        <Button android:id="@+id/btn_stats"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/Stats"
-            style="@style/MyBackgroundColor"
-            android:layout_margin="5dp" />
-        <Button android:id="@+id/btn_account"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/Account"
-            style="@style/MyBackgroundColor"
-            android:layout_margin="5dp" />
-    </LinearLayout>
-    <!-- ********************************************** -->
 
     <TextView
         android:layout_width="wrap_content"
@@ -59,7 +28,8 @@
         android:id="@+id/btn_Alarms"
         android:layout_centerVertical="true"
         android:layout_alignEnd="@+id/DisplayTimer"
-        android:layout_alignStart="@+id/btn_Toggle" />
+        android:layout_alignStart="@+id/btn_Toggle"
+        style="@style/MyBackgroundColor"/>
 
     <Button
         android:layout_width="wrap_content"
@@ -68,7 +38,8 @@
         android:id="@+id/btn_Finish"
         android:layout_alignTop="@+id/btn_Toggle"
         android:layout_alignEnd="@+id/DisplayTimer"
-        android:layout_toEndOf="@+id/chronometer" />
+        android:layout_toEndOf="@+id/chronometer"
+        style="@style/MyBackgroundColor"/>
 
     <Chronometer
         android:layout_width="wrap_content"
@@ -90,7 +61,8 @@
         android:layout_below="@+id/DisplayTimer"
         android:layout_alignStart="@+id/DisplayTimer"
         android:layout_marginTop="30dp"
-        android:layout_toStartOf="@+id/chronometer" />
+        android:layout_toStartOf="@+id/chronometer"
+        style="@style/MyBackgroundColor"/>
 
     <EditText
         android:layout_width="wrap_content"
