@@ -33,37 +33,14 @@ public class CalendarActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
-        getActionBar().setLogo(R.mipmap.book);
-        getActionBar().setDisplayShowHomeEnabled(true);
+
+        getActionBar().setDisplayHomeAsUpEnabled(true);
         createCalendar();
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.exams_listview, testArray);
 
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
-        //SETTING UP THE MENU BUTTONS
-        final Button home = (Button) findViewById(R.id.btn_home);
-        final Button stats = (Button) findViewById(R.id.btn_stats);
-        final Button account = (Button) findViewById(R.id.btn_account);
-
-        home.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(CalendarActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-        stats.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(CalendarActivity.this, StatisticsActivity.class);
-                startActivity(intent);
-            }
-        });
-        account.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(CalendarActivity.this, StatisticsActivity.class);
-                startActivity(intent);
-            }
-        });
 
     }
     public void createCalendar(){
@@ -151,6 +128,11 @@ public class CalendarActivity extends FragmentActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
+            return true;
+        }
+        if (id == android.R.id.home){
+            // API 5+ solution
+            onBackPressed();
             return true;
         }
 

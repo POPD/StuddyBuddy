@@ -1,81 +1,122 @@
 package com.cs616.studybuddy_mockup;
 
 import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ListView;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
-public class ExtraActivity extends Activity {
+public class ExtraActivity extends Fragment {
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_extra);
-        getActionBar().setLogo(R.mipmap.book);
-        getActionBar().setDisplayShowHomeEnabled(true);
+        @Override
+        public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+            final FragmentActivity faActivity  = (FragmentActivity)    super.getActivity();
+            RelativeLayout llLayout    = (RelativeLayout)    inflater.inflate(R.layout.activity_extra, container, false);
 
-        //SETTING UP THE MENU BUTTONS
-        final Button home = (Button) findViewById(R.id.btn_home);
-        final Button stats = (Button) findViewById(R.id.btn_stats);
-        final Button account = (Button) findViewById(R.id.btn_account);
-        final Button save = (Button) findViewById(R.id.button_save_extra_activity);
-        final Button cancel = (Button) findViewById(R.id.button_cancel_extra_activity);
+            final Button save = (Button) llLayout.findViewById(R.id.button_save_extra_activity);
+            final Button cancel = (Button) llLayout.findViewById(R.id.button_cancel_extra_activity);
 
-        final Spinner courseSpinner = (Spinner) findViewById(R.id.spinner_courseSpinner_extra_activity);
+            final Spinner courseSpinner = (Spinner) llLayout.findViewById(R.id.spinner_courseSpinner_extra_activity);
 
-        Mockup_Database mdb = new Mockup_Database();
-        CourseArrayAdapter adapter = new CourseArrayAdapter(this,mdb.getCourseList());
+            Mockup_Database mdb = new Mockup_Database();
+            CourseArrayAdapter adapter = new CourseArrayAdapter(super.getActivity(),mdb.getCourseList());
 
-        courseSpinner.setAdapter(adapter);
+            courseSpinner.setAdapter(adapter);
 
-        home.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(ExtraActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-        stats.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(ExtraActivity.this, StatisticsActivity.class);
-                startActivity(intent);
-            }
-        });
-        account.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(ExtraActivity.this, MyAccount.class);
-                startActivity(intent);
-            }
-        });
 
-        save.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+            save.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    returnHome();
+                }
+            });
 
-        cancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                finish();
-            }
-        });
+            cancel.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    returnHome();
+                }
+            });
+            return llLayout; // We must return the loaded Layout
+        }
+    public void returnHome(){
+        Fragment fragment = new MainActivity();
+        FragmentManager fragmentManager = this.getFragmentManager();
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.container, fragment);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
     }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+//    @Override
+//    protected void onCreate(Bundle savedInstanceState) {
+//        super.onCreate(savedInstanceState);
+//        setContentView(R.layout.activity_extra);
+//        getActionBar().setLogo(R.mipmap.book);
+//        getActionBar().setDisplayShowHomeEnabled(true);
+//
+//        //SETTING UP THE MENU BUTTONS
+//        final Button home = (Button) findViewById(R.id.btn_home);
+//        final Button stats = (Button) findViewById(R.id.btn_stats);
+//        final Button account = (Button) findViewById(R.id.btn_account);
+//        final Button save = (Button) findViewById(R.id.button_save_extra_activity);
+//        final Button cancel = (Button) findViewById(R.id.button_cancel_extra_activity);
+//
+//        final Spinner courseSpinner = (Spinner) findViewById(R.id.spinner_courseSpinner_extra_activity);
+//
+//        Mockup_Database mdb = new Mockup_Database();
+//        CourseArrayAdapter adapter = new CourseArrayAdapter(this,mdb.getCourseList());
+//
+//        courseSpinner.setAdapter(adapter);
+//
+//        home.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Intent intent = new Intent(ExtraActivity.this, MainActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//        stats.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Intent intent = new Intent(ExtraActivity.this, StatisticsActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//        account.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                Intent intent = new Intent(ExtraActivity.this, AccountActivity.class);
+//                startActivity(intent);
+//            }
+//        });
+//
+//        save.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
+//
+//        cancel.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View v) {
+//                finish();
+//            }
+//        });
+//    }
+@Override
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_extra, menu);
-
-
-
-
-        return true;
+        this.getActivity().getMenuInflater().inflate(R.menu.menu_main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
 
     @Override
@@ -93,3 +134,4 @@ public class ExtraActivity extends Activity {
         return super.onOptionsItemSelected(item);
     }
 }
+
