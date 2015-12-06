@@ -1,27 +1,35 @@
 package com.cs616.studybuddy_mockup;
 
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.content.Intent;
 //import android.app.Fragment;
+import android.graphics.PixelFormat;
+import android.os.Build;
 import android.os.Bundle;
 //import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentActivity;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 public class MainActivity extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+
         final FragmentActivity faActivity  = (FragmentActivity)    super.getActivity();
         RelativeLayout        llLayout    = (RelativeLayout)    inflater.inflate(R.layout.activity_main, container, false);
 
@@ -37,6 +45,7 @@ public class MainActivity extends Fragment {
                 startActivity(intent);
             }
         });
+
         extra.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 Fragment fragment = new ExtraActivity();
@@ -127,5 +136,25 @@ public class MainActivity extends Fragment {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private void createHeadView() {
+        WindowManager.LayoutParams params = new WindowManager.LayoutParams(
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.WRAP_CONTENT,
+                WindowManager.LayoutParams.TYPE_PHONE,
+                WindowManager.LayoutParams.FLAG_NOT_TOUCH_MODAL,
+                PixelFormat.TRANSLUCENT);
+        params.gravity = Gravity.LEFT;
+
+        Context context = super.getContext();
+        FrameLayout frameLayout = new FrameLayout(context);
+
+        WindowManager windowManager = (WindowManager) context.getSystemService(Context.WINDOW_SERVICE);
+        windowManager.addView(frameLayout, params);
+
+        LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        // Here is the place where you can inject whatever layout you want.
+        layoutInflater.inflate(R.layout.activity_bubble, frameLayout);
     }
 }

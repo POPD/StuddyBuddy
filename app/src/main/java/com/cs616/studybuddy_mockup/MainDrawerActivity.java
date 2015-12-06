@@ -46,6 +46,7 @@ public class MainDrawerActivity extends FragmentActivity
         mNavigationDrawerFragment.setUp(
                 R.id.navigation_drawer,
                 (DrawerLayout) findViewById(R.id.drawer_layout));
+
     }
 
     @Override
@@ -122,4 +123,5 @@ public class MainDrawerActivity extends FragmentActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 }
