@@ -76,7 +76,7 @@ public class BubbleActivity extends Service {
         return new Notification.Builder(this)
                 .setContentTitle(getText(R.string.notificationTitle))
                 .setContentText(getText(R.string.notificationText))
-                .setSmallIcon(R.mipmap.book)
+                .setSmallIcon(R.drawable.ic_menu_recent_history)
                 .build();
     }
 
