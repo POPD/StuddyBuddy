@@ -1,9 +1,15 @@
 package com.cs616.studybuddy_mockup;
 
+import android.Manifest;
+import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.app.Activity;
 import android.os.SystemClock;
+import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.Chronometer;
@@ -14,6 +20,7 @@ import android.widget.ToggleButton;
 
 public class SessionActivity extends Activity {
 
+    public static int OVERLAY_PERMISSION_REQ_CODE = 1234;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,6 +72,45 @@ public class SessionActivity extends Activity {
                 finish();
             }
         });
+
+        if (!Settings.canDrawOverlays(this)) {
+            intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                    Uri.parse("package:" + getPackageName()));
+            startActivityForResult(intent, OVERLAY_PERMISSION_REQ_CODE);
+        }
+    }
+@Override
+    protected void onStop()
+    {
+        super.onStop();
+
+        if (Settings.canDrawOverlays(this)) {
+            startService(new Intent(this, BubbleActivity.class));
+        }
+
     }
 
+    @Override
+    protected void onRestart()
+    {
+        super.onRestart();
+
+        stopService(new Intent(this, BubbleActivity.class));
+    }
+    @Override
+    protected void onDestroy()
+    {
+        super.onDestroy();
+
+        stopService(new Intent(this, BubbleActivity.class));
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == OVERLAY_PERMISSION_REQ_CODE) {
+            if (Settings.canDrawOverlays(this)) {
+                startService(new Intent(this, BubbleActivity.class));
+            }
+        }
+    }
 }
