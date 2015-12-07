@@ -7,11 +7,13 @@ package com.cs616.studybuddy_mockup;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.PixelFormat;
+import android.view.Display;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.WindowManager;
+import android.view.animation.TranslateAnimation;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
@@ -25,6 +27,8 @@ public class HeadLayer extends View {
     // Variables that control drag
     private int startDragX;
     private int startDragY;
+    private int maxX;
+    private int maxY;
     //private int startDragY; // Unused as yet
     private int prevDragX;
     private int prevDragY;
@@ -60,6 +64,11 @@ public class HeadLayer extends View {
 
         ImageView image= (ImageView) rootLayout.findViewById(R.id.img_logo);
         image.setOnTouchListener(new TrayTouchListener());
+
+        Display display = windowManager.getDefaultDisplay();
+
+        maxX = display.getWidth();
+        maxY = display.getWidth();
     }
 
     /**
@@ -106,6 +115,15 @@ public class HeadLayer extends View {
                         bringToForegroundIntent.setFlags(Intent.FLAG_ACTIVITY_RESET_TASK_IF_NEEDED | Intent.FLAG_ACTIVITY_NEW_TASK);
                         this.context.startActivity(bringToForegroundIntent);
                         this.context.stopService(new Intent(this.context, BubbleActivity.class));
+                    }
+                    else{
+                        if(x < (maxX/2)){
+                            rootLayoutParams.x = 0;
+                        }
+                        else{
+                            rootLayoutParams.x = maxX;
+                        }
+                        windowManager.updateViewLayout(rootLayout, rootLayoutParams);
                     }
                 break;
         }
