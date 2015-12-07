@@ -27,7 +27,7 @@ public class CalendarFragment extends CaldroidFragment {
 
         refreshMonthTitleTextView();
 
-        // Refresh the date grid views
+        // Refresh the eventDate grid views
         for (CaldroidGridAdapter adapter : datePagerAdapters) {
             // Reset caldroid data
             adapter.setCaldroidData(getCaldroidData());

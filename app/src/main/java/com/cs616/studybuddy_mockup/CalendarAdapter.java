@@ -65,7 +65,7 @@ public class CalendarAdapter extends CaldroidGridAdapter {
         boolean shouldResetDiabledView = false;
         boolean shouldResetSelectedView = false;
 
-        // Customize for disabled dates and date outside min/max dates
+        // Customize for disabled dates and eventDate outside min/max dates
         if ((minDateTime != null && dateTime.lt(minDateTime))
                 || (maxDateTime != null && dateTime.gt(maxDateTime))
                 || (disableDates != null && disableDates.indexOf(dateTime) != -1)) {
