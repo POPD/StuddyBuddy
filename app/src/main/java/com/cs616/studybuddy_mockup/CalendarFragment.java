@@ -1,5 +1,6 @@
 package com.cs616.studybuddy_mockup;
 
+import com.cs616.studybuddy_mockup.SQLite.Event;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidGridAdapter;
 
@@ -27,7 +28,7 @@ public class CalendarFragment extends CaldroidFragment {
 
         refreshMonthTitleTextView();
 
-        // Refresh the date grid views
+        // Refresh the eventDate grid views
         for (CaldroidGridAdapter adapter : datePagerAdapters) {
             // Reset caldroid data
             adapter.setCaldroidData(getCaldroidData());

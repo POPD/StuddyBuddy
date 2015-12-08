@@ -1,18 +1,19 @@
 package com.cs616.studybuddy_mockup;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 
+import com.cs616.studybuddy_mockup.SQLite.DatabaseHandler;
+import com.cs616.studybuddy_mockup.SQLite.Event;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidListener;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -26,6 +27,8 @@ public class CalendarActivity extends FragmentActivity {
     //OUR CALENDAR FRAGMENT
     final CalendarFragment calfragment = new CalendarFragment();
 
+    private DatabaseHandler databaseHandle;
+
     //SAMPLE STRINGS FOR MOCKUP
     String[] testArray = {"Exam 1: example","Exam 2: example"};
 
@@ -33,17 +36,23 @@ public class CalendarActivity extends FragmentActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
-
+        databaseHandle = new DatabaseHandler(this);
         getActionBar().setDisplayHomeAsUpEnabled(true);
-        createCalendar();
+        try {
+            createCalendar();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.exams_listview, testArray);
 
         ListView listView = (ListView) findViewById(R.id.listView);
         listView.setAdapter(adapter);
 
+
+
     }
-    public void createCalendar(){
+    public void createCalendar() throws ParseException {
 
         Bundle args = new Bundle();
         final Calendar cal = Calendar.getInstance();
@@ -66,37 +75,42 @@ public class CalendarActivity extends FragmentActivity {
         //**NOTE: replace this code with our database once completed
         //get some dates to test
         List<DateTime> dates = new ArrayList<>();
-        dates.add(new DateTime("2015-11-05 00:00:00.000000000"));
-        dates.add(new DateTime("2015-11-07 00:00:00.000000000"));
-        dates.add(new DateTime("2015-11-11 00:00:00.000000000"));
-        dates.add(new DateTime("2015-11-15 00:00:00.000000000"));
+        dates.add(new DateTime("2015-12-05 00:00:00.000000000"));
+        dates.add(new DateTime("2015-12-07 00:00:00.000000000"));
+        dates.add(new DateTime("2015-12-11 00:00:00.000000000"));
+        dates.add(new DateTime("2015-12-15 00:00:00.000000000"));
 
         for (int i=0; i < dates.size(); i++) {
             DateTime date = dates.get(i);
-            calfragment.events.put(date, new ArrayList<Event>());
-            if(calfragment.events.containsKey(date)) {
                 switch(i){
                     case 0:
-                        calfragment.events.get(date).add(new Event(date, "Exam1"));
-                        calfragment.events.get(date).add(new Event(date, "Exam2"));
+                        databaseHandle.getEventTable().createEvent(new Event(date, "Exam1"));
+                        databaseHandle.getEventTable().createEvent(new Event(date, "Exam2"));
                         break;
                     case 1:
-                        calfragment.events.get(date).add(new Event(date, "Exam1"));
+                        databaseHandle.getEventTable().createEvent(new Event(date, "Exam1"));
                         break;
                     case 2:
-                        calfragment.events.get(date).add(new Event(date, "Exam1"));
-                        calfragment.events.get(date).add(new Event(date, "Exam2"));
+                        databaseHandle.getEventTable().createEvent(new Event(date, "Exam1"));
+                        databaseHandle.getEventTable().createEvent(new Event(date, "Exam2"));
                         break;
                     case 3:
-                        calfragment.events.get(date).add(new Event(date, "Exam1"));
-                        calfragment.events.get(date).add(new Event(date, "Exam2"));
-                        calfragment.events.get(date).add(new Event(date, "Exam3"));
+                        databaseHandle.getEventTable().createEvent(new Event(date, "Exam1"));
+                        databaseHandle.getEventTable().createEvent(new Event(date, "Exam2"));
+
                         break;
                 }
+        }
+
+        for (Event e : databaseHandle.getEventTable().getAllEvents()) {
+            if(calfragment.events.get(e.getEventDate()) == null){
+                calfragment.events.put(e.getEventDate(), new ArrayList<Event>());
             }
+            calfragment.events.get(e.getEventDate()).add(e);
         }
         // ****************************//
-
+//        calfragment.events.put(date, new ArrayList<Event>());
+//        calfragment.events.get(date).add(new Event(date, "Exam3"));
         // *** LISTENER FOR CALENDAR
         final CaldroidListener listener = new CaldroidListener() {
 
