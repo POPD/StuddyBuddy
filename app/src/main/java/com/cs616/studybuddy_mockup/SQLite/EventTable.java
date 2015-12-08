@@ -9,6 +9,7 @@ import com.cs616.studybuddy_mockup.CalendarActivity;
 import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.TimeZone;
 
 import hirondelle.date4j.DateTime;
 
@@ -20,6 +21,7 @@ public class EventTable {
     private static final String COLUMN_NAME_TITLE = "title";
     private static final String COLUMN_NAME_DATE = "eventDate";
     private static final String COLUMN_NAME_ID = "id";
+    private static final int MAX_DISPLAY = 3;
 
     private static final String[] allColumns = { COLUMN_NAME_ID, COLUMN_NAME_TITLE, COLUMN_NAME_DATE};
 
@@ -129,7 +131,26 @@ public class EventTable {
         database.close();
     }
 
-
+    public List<Event> getWeekEvents() throws ParseException {
+        TimeZone here =TimeZone.getTimeZone("EST");
+        DateTime today = DateTime.now(here);
+        List<Event> list = getAllEvents();
+        List<Event> weekEvents = new ArrayList<>();
+        int i;
+        for(i = 0; i <list.size(); i++){
+            Event e = list.get(i);
+            if(e.getEventDate().gteq(today)){
+                break;
+            }
+        }
+        if(i < list.size()){
+            int i2 = 0;
+            for(i=i; i < list.size() && i2 < MAX_DISPLAY;i++,i2++){
+                weekEvents.add(list.get(i));
+            }
+        }
+        return weekEvents;
+    }
     public void deleteEvent(Event event) {
         SQLiteDatabase database = databaseHandle.getWritableDatabase();
         database.delete(TABLE_NAME, "id = " + event.getId(), null);

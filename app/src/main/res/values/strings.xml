@@ -44,6 +44,7 @@
 
     <string name="action_example">Example action</string>
     <string name="title_activity_bubble">BubbleActivity</string>
+    <string name="event_week">Upcoming Events This Week:</string>
 
     <!-- Notification -->
     <string name="notificationTitle">Study Session ongoing</string>

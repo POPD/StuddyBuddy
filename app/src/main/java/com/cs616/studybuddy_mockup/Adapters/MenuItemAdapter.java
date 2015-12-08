@@ -1,4 +1,4 @@
-package com.cs616.studybuddy_mockup;
+package com.cs616.studybuddy_mockup.Adapters;
 
 import android.content.Context;
 import android.media.Image;
@@ -8,6 +8,8 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.cs616.studybuddy_mockup.R;
 
 import java.util.ArrayList;
 import java.util.List;
