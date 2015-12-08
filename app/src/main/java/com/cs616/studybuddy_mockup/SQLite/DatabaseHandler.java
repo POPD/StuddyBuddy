@@ -1,4 +1,4 @@
-package com.cs616.studybuddy_mockup;
+package com.cs616.studybuddy_mockup.SQLite;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;
@@ -11,11 +11,11 @@ import android.util.Log;
  */
 public class DatabaseHandler extends SQLiteOpenHelper {
 
-    private static final String DATABASE_NAME = "notes.db";
+    private static final String DATABASE_NAME = "event.db";
     private static final int DATABASE_VERSION = 2;
 
     /*  Database Tables */
-    private EventTable noteTable;
+    private EventTable eventTable;
 
     /**
      * Construct a new database handler.
@@ -23,20 +23,20 @@ public class DatabaseHandler extends SQLiteOpenHelper {
      */
     public DatabaseHandler(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
-        noteTable = new EventTable(this);
+        eventTable = new EventTable(this);
     }
 
-    public EventTable getNoteTable() { return noteTable; }
+    public EventTable getEventTable() { return eventTable; }
 
     @Override
     public void onCreate(SQLiteDatabase database) {
-        database.execSQL(noteTable.getCreateSQL());
+        database.execSQL(eventTable.getCreateSQL());
     }
 
     @Override
     public void onUpgrade(SQLiteDatabase database, int oldVersion, int newVersion) {
         Log.w(DatabaseHandler.class.getName(), "Upgrading database from version " + oldVersion + " to " + newVersion + ", which will destroy all old data");
-        database.execSQL("DROP TABLE IF EXISTS " + noteTable.getTableName());
+        database.execSQL("DROP TABLE IF EXISTS " + eventTable.getTableName());
         onCreate(database);
     }
 

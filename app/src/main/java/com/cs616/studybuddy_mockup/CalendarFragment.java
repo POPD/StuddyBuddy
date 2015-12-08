@@ -1,5 +1,6 @@
 package com.cs616.studybuddy_mockup;
 
+import com.cs616.studybuddy_mockup.SQLite.Event;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidGridAdapter;
 

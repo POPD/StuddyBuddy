@@ -1,4 +1,4 @@
-package com.cs616.studybuddy_mockup;
+package com.cs616.studybuddy_mockup.SQLite;
 
 import hirondelle.date4j.DateTime;
 
