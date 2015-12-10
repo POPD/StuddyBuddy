@@ -2,11 +2,14 @@ package com.cs616.studybuddy_mockup;
 
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.internal.view.menu.MenuBuilder;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.PopupMenu;
 
 import com.cs616.studybuddy_mockup.SQLite.DatabaseHandler;
 import com.cs616.studybuddy_mockup.SQLite.Event;
@@ -22,8 +25,9 @@ import java.util.List;
 
 import hirondelle.date4j.DateTime;
 
-public class CalendarActivity extends FragmentActivity {
+public class CalendarActivity extends AppCompatActivity {
     public static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public Menu menus;
     //OUR CALENDAR FRAGMENT
     final CalendarFragment calfragment = new CalendarFragment();
 
@@ -37,7 +41,6 @@ public class CalendarActivity extends FragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
         databaseHandle = new DatabaseHandler(this);
-        getActionBar().setDisplayHomeAsUpEnabled(true);
         try {
             createCalendar();
         } catch (ParseException e) {
@@ -46,8 +49,8 @@ public class CalendarActivity extends FragmentActivity {
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.exams_listview, testArray);
 
-        ListView listView = (ListView) findViewById(R.id.listView);
-        listView.setAdapter(adapter);
+        //ListView listView = (ListView) findViewById(R.id.listView);
+        //listView.setAdapter(adapter);
 
 
 
@@ -116,7 +119,17 @@ public class CalendarActivity extends FragmentActivity {
 
             @Override
             public void onSelectDate(Date date, View view) {
+
+                PopupMenu popupMenu = new PopupMenu(CalendarActivity.this, view);
+                popupMenu.inflate(R.menu.menu_calendar_day);
+                Menu menu = new MenuBuilder(CalendarActivity.this);
+                menu.add(date.toString());
+                MenuItem item = popupMenu.getMenu().findItem(R.id.calendar_option);
+                item.setTitle(date.toString());
+                popupMenu.show();
+
                 //move to select cell and display the events for that day in list
+
                 calfragment.clearSelectedDates();
                 calfragment.setSelectedDate(date);
                 calfragment.refreshView();
