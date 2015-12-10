@@ -34,7 +34,7 @@
     <string name="title_activity_login">login</string>
     <string name="button_login">Login</string>
     <string name="title_activity_main_drawer">Study Buddy</string>
-
+    <string name="button_create">Create</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
@@ -49,5 +49,7 @@
     <!-- Notification -->
     <string name="notificationTitle">Study Session ongoing</string>
     <string name="notificationText">You can do it!</string>
+    <string name="title_activity_create">CreateActivity</string>
+    <string name="title_activity_login_manager_fragment">Login</string>
 
 </resources>

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="com.cs616.studybuddy_mockup" >
+
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
     <uses-permission android:name="android.permission.REORDER_TASKS" />
 
@@ -38,10 +39,10 @@
             android:name=".SessionList"
             android:label="@string/title_activity_session_list" >
         </activity>
-        <activity
+        <fragment
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
-        </activity>
+        </fragment>
 
         <fragment
             android:name=".AccountActivity"
@@ -51,16 +52,27 @@
         <activity
             android:name=".MainDrawerActivity"
             android:label="@string/title_activity_main_drawer" >
+
+        </activity>
+
+        <service
+            android:name=".BubbleActivity"
+            android:label="@string/title_activity_bubble" >
+        </service>
+
+        <fragment
+            android:name=".CreateActivity"
+            android:label="@string/title_activity_create" >
+        </fragment>
+        <activity
+            android:name=".LoginManagerFragment"
+            android:label="@string/title_activity_login_manager_fragment" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <service
-            android:name=".BubbleActivity"
-            android:label="@string/title_activity_bubble" >
-        </service>
     </application>
 
 </manifest>
