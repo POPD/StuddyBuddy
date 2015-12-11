@@ -1,13 +1,19 @@
 package com.cs616.studybuddy_mockup;
 
+import android.app.DatePickerDialog;
+import android.content.Context;
+import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.internal.view.menu.MenuBuilder;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 
@@ -40,6 +46,7 @@ public class CalendarActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_calendar);
+
         databaseHandle = new DatabaseHandler(this);
         try {
             createCalendar();
@@ -48,7 +55,9 @@ public class CalendarActivity extends AppCompatActivity {
         }
 
         ArrayAdapter adapter = new ArrayAdapter<String>(this, R.layout.exams_listview, testArray);
-
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setLogo(R.mipmap.book);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         //ListView listView = (ListView) findViewById(R.id.listView);
         //listView.setAdapter(adapter);
 
@@ -145,6 +154,12 @@ public class CalendarActivity extends AppCompatActivity {
         getMenuInflater().inflate(R.menu.menu_calendar, menu);
         return true;
     }
+//    @Override
+//    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
+//        // Inflate the menu; this adds items to the action bar if it is present.
+//        this.getMenuInflater().inflate(R.menu.menu_main, menu);
+//        super.onCreateOptionsMenu(menu);
+//    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
@@ -165,4 +180,5 @@ public class CalendarActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
 }

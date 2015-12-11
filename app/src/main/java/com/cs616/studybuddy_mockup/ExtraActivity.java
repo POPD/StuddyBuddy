@@ -1,10 +1,15 @@
 package com.cs616.studybuddy_mockup;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
+import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.app.FragmentActivity;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -12,10 +17,16 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.DatePicker;
+import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import com.cs616.studybuddy_mockup.Adapters.CourseArrayAdapter;
+
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
 
 public class ExtraActivity extends Fragment {
 
@@ -23,18 +34,18 @@ public class ExtraActivity extends Fragment {
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             final FragmentActivity faActivity  = (FragmentActivity)    super.getActivity();
             RelativeLayout llLayout    = (RelativeLayout)    inflater.inflate(R.layout.activity_extra, container, false);
-
             final Button save = (Button) llLayout.findViewById(R.id.button_save_extra_activity);
             final Button cancel = (Button) llLayout.findViewById(R.id.button_cancel_extra_activity);
 
             final Spinner courseSpinner = (Spinner) llLayout.findViewById(R.id.spinner_courseSpinner_extra_activity);
-
+            final EditText editText = (EditText) llLayout.findViewById(R.id.editText);
             Mockup_Database mdb = new Mockup_Database();
             CourseArrayAdapter adapter = new CourseArrayAdapter(super.getActivity(),mdb.getCourseList());
 
             courseSpinner.setAdapter(adapter);
 
 
+            setDateDialog fromDate = new setDateDialog(editText, getContext());
             save.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -133,5 +144,7 @@ public class ExtraActivity extends Fragment {
 
         return super.onOptionsItemSelected(item);
     }
+
 }
+
 

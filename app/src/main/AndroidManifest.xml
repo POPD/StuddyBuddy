@@ -39,11 +39,11 @@
             android:name=".SessionList"
             android:label="@string/title_activity_session_list" >
         </activity>
+
         <fragment
             android:name=".LoginActivity"
             android:label="@string/title_activity_login" >
         </fragment>
-
         <fragment
             android:name=".AccountActivity"
             android:label="@string/Account" >
@@ -52,7 +52,11 @@
         <activity
             android:name=".MainDrawerActivity"
             android:label="@string/title_activity_main_drawer" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <service
@@ -64,14 +68,14 @@
             android:name=".CreateActivity"
             android:label="@string/title_activity_create" >
         </fragment>
+
         <activity
             android:name=".LoginManagerFragment"
             android:label="@string/title_activity_login_manager_fragment" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
+        </activity>
+        <activity
+            android:name=".CreateEventActivity"
+            android:label="@string/title_activity_create_event" >
         </activity>
     </application>
 

@@ -51,5 +51,6 @@
     <string name="notificationText">You can do it!</string>
     <string name="title_activity_create">CreateActivity</string>
     <string name="title_activity_login_manager_fragment">Login</string>
+    <string name="title_activity_create_event">CreateEventActivity</string>
 
 </resources>
