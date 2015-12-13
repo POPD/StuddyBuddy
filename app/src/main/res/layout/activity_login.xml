@@ -11,7 +11,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/textview_username_login_activity"
         android:layout_marginBottom="50dp"
-        android:hint="Username"
+        android:hint="Student ID"
         android:layout_above="@+id/textview_password_login_activity"
         android:layout_alignEnd="@+id/textview_password_login_activity"
         android:layout_alignStart="@+id/textview_password_login_activity"
