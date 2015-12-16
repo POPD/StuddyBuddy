@@ -23,16 +23,15 @@ public class Courses {
         Courses course = new Courses();
         // --- GET THE REQUIRED FIELDS --- //
         String title = root.getString("title");
-        String courseno= root.getString("courseNo");
+        String id= root.getString("id");
 
-        if(title == null || courseno == null) throw new IOException("Missing required fields for JSON course");
+        if(title == null || id == null) throw new IOException("Missing required fields for JSON course");
 
         course.setTitle(title);
-        course.setCourseNo(courseno);
-
+        course.setId(id);
         // extract the post resource URL from the "_links" object
         JSONObject links = root.getJSONObject("_links");
-        course.setId(links.getJSONObject("self").getString("href"));
+        course.setCourseNo(links.getJSONObject("self").getString("href"));
 
         return course;
     }

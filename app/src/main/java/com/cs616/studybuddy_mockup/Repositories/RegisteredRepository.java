@@ -37,7 +37,7 @@ public class RegisteredRepository implements Registered_CRUDRepository<String, C
     @Override
     public List<Courses> readAll(String url) throws IOException, JSONException, ParseException {
         HttpResponse response = HttpJsonRequest.make(url + "/RegisteredCourses", "GET");
-        List<Courses> receivedCourses = Courses.fromJson((new JSONObject(new JSONTokener(response.getBody())).getJSONObject("_embedded").getJSONArray("RegisteredCourses")));
+        List<Courses> receivedCourses = Courses.fromJson((new JSONObject(new JSONTokener(response.getBody())).getJSONObject("_embedded").getJSONArray("Courses")));
         return receivedCourses;
     }
 

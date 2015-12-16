@@ -37,9 +37,9 @@ public class StudentRepository implements Students_CRUDRepository<String, Studen
 
     @Override
     public Students read(String id) throws IOException, JSONException {
-        HttpResponse response = HttpJsonRequest.make(PREFIX + "/Students/search/findByStudentId?studentId=" + id, "GET");
-        List<Students> receivedUser = Students.fromJson((new JSONObject(new JSONTokener(response.getBody())).getJSONObject("_embedded").getJSONArray("Students")));
-        return receivedUser.get(0);
+        HttpResponse response = HttpJsonRequest.make(PREFIX + "/Students/" + id, "GET");
+        Students receivedUser = Students.fromJson((new JSONObject(new JSONTokener(response.getBody()))));
+        return receivedUser;
     }
 
     @Override

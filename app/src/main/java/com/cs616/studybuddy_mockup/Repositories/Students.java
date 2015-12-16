@@ -25,7 +25,7 @@ public class Students {
         String fname = root.getString("fname");
         String lname= root.getString("lname");
         String pass= root.getString("password");
-        long id= root.getLong("studentId");
+        long id= root.getLong("id");
 
         if(fname == null || lname == null|| pass == null) throw new IOException("Missing required fields for JSON user");
 
