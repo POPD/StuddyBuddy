@@ -74,6 +74,7 @@
         android:layout_below="@+id/chronometer"
         android:layout_centerHorizontal="true"
         android:gravity="center"
-        android:textSize="26dp" />
+        android:textSize="26dp"
+        android:enabled="false" />
 
 </RelativeLayout>

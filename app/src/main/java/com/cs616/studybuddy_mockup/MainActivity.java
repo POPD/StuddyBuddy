@@ -65,8 +65,8 @@ public class MainActivity extends Fragment {
                 startActivity(intent1);
             }
         });
-        Toast toast = Toast.makeText(MainActivity.super.getActivity(),"Welcome "+currentUser.getFname(), Toast.LENGTH_SHORT);
-        toast.show();
+//        Toast toast = Toast.makeText(MainActivity.super.getActivity(),"Welcome "+currentUser.getFname(), Toast.LENGTH_SHORT);
+//        toast.show();
         return llLayout; // We must return the loaded Layout
     }
 //    @Override

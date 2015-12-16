@@ -8,6 +8,9 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.cs616.studybuddy_mockup.Adapters.CourseArrayAdapter;
+import com.cs616.studybuddy_mockup.Repositories.Courses;
+
+import java.util.List;
 
 public class SessionList extends Activity {
 
@@ -18,7 +21,12 @@ public class SessionList extends Activity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_session_list);
-
+        //Todo: FINISH dynamic list of courses/student
+//        List<Courses> dbCourseList = MainActivity.currentUser.getCourses();
+//        for(Courses item: dbCourseList)
+//        {
+//
+//        }
         ListView courseList = (ListView) findViewById(R.id.Course_List);
         mdb = new Mockup_Database();
         CourseArrayAdapter adapter = new CourseArrayAdapter(this,mdb.get_Student().getCourses());
