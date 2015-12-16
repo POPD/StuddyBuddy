@@ -15,10 +15,19 @@ import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cs616.studybuddy_mockup.AsyncResponse.Login_AsyncResponse;
+import com.cs616.studybuddy_mockup.AsyncTasks.Registered_Courses_AsyncTask;
+import com.cs616.studybuddy_mockup.AsyncTasks.Student_Login_AsyncTask;
+import com.cs616.studybuddy_mockup.Repositories.Courses;
+import com.cs616.studybuddy_mockup.Repositories.Students;
+
 import org.w3c.dom.Text;
 
-public class LoginActivity extends Fragment {
+import java.util.List;
+
+public class LoginActivity extends Fragment implements Login_AsyncResponse{
     View rootView;
+    String myPass;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -37,25 +46,52 @@ public class LoginActivity extends Fragment {
                 EditText password = (EditText) getActivity().findViewById(R.id.textview_password_login_activity);
 
                 String userId = String.valueOf(username.getText());
-                String myId = String.valueOf(mdb.get_Student().get_studentId());
+                myPass = String.valueOf(password.getText());
 
-                String userPass = String.valueOf(password.getText());
-                String myPass = mdb.get_Student().get_password();
-
-                Log.d(String.valueOf(username.getText()), "onClick ");
-                Log.d(String.valueOf(String.valueOf(mdb.get_Student().get_studentId())), "onClick ");
-
-                if(userId.equals(myId) && userId.equals(myId)){
-                    Intent intent = new Intent(LoginActivity.super.getActivity(),MainDrawerActivity.class);
-                    startActivity(intent);
-                }
-                else{
-                    Toast toast = Toast.makeText(LoginActivity.super.getActivity(),"Invalid login credentials.Use 101010, testing", Toast.LENGTH_SHORT);
-                    toast.show();
-                }
+                Student_Login_AsyncTask login = new Student_Login_AsyncTask();
+                login.setDelegate(LoginActivity.this);
+                login.execute(userId);
             }
         });
         return rootView;
+    }
+    //Function used as a callback from the Create_async
+    @Override
+    public void onLoginAsyncFinish(Boolean success) {
+        if(success){
+            Intent intent = new Intent(LoginActivity.super.getActivity(),MainDrawerActivity.class);
+            startActivity(intent);
+        }
+        else{
+            Toast toast = Toast.makeText(LoginActivity.super.getActivity(),"Invalid values, please try again", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+    }
+    //Function used as a callback from the login_async
+    @Override
+    public void onLoginAsyncFinish(Students success) {
+        if(success == null){
+            Toast toast = Toast.makeText(LoginActivity.super.getActivity(),"Invalid values, please try again", Toast.LENGTH_SHORT);
+            toast.show();
+        }
+        else
+            if(success.getPassword().equals(myPass)){
+                MainActivity.currentUser = success;
+                Registered_Courses_AsyncTask login = new Registered_Courses_AsyncTask();
+                login.setDelegate(LoginActivity.this);
+                login.execute(success.getUrl());
+            }
+            else{
+                Toast toast = Toast.makeText(LoginActivity.super.getActivity(),"Invalid values, please try again", Toast.LENGTH_SHORT);
+                toast.show();
+            }
+    }
+
+    @Override
+    public void onLoginAsyncFinish(List<Courses> courses) {
+        MainActivity.currentUser.setCourses(courses);
+        Intent intent = new Intent(LoginActivity.super.getActivity(),MainDrawerActivity.class);
+        startActivity(intent);
     }
 
 //    @Override

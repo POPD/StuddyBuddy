@@ -25,8 +25,12 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
+
+import com.cs616.studybuddy_mockup.Repositories.Students;
 
 public class MainActivity extends Fragment {
+    public static Students currentUser;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -61,7 +65,8 @@ public class MainActivity extends Fragment {
                 startActivity(intent1);
             }
         });
-
+        Toast toast = Toast.makeText(MainActivity.super.getActivity(),"Welcome "+currentUser.getFname(), Toast.LENGTH_SHORT);
+        toast.show();
         return llLayout; // We must return the loaded Layout
     }
 //    @Override

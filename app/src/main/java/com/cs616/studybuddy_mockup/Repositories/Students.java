@@ -1,9 +1,11 @@
 package com.cs616.studybuddy_mockup.Repositories;
 
+import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -11,7 +13,12 @@ import java.util.List;
  */
 
 public class Students {
-
+    public static List<Students> fromJson(JSONArray root) throws IOException, JSONException {
+        List<Students> users = new ArrayList<>();
+        for(int i = 0; i < root.length(); i++)
+            users.add(fromJson(root.getJSONObject(i)));
+        return users;
+    }
     public static Students fromJson(JSONObject root) throws IOException, JSONException {
         Students user = new Students();
         // --- GET THE REQUIRED FIELDS --- //
@@ -114,5 +121,14 @@ public class Students {
         this.lname = lname;
     }
 
+    public List<Courses> getCourses() {
+        return courses;
+    }
+
+    public void setCourses(List<Courses> courses) {
+        this.courses = courses;
+    }
+
+    private List<Courses> courses;
 
 }

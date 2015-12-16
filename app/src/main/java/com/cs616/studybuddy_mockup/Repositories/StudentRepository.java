@@ -1,6 +1,5 @@
 package com.cs616.studybuddy_mockup.Repositories;
 
-import com.cs616.studybuddy_mockup.Student;
 import com.cs616.studybuddy_mockup.utility.HttpJsonRequest;
 import com.cs616.studybuddy_mockup.utility.HttpResponse;
 
@@ -15,9 +14,12 @@ import java.util.List;
 /**
  * Created by Alex on 12/11/2015.
  */
-public class StudentRepository implements CRUDRepository<String, Students> {
+public class StudentRepository implements Students_CRUDRepository<String, Students> {
 
-    public static final String SERVER = "159.203.29.133";
+//    public static final String SERVER = "159.203.29.133";
+//    public static final int PORT = 9999;
+//    public static final String PREFIX = "http://" + SERVER + ":" + String.valueOf(PORT);
+    public static final String SERVER = "10.0.2.2";
     public static final int PORT = 9999;
     public static final String PREFIX = "http://" + SERVER + ":" + String.valueOf(PORT);
 
@@ -35,9 +37,9 @@ public class StudentRepository implements CRUDRepository<String, Students> {
 
     @Override
     public Students read(String id) throws IOException, JSONException {
-        HttpResponse response = HttpJsonRequest.make(PREFIX + "/Students/" + id, "GET");
-        Students receivedUser = Students.fromJson(new JSONObject(new JSONTokener(response.getBody())));
-        return receivedUser;
+        HttpResponse response = HttpJsonRequest.make(PREFIX + "/Students/search/findByStudentId?studentId=" + id, "GET");
+        List<Students> receivedUser = Students.fromJson((new JSONObject(new JSONTokener(response.getBody())).getJSONObject("_embedded").getJSONArray("Students")));
+        return receivedUser.get(0);
     }
 
     @Override
