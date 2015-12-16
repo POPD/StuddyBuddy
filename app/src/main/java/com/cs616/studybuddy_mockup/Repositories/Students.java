@@ -1,5 +1,7 @@
 package com.cs616.studybuddy_mockup.Repositories;
 
+import com.cs616.studybuddy_mockup.Course;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -121,14 +123,14 @@ public class Students {
         this.lname = lname;
     }
 
-    public List<Courses> getCourses() {
+    public List<Course> getCourses() {
         return courses;
     }
 
-    public void setCourses(List<Courses> courses) {
+    public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
 
-    private List<Courses> courses;
+    private List<Course> courses;
 
 }

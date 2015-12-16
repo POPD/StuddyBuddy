@@ -8,6 +8,8 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 //import android.app.Fragment;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
@@ -27,10 +29,19 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
+import com.cs616.studybuddy_mockup.Repositories.Courses;
 import com.cs616.studybuddy_mockup.Repositories.Students;
+import com.cs616.studybuddy_mockup.utility.Color_Enum;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends Fragment {
     public static Students currentUser;
+    public static List<Integer> colors;
+    public static List<Courses> db_courses;
+    public static final int MAX_COURSES = 8;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -65,6 +76,7 @@ public class MainActivity extends Fragment {
                 startActivity(intent1);
             }
         });
+        setupCourses();
         Toast toast = Toast.makeText(MainActivity.super.getActivity(),"Welcome "+currentUser.getFname(), Toast.LENGTH_SHORT);
         toast.show();
         return llLayout; // We must return the loaded Layout
@@ -161,5 +173,27 @@ public class MainActivity extends Fragment {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         // Here is the place where you can inject whatever layout you want.
         layoutInflater.inflate(R.layout.activity_bubble, frameLayout);
+    }
+    public void setupColors(){
+        //We need a pallet for our colors
+        Resources res = getResources();
+        colors = new ArrayList<>();
+        colors.add(res.getColor(R.color.course_color1));
+        colors.add(res.getColor(R.color.course_color2));
+        colors.add(res.getColor(R.color.course_color3));
+        colors.add(res.getColor(R.color.course_color4));
+        colors.add(res.getColor(R.color.course_color5));
+        colors.add(res.getColor(R.color.course_color6));
+        colors.add(res.getColor(R.color.course_color7));
+        colors.add(res.getColor(R.color.course_color8));
+    }
+    public void setupCourses(){
+        setupColors();
+        List<Course> courses = new ArrayList<>();
+        int i=0;
+        for(Courses item: db_courses){
+            courses.add(new Course(item.getId(),item.getTitle(),0,colors.get(i++)));
+        }
+        currentUser.setCourses(courses);
     }
 }

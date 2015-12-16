@@ -73,8 +73,7 @@ public class StatisticsActivity extends Fragment {
 
     public void refreshcourseAdapter(){
         ListView courseSpinner = (ListView) llLayout.findViewById(R.id.spinner_courseSpinner_statistics_activity);
-        Mockup_Database mdb = new Mockup_Database();
-        courseListAdapter adapter = new courseListAdapter(super.getActivity(),mdb.getCourseList());
+        courseListAdapter adapter = new courseListAdapter(super.getActivity(),MainActivity.currentUser.getCourses());
 
         courseSpinner.setAdapter(adapter);
 

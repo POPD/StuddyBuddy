@@ -23,7 +23,7 @@ public class Courses {
         Courses course = new Courses();
         // --- GET THE REQUIRED FIELDS --- //
         String title = root.getString("title");
-        String id= root.getString("id");
+        Long id= root.getLong("id");
 
         if(title == null || id == null) throw new IOException("Missing required fields for JSON course");
 
@@ -53,7 +53,7 @@ public class Courses {
 
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -65,9 +65,9 @@ public class Courses {
         this.courseNo = courseNo;
     }
 
-    private String id;
+    private Long id;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 

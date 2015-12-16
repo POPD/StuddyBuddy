@@ -40,7 +40,7 @@ public class ExtraActivity extends Fragment {
             final Spinner courseSpinner = (Spinner) llLayout.findViewById(R.id.spinner_courseSpinner_extra_activity);
             final EditText editText = (EditText) llLayout.findViewById(R.id.editText);
             Mockup_Database mdb = new Mockup_Database();
-            CourseArrayAdapter adapter = new CourseArrayAdapter(super.getActivity(),mdb.getCourseList());
+            CourseArrayAdapter adapter = new CourseArrayAdapter(super.getActivity(),MainActivity.currentUser.getCourses());
 
             courseSpinner.setAdapter(adapter);
 

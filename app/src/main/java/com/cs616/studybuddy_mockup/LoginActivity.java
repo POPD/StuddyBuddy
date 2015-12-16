@@ -34,7 +34,6 @@ public class LoginActivity extends Fragment implements Login_AsyncResponse{
 
         rootView = inflater.inflate(R.layout.activity_login, container, false);
 
-        final Mockup_Database mdb = new Mockup_Database();
 
 
         Button login = (Button) rootView.findViewById(R.id.button_login_login_activity);
@@ -89,7 +88,7 @@ public class LoginActivity extends Fragment implements Login_AsyncResponse{
 
     @Override
     public void onLoginAsyncFinish(List<Courses> courses) {
-        MainActivity.currentUser.setCourses(courses);
+        MainActivity.db_courses = courses;
         Intent intent = new Intent(LoginActivity.super.getActivity(),MainDrawerActivity.class);
         startActivity(intent);
     }
