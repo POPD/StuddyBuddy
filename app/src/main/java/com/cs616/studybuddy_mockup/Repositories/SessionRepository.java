@@ -1,5 +1,6 @@
 package com.cs616.studybuddy_mockup.Repositories;
 
+import com.cs616.studybuddy_mockup.MainActivity;
 import com.cs616.studybuddy_mockup.utility.HttpJsonRequest;
 import com.cs616.studybuddy_mockup.utility.HttpResponse;
 
@@ -22,8 +23,22 @@ public class SessionRepository implements Session_CRUDRepository<String, Session
 
 
     @Override
-    public boolean add(Sessions element) throws IOException {
-        return false;
+    public boolean add(Sessions element) throws Exception {
+            Students usr = MainActivity.currentUser;
+            String[] studentBits = usr.getUrl().split("/");
+            long studentid = Long.valueOf(studentBits[studentBits.length-1]);
+
+            Sessions session = new Sessions();
+
+            //GETTING THE CORRECT VALUES FROM THE URL
+
+            //NOW FOR STUDENTID
+
+            HttpResponse response = HttpJsonRequest.make(PREFIX + "/Sessions", "POST", element.toJson());
+            if(response.getStatus() != 201){
+                throw new Exception("Unable to add this session");
+            }
+            return true;
     }
 
     @Override

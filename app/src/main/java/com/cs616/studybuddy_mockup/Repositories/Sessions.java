@@ -56,6 +56,27 @@ public class Sessions {
 
     private long secondsStudied;
 
+    public String toJson() throws IOException {
+
+        String[] studentBits = studentId.getUrl().split("/");
+        long studentid = Long.valueOf(studentBits[studentBits.length-1]);
+
+        StringBuilder sb = new StringBuilder();
+        //Make sure we have the required fields
+        if (courseNo == null || studentId == null || secondsStudied == 0) {
+            throw new IOException("Missing required fields for JSON");
+        }
+        // --- APPEND THE REQUIRED FIELDS --- //
+        sb.append("{ \"courseNo\" : \"");
+        sb.append(courseNo);
+        sb.append("\", \"secondsStudied\" : \"");
+        sb.append(secondsStudied);
+        sb.append("\", \"studentId\" : \"");
+        sb.append(studentid);
+        sb.append("\"}");
+        return sb.toString();
+
+    }
 
     public static List<Sessions> fromJson(JSONArray root) throws IOException, JSONException {
         List<Sessions> sessions = new ArrayList<>();
