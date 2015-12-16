@@ -2,6 +2,7 @@ package com.cs616.studybuddy_mockup.AsyncTasks;
 
 import android.os.AsyncTask;
 
+import com.cs616.studybuddy_mockup.AsyncResponse.Create_AsyncResponse;
 import com.cs616.studybuddy_mockup.AsyncResponse.Login_AsyncResponse;
 import com.cs616.studybuddy_mockup.Repositories.StudentRepository;
 import com.cs616.studybuddy_mockup.Repositories.Students;
@@ -12,8 +13,9 @@ import java.io.IOException;
  * Created by Alex on 12/11/2015.
  */
 public class Student_Create_AsyncTask extends AsyncTask<Students, Integer, Boolean> {
-    private Login_AsyncResponse delegate;
-    public Student_Create_AsyncTask setDelegate(Login_AsyncResponse delegate) {
+    private Create_AsyncResponse delegate;
+    private Students student;
+    public Student_Create_AsyncTask setDelegate(Create_AsyncResponse delegate) {
         this.delegate = delegate;
         return null;
     }
@@ -22,8 +24,7 @@ public class Student_Create_AsyncTask extends AsyncTask<Students, Integer, Boole
     protected Boolean doInBackground(Students... params) {
         boolean valid=false;
         try {
-            if((new StudentRepository().create(params[0])==true))
-                valid=true;
+           student = new StudentRepository().create(params[0]);
         } catch (IOException e) {
             valid=false;
         }
@@ -33,6 +34,6 @@ public class Student_Create_AsyncTask extends AsyncTask<Students, Integer, Boole
     @Override
     protected void onPostExecute(Boolean result) {
         if(delegate != null)
-            delegate.onLoginAsyncFinish(result);
+            delegate.onCreateAsyncFinish(student);
     }
 }

@@ -3,6 +3,7 @@ package com.cs616.studybuddy_mockup;
 import android.app.DatePickerDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.support.v7.app.AppCompatActivity;
@@ -82,37 +83,37 @@ public class CalendarActivity extends AppCompatActivity {
         t.replace(R.id.calendarView, calfragment);
         t.commit();
 
-
-        // ***** TESTING OUR EVENTs ***** //
-        //**NOTE: replace this code with our database once completed
-        //get some dates to test
-        List<DateTime> dates = new ArrayList<>();
-        dates.add(new DateTime("2015-12-05 00:00:00.000000000"));
-        dates.add(new DateTime("2015-12-07 00:00:00.000000000"));
-        dates.add(new DateTime("2015-12-11 00:00:00.000000000"));
-        dates.add(new DateTime("2015-12-15 00:00:00.000000000"));
-
-        for (int i=0; i < dates.size(); i++) {
-            DateTime date = dates.get(i);
-                switch(i){
-                    case 0:
-                        databaseHandle.getEventTable().createEvent(new Event(date, "Exam1"));
-                        databaseHandle.getEventTable().createEvent(new Event(date, "Exam2"));
-                        break;
-                    case 1:
-                        databaseHandle.getEventTable().createEvent(new Event(date, "Exam1"));
-                        break;
-                    case 2:
-                        databaseHandle.getEventTable().createEvent(new Event(date, "Exam1"));
-                        databaseHandle.getEventTable().createEvent(new Event(date, "Exam2"));
-                        break;
-                    case 3:
-                        databaseHandle.getEventTable().createEvent(new Event(date, "Exam1"));
-                        databaseHandle.getEventTable().createEvent(new Event(date, "Exam2"));
-
-                        break;
-                }
-        }
+//
+//        // ***** TESTING OUR EVENTs ***** //
+//        //**NOTE: replace this code with our database once completed
+//        //get some dates to test
+//        List<DateTime> dates = new ArrayList<>();
+//        dates.add(new DateTime("2015-12-05 00:00:00.000000000"));
+//        dates.add(new DateTime("2015-12-07 00:00:00.000000000"));
+//        dates.add(new DateTime("2015-12-11 00:00:00.000000000"));
+//        dates.add(new DateTime("2015-12-15 00:00:00.000000000"));
+//
+//        for (int i=0; i < dates.size(); i++) {
+//            DateTime date = dates.get(i);
+//                switch(i){
+//                    case 0:
+//                        databaseHandle.getEventTable().createEvent(new Event(date, "Exam1"));
+//                        databaseHandle.getEventTable().createEvent(new Event(date, "Exam2"));
+//                        break;
+//                    case 1:
+//                        databaseHandle.getEventTable().createEvent(new Event(date, "Exam1"));
+//                        break;
+//                    case 2:
+//                        databaseHandle.getEventTable().createEvent(new Event(date, "Exam1"));
+//                        databaseHandle.getEventTable().createEvent(new Event(date, "Exam2"));
+//                        break;
+//                    case 3:
+//                        databaseHandle.getEventTable().createEvent(new Event(date, "Exam1"));
+//                        databaseHandle.getEventTable().createEvent(new Event(date, "Exam2"));
+//
+//                        break;
+//                }
+//        }
 
         for (Event e : databaseHandle.getEventTable().getAllEvents()) {
             if(calfragment.events.get(e.getEventDate()) == null){
@@ -180,5 +181,8 @@ public class CalendarActivity extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-
+    public void onClick(View view) {
+        Intent intent = new Intent(this, CreateEventActivity.class);
+        startActivityForResult(intent,1);
+    }
 }
