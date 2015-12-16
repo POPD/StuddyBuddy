@@ -16,12 +16,12 @@ import java.util.List;
  */
 public class RegisteredRepository implements Registered_CRUDRepository<String, Courses> {
 
-//    public static final String SERVER = "159.203.29.133";
-//    public static final int PORT = 9999;
-//    public static final String PREFIX = "http://" + SERVER + ":" + String.valueOf(PORT);
-    public static final String SERVER = "10.0.2.2";
+    public static final String SERVER = "159.203.29.133";
     public static final int PORT = 9999;
     public static final String PREFIX = "http://" + SERVER + ":" + String.valueOf(PORT);
+//    public static final String SERVER = "10.0.2.2";
+//    public static final int PORT = 9999;
+//    public static final String PREFIX = "http://" + SERVER + ":" + String.valueOf(PORT);
 
 
     @Override
