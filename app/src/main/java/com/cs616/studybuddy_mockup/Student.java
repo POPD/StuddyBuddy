@@ -1,5 +1,7 @@
 package com.cs616.studybuddy_mockup;
 
+import com.cs616.studybuddy_mockup.Repositories.Sessions;
+
 import java.util.List;
 
 /**
@@ -8,6 +10,16 @@ import java.util.List;
 public class Student {
     private int _studentId;
     private List<Course> courses;
+    private List<Sessions> sessions;
+
+    public List<Sessions> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(List<Sessions> sessions) {
+        this.sessions = sessions;
+    }
+
     private String _name;
     private String _password;
 

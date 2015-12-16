@@ -10,6 +10,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
+import hirondelle.date4j.DateTime;
+
 /**
  * Created by Alex on 12/11/2015.
  */
@@ -37,7 +39,7 @@ class setDateDialog implements View.OnFocusChangeListener, DatePickerDialog.OnDa
         myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
         editText.setText(sdformat.format(myCalendar.getTime()));
-
+        CreateEventActivity.myDate = new DateTime(year+"-"+monthOfYear+"-"+dayOfMonth+" 00:00:00.000000000");
     }
 
     @Override

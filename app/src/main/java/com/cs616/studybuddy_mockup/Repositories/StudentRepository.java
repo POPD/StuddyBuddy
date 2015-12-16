@@ -16,30 +16,33 @@ import java.util.List;
  */
 public class StudentRepository implements Students_CRUDRepository<String, Students> {
 
-//    public static final String SERVER = "159.203.29.133";
-//    public static final int PORT = 9999;
-//    public static final String PREFIX = "http://" + SERVER + ":" + String.valueOf(PORT);
-    public static final String SERVER = "10.0.2.2";
+    public static final String SERVER = "159.203.29.133";
     public static final int PORT = 9999;
     public static final String PREFIX = "http://" + SERVER + ":" + String.valueOf(PORT);
+//    public static final String SERVER = "10.0.2.2";
+//    public static final int PORT = 9999;
+//    public static final String PREFIX = "http://" + SERVER + ":" + String.valueOf(PORT);
 
     private static String currentId;
 
     @Override
-    public boolean create(Students element) throws IOException {
+    public Students create(Students element) throws IOException {
         HttpResponse response = HttpJsonRequest.make(PREFIX + "/Students/", "POST", element.toJson());
         if(response.getStatus() == 201){
             element.setUrl(response.getHeaders().get("Location").get(0)); // Header from POST contains the URL of the new user
-            return true;
+            return element;
         }
-        return false;
+        return null;
     }
 
     @Override
     public Students read(String id) throws IOException, JSONException {
-        HttpResponse response = HttpJsonRequest.make(PREFIX + "/Students/search/findByStudentId?studentId=" + id, "GET");
-        List<Students> receivedUser = Students.fromJson((new JSONObject(new JSONTokener(response.getBody())).getJSONObject("_embedded").getJSONArray("Students")));
-        return receivedUser.get(0);
+        HttpResponse response = HttpJsonRequest.make(PREFIX + "/Students/" + id, "GET");
+        if(response.getStatus() == 200) {
+            Students receivedUser = Students.fromJson((new JSONObject(new JSONTokener(response.getBody()))));
+            return receivedUser;
+        }
+        return null;
     }
 
     @Override

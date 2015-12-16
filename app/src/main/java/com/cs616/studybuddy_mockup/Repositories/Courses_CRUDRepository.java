@@ -9,10 +9,7 @@ import java.util.List;
 /**
  * Created by ian on 15-10-24.
  */
-public interface Students_CRUDRepository<R, T> {
-    T create(T element) throws IOException;
-    T read(R id) throws IOException, JSONException, ParseException;
+public interface Courses_CRUDRepository<R, T> {
+    T read(R url) throws IOException, JSONException, ParseException;
     List<T> readAll() throws IOException, JSONException, ParseException;
-    boolean update(T element) throws IOException;
-    boolean delete(T element) throws IOException;
 }

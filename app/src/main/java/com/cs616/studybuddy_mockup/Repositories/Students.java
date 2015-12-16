@@ -1,5 +1,7 @@
 package com.cs616.studybuddy_mockup.Repositories;
 
+import com.cs616.studybuddy_mockup.Course;
+
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -25,7 +27,7 @@ public class Students {
         String fname = root.getString("fname");
         String lname= root.getString("lname");
         String pass= root.getString("password");
-        long id= root.getLong("studentId");
+        long id= root.getLong("id");
 
         if(fname == null || lname == null|| pass == null) throw new IOException("Missing required fields for JSON user");
 
@@ -50,11 +52,11 @@ public class Students {
         // --- APPEND THE REQUIRED FIELDS --- //
         sb.append("{ \"fname\" : \"");
         sb.append(fname);
-        sb.append("{ \"lname\" : \"");
+        sb.append("\", \"lname\" : \"");
         sb.append(lname);
-        sb.append("{ \"password\" : \"");
+        sb.append("\", \"password\" : \"");
         sb.append(password);
-        sb.append("{ \"studentId\" : \"");
+        sb.append("\", \"studentId\" : \"");
         sb.append(id);
         sb.append("\"}");
 
@@ -121,14 +123,23 @@ public class Students {
         this.lname = lname;
     }
 
-    public List<Courses> getCourses() {
+    public List<Course> getCourses() {
         return courses;
     }
 
-    public void setCourses(List<Courses> courses) {
+    public void setCourses(List<Course> courses) {
         this.courses = courses;
     }
 
-    private List<Courses> courses;
+    private List<Course> courses;
 
+    private List<Sessions> session;
+
+    public List<Sessions> getSession() {
+        return session;
+    }
+
+    public void setSession(List<Sessions> session) {
+        this.session = session;
+    }
 }

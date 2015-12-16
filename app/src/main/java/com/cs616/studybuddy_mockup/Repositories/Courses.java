@@ -23,16 +23,18 @@ public class Courses {
         Courses course = new Courses();
         // --- GET THE REQUIRED FIELDS --- //
         String title = root.getString("title");
-        String courseno= root.getString("courseNo");
+        Long id= root.getLong("id");
 
-        if(title == null || courseno == null) throw new IOException("Missing required fields for JSON course");
+        if(title == null || id == null) throw new IOException("Missing required fields for JSON course");
 
         course.setTitle(title);
-        course.setCourseNo(courseno);
-
+        course.setId(id);
         // extract the post resource URL from the "_links" object
         JSONObject links = root.getJSONObject("_links");
-        course.setId(links.getJSONObject("self").getString("href"));
+
+        String courseURL = links.getJSONObject("self").getString("href");
+
+        course.setCourseNo(courseURL.replaceAll("^.*/",""));
 
         return course;
     }
@@ -46,7 +48,7 @@ public class Courses {
         // --- APPEND THE REQUIRED FIELDS --- //
         sb.append("{ \"title\" : \"");
         sb.append(title);
-        sb.append("{ \"courseNo\" : \"");
+        sb.append("\", \"courseNo\" : \"");
         sb.append(courseNo);
         sb.append("\"}");
 
@@ -54,7 +56,7 @@ public class Courses {
 
     }
 
-    public void setId(String id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -66,9 +68,9 @@ public class Courses {
         this.courseNo = courseNo;
     }
 
-    private String id;
+    private Long id;
 
-    public String getId() {
+    public Long getId() {
         return id;
     }
 
@@ -83,5 +85,16 @@ public class Courses {
     private String title;
 
     private String courseNo;
+
+    public double getStudyTime() {
+        return studyTime;
+    }
+
+    public void setStudyTime(double studyTime) {
+        this.studyTime = studyTime;
+    }
+
+    private double studyTime;
+
 
 }

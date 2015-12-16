@@ -54,8 +54,39 @@ public class courseListAdapter  extends ArrayAdapter<Course>{
 
         titleTextView.setText(course.get_name());
         titleTextView.setTextColor(course.get_paint().getColor());
-        commentTextView.setText(String.valueOf(course.get_studyTime()) );
 
+        // Here goes a nice way of displaying the time !
+        // ===============================================================================
+        String time;
+
+        int hours,minutes = 0,
+                seconds = 0,
+                totalSecs = 0;
+
+        totalSecs = (int) course.get_studyTime();
+
+        hours = totalSecs / 3600;
+        minutes = (totalSecs % 3600) / 60;
+        seconds = totalSecs % 60;
+
+        if(hours == 0 && minutes ==0 && seconds == 0 ) {
+            commentTextView.setText(String.format("%20s", "-"));
+        }
+        else {
+            time = "";
+
+            if (hours != 0)
+                time = String.format("%2s h", hours);
+
+            if (minutes != 0)
+                time = String.format("%4s %2s m", time, minutes);
+
+            if (seconds != 0)
+                time = String.format("%8s %2s s", time, seconds);
+
+            commentTextView.setText(time);
+        }
+        // ===============================================================================
         return newRow;
     }
 
