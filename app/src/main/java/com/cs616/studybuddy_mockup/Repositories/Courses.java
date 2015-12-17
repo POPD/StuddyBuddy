@@ -48,7 +48,7 @@ public class Courses {
         // --- APPEND THE REQUIRED FIELDS --- //
         sb.append("{ \"title\" : \"");
         sb.append(title);
-        sb.append("{ \"courseNo\" : \"");
+        sb.append("\", \"courseNo\" : \"");
         sb.append(courseNo);
         sb.append("\"}");
 

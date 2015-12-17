@@ -86,7 +86,20 @@
         <activity
             android:name=".StatisticsDetails"
             android:label="@string/title_activity_statistics_details" >
+            </activity>
+        <activity
+            android:name=".SetupActivity"
+            android:label="@string/title_activity_setup"
+            android:theme="@style/AppTheme" >
         </activity>
+        <fragment
+            android:name=".StudentInfoActivity"
+            android:label="@string/title_activity_student_info" >
+        </fragment>
+        <fragment
+            android:name=".PickCoursesActivity"
+            android:label="@string/title_activity_pick_courses" >
+        </fragment>
     </application>
 
 </manifest>

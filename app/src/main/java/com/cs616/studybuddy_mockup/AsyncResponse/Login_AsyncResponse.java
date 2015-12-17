@@ -14,7 +14,6 @@ import java.util.List;
  */
 
 public interface Login_AsyncResponse {
-    void onLoginAsyncFinish(Boolean success);
     void onLoginAsyncFinish(Students success);
     void onLoginAsyncFinish(List<Courses> courses);
 
