@@ -48,7 +48,7 @@ public class StatsCircleView extends View {
         Mockup_Database mdb = new Mockup_Database();
         oval = new RectF();
         colors = new ArrayList<Integer>();
-        courses = mdb.getCourseList();
+        courses = MainActivity.currentUser.getCourses();
     }
 
     @Override

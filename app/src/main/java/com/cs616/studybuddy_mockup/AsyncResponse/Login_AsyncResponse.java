@@ -1,6 +1,10 @@
 package com.cs616.studybuddy_mockup.AsyncResponse;
 
+import android.support.annotation.Nullable;
+
+import com.cs616.studybuddy_mockup.Course;
 import com.cs616.studybuddy_mockup.Repositories.Courses;
+import com.cs616.studybuddy_mockup.Repositories.Sessions;
 import com.cs616.studybuddy_mockup.Repositories.Students;
 
 import java.util.List;
@@ -13,4 +17,6 @@ public interface Login_AsyncResponse {
     void onLoginAsyncFinish(Boolean success);
     void onLoginAsyncFinish(Students success);
     void onLoginAsyncFinish(List<Courses> courses);
+    void onLoginAsyncFinish(List<Sessions> sessions,Nullable n);
+
 }

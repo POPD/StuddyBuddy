@@ -27,28 +27,7 @@ public class StatisticsActivity extends Fragment {
 
         return llLayout; // We must return the loaded Layout
     }
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_statistics);
-//        //SETTING UP THE MENU BUTTONS
-//        final Button home = (Button) findViewById(R.id.btn_home);
-//        final Button stats = (Button) findViewById(R.id.btn_stats);
-//        final Button account = (Button) findViewById(R.id.btn_account);
-//
-//        home.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(StatisticsActivity.this, MainActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//        account.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(StatisticsActivity.this, StatisticsActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//    }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){

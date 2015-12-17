@@ -31,7 +31,10 @@ public class Courses {
         course.setId(id);
         // extract the post resource URL from the "_links" object
         JSONObject links = root.getJSONObject("_links");
-        course.setCourseNo(links.getJSONObject("self").getString("href"));
+
+        String courseURL = links.getJSONObject("self").getString("href");
+
+        course.setCourseNo(courseURL.replaceAll("^.*/",""));
 
         return course;
     }
@@ -82,5 +85,16 @@ public class Courses {
     private String title;
 
     private String courseNo;
+
+    public double getStudyTime() {
+        return studyTime;
+    }
+
+    public void setStudyTime(double studyTime) {
+        this.studyTime = studyTime;
+    }
+
+    private double studyTime;
+
 
 }

@@ -1,7 +1,5 @@
 package com.cs616.studybuddy_mockup;
 
-import android.annotation.TargetApi;
-import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
@@ -9,9 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 //import android.app.Fragment;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.PixelFormat;
-import android.os.Build;
 import android.os.Bundle;
 //import android.support.v4.app.FragmentActivity;
 import android.support.v4.app.FragmentActivity;
@@ -25,22 +21,21 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.cs616.studybuddy_mockup.Repositories.Courses;
+import com.cs616.studybuddy_mockup.Repositories.Sessions;
 import com.cs616.studybuddy_mockup.Repositories.Students;
-import com.cs616.studybuddy_mockup.utility.Color_Enum;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class MainActivity extends Fragment {
     public static Students currentUser;
     public static List<Integer> colors;
     public static List<Courses> db_courses;
+    public static List<Sessions> db_sessions;
     public static final int MAX_COURSES = 8;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -192,8 +187,10 @@ public class MainActivity extends Fragment {
         List<Course> courses = new ArrayList<>();
         int i=0;
         for(Courses item: db_courses){
-            courses.add(new Course(item.getId(),item.getTitle(),0,colors.get(i++)));
+            courses.add(new Course(item.getId(),item.getTitle(),item.getCourseNo(),0,colors.get(i++)));
         }
         currentUser.setCourses(courses);
+
+
     }
 }

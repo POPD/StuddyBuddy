@@ -3,6 +3,7 @@ package com.cs616.studybuddy_mockup;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -17,15 +18,17 @@ import android.widget.Toast;
 
 import com.cs616.studybuddy_mockup.AsyncResponse.Login_AsyncResponse;
 import com.cs616.studybuddy_mockup.AsyncTasks.Registered_Courses_AsyncTask;
+import com.cs616.studybuddy_mockup.AsyncTasks.Sessions_AsyncTask;
 import com.cs616.studybuddy_mockup.AsyncTasks.Student_Login_AsyncTask;
 import com.cs616.studybuddy_mockup.Repositories.Courses;
+import com.cs616.studybuddy_mockup.Repositories.Sessions;
 import com.cs616.studybuddy_mockup.Repositories.Students;
 
 import org.w3c.dom.Text;
 
 import java.util.List;
 
-public class LoginActivity extends Fragment implements Login_AsyncResponse{
+public class LoginActivity extends Fragment implements Login_AsyncResponse {
     View rootView;
     String myPass;
     @Override
@@ -47,9 +50,13 @@ public class LoginActivity extends Fragment implements Login_AsyncResponse{
                 String userId = String.valueOf(username.getText());
                 myPass = String.valueOf(password.getText());
 
+
+
                 Student_Login_AsyncTask login = new Student_Login_AsyncTask();
                 login.setDelegate(LoginActivity.this);
                 login.execute(userId);
+
+
             }
         });
         return rootView;
@@ -76,6 +83,7 @@ public class LoginActivity extends Fragment implements Login_AsyncResponse{
         else
             if(success.getPassword().equals(myPass)){
                 MainActivity.currentUser = success;
+
                 Registered_Courses_AsyncTask login = new Registered_Courses_AsyncTask();
                 login.setDelegate(LoginActivity.this);
                 login.execute(success.getUrl());
@@ -86,13 +94,33 @@ public class LoginActivity extends Fragment implements Login_AsyncResponse{
             }
     }
 
+
     @Override
     public void onLoginAsyncFinish(List<Courses> courses) {
         MainActivity.db_courses = courses;
+        GetSessions();
         Intent intent = new Intent(LoginActivity.super.getActivity(),MainDrawerActivity.class);
         startActivity(intent);
     }
 
+    public void GetSessions(){
+        // Get the corresponding sessions
+        Sessions_AsyncTask getSessions = new Sessions_AsyncTask();
+        getSessions.setDelegate(LoginActivity.this);
+        getSessions.execute(MainActivity.currentUser.getUrl());
+    }
+
+
+    @Override
+    public void onLoginAsyncFinish(List<Sessions> sessionsList,Nullable n) {
+        for(Course course: MainActivity.currentUser.getCourses()){
+            for (Sessions sessions : sessionsList) {
+                if(course.getCourseNo().equals(sessions.getCourseNo())){
+                    course.set_studyTime(course.get_studyTime() + sessions.getSecondsStudied());
+                }
+            }
+        }
+    }
 //    @Override
 //    public void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
