@@ -59,11 +59,7 @@
         <activity
             android:name=".MainDrawerActivity"
             android:label="@string/title_activity_main_drawer" >
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
 
         <service
@@ -79,12 +75,33 @@
         <activity
             android:name=".LoginManagerFragment"
             android:label="@string/title_activity_login_manager_fragment" >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
         <activity
             android:name=".CreateEventActivity"
             android:label="@string/title_activity_create_event" >
         </activity>
-    </application>
 
+    <activity
+        android:name=".StatisticsDetails"
+        android:label="@string/title_activity_statistics_details" >
+    </activity>
+    <activity
+        android:name=".SetupActivity"
+        android:label="@string/title_activity_setup"
+        android:theme="@style/AppTheme" >
+    </activity>
+    <fragment
+        android:name=".StudentInfoActivity"
+        android:label="@string/title_activity_student_info" >
+    </fragment>
+    <fragment
+        android:name=".PickCoursesActivity"
+        android:label="@string/title_activity_pick_courses" >
+    </fragment>
+    </application>
 </manifest>

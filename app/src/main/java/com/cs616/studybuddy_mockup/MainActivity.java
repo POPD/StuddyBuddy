@@ -8,6 +8,8 @@ import android.app.FragmentTransaction;
 import android.content.Context;
 import android.content.Intent;
 //import android.app.Fragment;
+import android.content.res.Resources;
+import android.graphics.Color;
 import android.graphics.PixelFormat;
 import android.os.Build;
 import android.os.Bundle;
@@ -22,15 +24,26 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.cs616.studybuddy_mockup.Repositories.Courses;
 import com.cs616.studybuddy_mockup.Repositories.Students;
+import com.cs616.studybuddy_mockup.utility.Color_Enum;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 
 public class MainActivity extends Fragment {
     public static Students currentUser;
+    public static List<Integer> colors;
+    public static List<Courses> db_courses;
+    public static final int MAX_COURSES = 8;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
@@ -65,61 +78,13 @@ public class MainActivity extends Fragment {
                 startActivity(intent1);
             }
         });
-//        Toast toast = Toast.makeText(MainActivity.super.getActivity(),"Welcome "+currentUser.getFname(), Toast.LENGTH_SHORT);
-//        toast.show();
+        setupCourses();
+
+        TextView welcome = (TextView) llLayout.findViewById(R.id.welcomeText_main_activity);
+        welcome.setText("Welcome "+currentUser.getFname());
         return llLayout; // We must return the loaded Layout
     }
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//        getActionBar().setLogo(R.mipmap.book);
-//        getActionBar().setDisplayShowHomeEnabled(true);
-//
-//        //SETTING UP THE MENU BUTTONS
-//        final Button home    = (Button) findViewById(R.id.btn_home);
-//        final Button stats   = (Button) findViewById(R.id.btn_stats);
-//        final Button account = (Button) findViewById(R.id.btn_account);
-//
-//
-//
-//        stats.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, StatisticsActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//        account.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, AccountActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        //SETTING UP AVTIVITY BUTTONS
-//        final Button session  = (Button) findViewById(R.id.btn_session);
-//        final Button extra    = (Button) findViewById(R.id.btn_extra);
-//        final Button calendar = (Button) findViewById(R.id.btn_calendar);
-//
-//        session.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, SessionList.class);
-//                startActivity(intent);
-//            }
-//        });
-//        extra.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, ExtraActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//        calendar.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//    }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
@@ -161,5 +126,27 @@ public class MainActivity extends Fragment {
         LayoutInflater layoutInflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         // Here is the place where you can inject whatever layout you want.
         layoutInflater.inflate(R.layout.activity_bubble, frameLayout);
+    }
+    public void setupColors(){
+        //We need a pallet for our colors
+        Resources res = getResources();
+        colors = new ArrayList<>();
+        colors.add(res.getColor(R.color.course_color1));
+        colors.add(res.getColor(R.color.course_color2));
+        colors.add(res.getColor(R.color.course_color3));
+        colors.add(res.getColor(R.color.course_color4));
+        colors.add(res.getColor(R.color.course_color5));
+        colors.add(res.getColor(R.color.course_color6));
+        colors.add(res.getColor(R.color.course_color7));
+        colors.add(res.getColor(R.color.course_color8));
+    }
+    public void setupCourses(){
+        setupColors();
+        List<Course> courses = new ArrayList<>();
+        int i=0;
+        for(Courses item: db_courses){
+            courses.add(new Course(item.getId(),item.getTitle(),item.getCourseNo(),0,colors.get(i++)));
+        }
+        currentUser.setCourses(courses);
     }
 }

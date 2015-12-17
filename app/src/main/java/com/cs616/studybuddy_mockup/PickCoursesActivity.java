@@ -103,13 +103,15 @@ public class PickCoursesActivity extends Fragment implements PickCourses_AsyncRe
 
     @Override
     public void onCourseRegisterAsyncFinish(List<Courses> courses) {
-            if(courses == null){
-                Toast toast = Toast.makeText(super.getActivity(),"Error registering for classes, please try later!", Toast.LENGTH_SHORT);
+            if(courses == null) {
+                Toast toast = Toast.makeText(super.getActivity(), "Error registering for classes, please try later!", Toast.LENGTH_SHORT);
                 toast.show();
             }
-            MainActivity.db_courses = courses;
-            Intent intent = new Intent(super.getActivity(),MainDrawerActivity.class);
-            startActivity(intent);
-            getActivity().finish();
+        else {
+                MainActivity.db_courses = courses;
+                Intent intent = new Intent(super.getActivity(), MainDrawerActivity.class);
+                startActivity(intent);
+                getActivity().finish();
+            }
     }
 }

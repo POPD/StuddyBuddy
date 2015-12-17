@@ -22,6 +22,8 @@ public class StatisticsDetails extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_statistics_details);
 
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+        getActionBar().setDisplayShowHomeEnabled(true);
         // Title
         TextView title = (TextView) findViewById(R.id.statistics_details_course_name);
         int position = getIntent().getIntExtra("position", 0);
@@ -122,7 +124,11 @@ public class StatisticsDetails extends Activity {
         if (id == R.id.action_settings) {
             return true;
         }
-
+        if (id == android.R.id.home){
+            // API 5+ solution
+            onBackPressed();
+            return true;
+        }
         return super.onOptionsItemSelected(item);
     }
 }

@@ -33,12 +33,11 @@ public class RegisteredRepository implements Registered_CRUDRepository<String, C
 
             //GETTING THE CORRECT VALUES FROM THE URLS
             //FIRST FOR COURSENO
-            String[] courseBits = item.getCourseNo().split("/");
-            String courseno = courseBits[courseBits.length-1];
+            String courseno = item.getCourseNo();
 
             //NOW FOR STUDENTID
             String[] studentBits = usr.getUrl().split("/");
-            long studentid = Long.valueOf(studentBits[courseBits.length-1]);
+            long studentid = Long.valueOf(studentBits[studentBits.length-1]);
 
             register.setCourseno(courseno);
             register.setStudentid(studentid);
