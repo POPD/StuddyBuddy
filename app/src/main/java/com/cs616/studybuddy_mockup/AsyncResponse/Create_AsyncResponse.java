@@ -9,7 +9,6 @@ import java.util.List;
  * Created by Alex on 12/11/2015.
  */
 
-public interface Login_AsyncResponse {
-    void onLoginAsyncFinish(Students success);
-    void onLoginAsyncFinish(List<Courses> courses);
+public interface Create_AsyncResponse {
+    void onCreateAsyncFinish(Students student);
 }

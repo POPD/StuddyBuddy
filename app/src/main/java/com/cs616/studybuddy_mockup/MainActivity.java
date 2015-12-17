@@ -24,9 +24,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.cs616.studybuddy_mockup.Repositories.Courses;
@@ -77,61 +79,12 @@ public class MainActivity extends Fragment {
             }
         });
         setupCourses();
-        Toast toast = Toast.makeText(MainActivity.super.getActivity(),"Welcome "+currentUser.getFname(), Toast.LENGTH_SHORT);
-        toast.show();
+
+        TextView welcome = (TextView) llLayout.findViewById(R.id.welcomeText_main_activity);
+        welcome.setText("Welcome "+currentUser.getFname());
         return llLayout; // We must return the loaded Layout
     }
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//        getActionBar().setLogo(R.mipmap.book);
-//        getActionBar().setDisplayShowHomeEnabled(true);
-//
-//        //SETTING UP THE MENU BUTTONS
-//        final Button home    = (Button) findViewById(R.id.btn_home);
-//        final Button stats   = (Button) findViewById(R.id.btn_stats);
-//        final Button account = (Button) findViewById(R.id.btn_account);
-//
-//
-//
-//        stats.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, StatisticsActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//        account.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, AccountActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        //SETTING UP AVTIVITY BUTTONS
-//        final Button session  = (Button) findViewById(R.id.btn_session);
-//        final Button extra    = (Button) findViewById(R.id.btn_extra);
-//        final Button calendar = (Button) findViewById(R.id.btn_calendar);
-//
-//        session.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, SessionList.class);
-//                startActivity(intent);
-//            }
-//        });
-//        extra.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, ExtraActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//        calendar.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(MainActivity.this, CalendarActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//    }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){

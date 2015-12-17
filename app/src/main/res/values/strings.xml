@@ -12,8 +12,8 @@
     <string name="cancel_button_extra_activity">Cancel</string>
     <string name="save_button_extra_activity">Save</string>
     <string name="title_activity_extra">Extra Sessions</string>
-    <string name="title_activity_session">Session</string>
-    <string name="session">Session</string>
+    <string name="title_activity_session">Study Session</string>
+    <string name="session">Study Session</string>
     <string name="extraSession">Extra Session</string>
     <string name="calendar">Exam Calendar</string>
     <string name="title_activity_statistics">Statistics</string>
@@ -35,6 +35,7 @@
     <string name="button_login">Login</string>
     <string name="title_activity_main_drawer">Study Buddy</string>
     <string name="button_create">Create</string>
+    <string name="button_finish">Finish</string>
     <string name="title_section1">Section 1</string>
     <string name="title_section2">Section 2</string>
     <string name="title_section3">Section 3</string>
@@ -45,6 +46,8 @@
     <string name="action_example">Example action</string>
     <string name="title_activity_bubble">BubbleActivity</string>
     <string name="event_week">Upcoming Events This Week:</string>
+    <string name="student_info">Student Information:</string>
+    <string name="student_pickcourse">What Courses are you studying?</string>
 
     <!-- Notification -->
     <string name="notificationTitle">Study Session ongoing</string>
@@ -52,5 +55,8 @@
     <string name="title_activity_create">CreateActivity</string>
     <string name="title_activity_login_manager_fragment">Login</string>
     <string name="title_activity_create_event">CreateEventActivity</string>
+    <string name="title_activity_setup">SetupActivity</string>
+    <string name="title_activity_student_info">StudentInfoActivity</string>
+    <string name="title_activity_pick_courses">PickCoursesActivity</string>
 
 </resources>

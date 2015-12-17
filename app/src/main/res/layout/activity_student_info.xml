@@ -1,0 +1,70 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent" android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    tools:context="com.cs616.studybuddy_mockup.StudentInfoActivity">
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/student_info"
+        android:id="@+id/welcomeText_info_activity"
+        android:textSize="26sp"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:layout_margin="20dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/first_info"
+        android:hint="First Name"
+        android:inputType="text"
+        android:layout_marginTop="46dp"
+        android:layout_marginBottom="26dp"
+        android:layout_below="@+id/welcomeText_info_activity"
+        android:layout_alignStart="@+id/last_info"
+        android:layout_alignEnd="@+id/last_info" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/last_info"
+        android:hint="Last Name"
+        android:layout_below="@+id/first_info"
+        android:layout_marginBottom="26dp"
+        android:layout_alignStart="@+id/password_info" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/password_info"
+        android:hint="Password"
+        android:layout_below="@+id/last_info"
+        android:layout_marginBottom="26dp"
+        android:layout_centerHorizontal="true" />
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPassword"
+        android:ems="10"
+        android:id="@+id/password_confirm_info"
+        android:hint="Confirm Password"
+        android:layout_below="@+id/password_info"
+        android:layout_marginBottom="26dp"
+        android:layout_alignStart="@+id/password_info" />
+    <Button
+        style="@style/MyBackgroundColor"
+        android:layout_width="100dp"
+        android:layout_height="wrap_content"
+        android:text="@string/button_finish"
+        android:id="@+id/btn_create_finish"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true" />
+</RelativeLayout>

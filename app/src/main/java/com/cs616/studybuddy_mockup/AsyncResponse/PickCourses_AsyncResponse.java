@@ -9,7 +9,7 @@ import java.util.List;
  * Created by Alex on 12/11/2015.
  */
 
-public interface Login_AsyncResponse {
-    void onLoginAsyncFinish(Students success);
-    void onLoginAsyncFinish(List<Courses> courses);
+public interface PickCourses_AsyncResponse {
+    void onCourseReadAsyncFinish(List<Courses> courses);
+    void onCourseRegisterAsyncFinish(List<Courses> courses);
 }

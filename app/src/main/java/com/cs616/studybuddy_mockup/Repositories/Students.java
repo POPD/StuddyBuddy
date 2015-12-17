@@ -52,11 +52,11 @@ public class Students {
         // --- APPEND THE REQUIRED FIELDS --- //
         sb.append("{ \"fname\" : \"");
         sb.append(fname);
-        sb.append("{ \"lname\" : \"");
+        sb.append("\", \"lname\" : \"");
         sb.append(lname);
-        sb.append("{ \"password\" : \"");
+        sb.append("\", \"password\" : \"");
         sb.append(password);
-        sb.append("{ \"studentId\" : \"");
+        sb.append("\", \"studentId\" : \"");
         sb.append(id);
         sb.append("\"}");
 
