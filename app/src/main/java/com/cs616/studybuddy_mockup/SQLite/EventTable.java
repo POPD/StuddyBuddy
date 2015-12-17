@@ -21,15 +21,17 @@ public class EventTable {
     private static final String COLUMN_NAME_TITLE = "title";
     private static final String COLUMN_NAME_DATE = "eventDate";
     private static final String COLUMN_NAME_ID = "id";
+    private static final String COLUMN_NAME_COURSE = "courseFor";
     private static final int MAX_DISPLAY = 3;
 
-    private static final String[] allColumns = { COLUMN_NAME_ID, COLUMN_NAME_TITLE, COLUMN_NAME_DATE};
+    private static final String[] allColumns = { COLUMN_NAME_ID, COLUMN_NAME_TITLE, COLUMN_NAME_DATE, COLUMN_NAME_COURSE};
 
     // DatabaseHandler creation sql statement
     private static final String CREATE_TABLE = "create table " + TABLE_NAME +
             "(id integer primary key autoincrement, " +
             COLUMN_NAME_TITLE + " text not null," +
-            COLUMN_NAME_DATE + " text);";
+            COLUMN_NAME_DATE + " text," +
+            COLUMN_NAME_COURSE+ " integer);";
 
     private DatabaseHandler databaseHandle;
 
@@ -50,6 +52,7 @@ public class EventTable {
         project.setId(cursor.getLong(0));
         project.setTitle(cursor.getString(1));
         project.setEventDate(new DateTime(cursor.getString(2)));
+        project.setForCourse(cursor.getLong(3));
         return project;
     }
 
@@ -60,6 +63,7 @@ public class EventTable {
         ContentValues values = new ContentValues();
         values.put(COLUMN_NAME_TITLE, event.getTitle());
         values.put(COLUMN_NAME_DATE, event.getEventDate().getRawDateString());
+        values.put(COLUMN_NAME_COURSE, event.getForCourse());
 
 
         long insertId = database.insertOrThrow(TABLE_NAME, null, values);
@@ -71,7 +75,7 @@ public class EventTable {
     public Event readEvent(long id) throws ParseException {
         SQLiteDatabase db = databaseHandle.getReadableDatabase();
 
-        Cursor cursor = db.query(TABLE_NAME, new String[] { "id", COLUMN_NAME_TITLE, COLUMN_NAME_DATE }, "id =?",
+        Cursor cursor = db.query(TABLE_NAME, new String[] { "id", COLUMN_NAME_TITLE, COLUMN_NAME_DATE, COLUMN_NAME_COURSE }, "id =?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
@@ -126,6 +130,7 @@ public class EventTable {
         values.put(COLUMN_NAME_ID, event.getId());
         values.put(COLUMN_NAME_TITLE, event.getTitle());
         values.put(COLUMN_NAME_DATE, CalendarActivity.formatter.format(event.getEventDate()));
+        values.put(COLUMN_NAME_COURSE, event.getForCourse());
 
         database.update(TABLE_NAME, values, "id = ? ", new String[] {String.valueOf(event.getId())});
         database.close();

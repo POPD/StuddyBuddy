@@ -18,6 +18,7 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.PopupMenu;
 
+import com.cs616.studybuddy_mockup.AsyncResponse.PickCourses_AsyncResponse;
 import com.cs616.studybuddy_mockup.SQLite.DatabaseHandler;
 import com.cs616.studybuddy_mockup.SQLite.Event;
 import com.roomorama.caldroid.CaldroidFragment;
@@ -121,6 +122,7 @@ public class CalendarActivity extends AppCompatActivity {
             }
             calfragment.events.get(e.getEventDate()).add(e);
         }
+
         // ****************************//
 //        calfragment.events.put(date, new ArrayList<Event>());
 //        calfragment.events.get(date).add(new Event(date, "Exam3"));
@@ -129,15 +131,7 @@ public class CalendarActivity extends AppCompatActivity {
 
             @Override
             public void onSelectDate(Date date, View view) {
-
-                PopupMenu popupMenu = new PopupMenu(CalendarActivity.this, view);
-                popupMenu.inflate(R.menu.menu_calendar_day);
-                Menu menu = new MenuBuilder(CalendarActivity.this);
-                menu.add(date.toString());
-                MenuItem item = popupMenu.getMenu().findItem(R.id.calendar_option);
-                item.setTitle(date.toString());
-                popupMenu.show();
-
+                
                 //move to select cell and display the events for that day in list
 
                 calfragment.clearSelectedDates();
@@ -182,7 +176,8 @@ public class CalendarActivity extends AppCompatActivity {
         return super.onOptionsItemSelected(item);
     }
     public void onClick(View view) {
-        Intent intent = new Intent(this, CreateEventActivity.class);
-        startActivityForResult(intent,1);
+        Intent intent = new Intent(getApplicationContext(), CreateEventActivity.class);
+        startActivityForResult(intent, 1);
     }
+
 }

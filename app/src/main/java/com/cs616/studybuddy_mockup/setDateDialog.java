@@ -39,7 +39,8 @@ class setDateDialog implements View.OnFocusChangeListener, DatePickerDialog.OnDa
         myCalendar.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
         editText.setText(sdformat.format(myCalendar.getTime()));
-        CreateEventActivity.myDate = new DateTime(year+"-"+monthOfYear+"-"+dayOfMonth+" 00:00:00.000000000");
+        //CreateEventActivity.myDate = new DateTime("2015-12-05 00:00:00.000000000");
+        CreateEventActivity.myDate = new DateTime(year+"-"+(monthOfYear+1)+"-"+dayOfMonth+" 00:00:00.000000000");
     }
 
     @Override

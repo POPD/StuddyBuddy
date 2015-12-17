@@ -1,5 +1,7 @@
 package com.cs616.studybuddy_mockup.SQLite;
 
+import com.cs616.studybuddy_mockup.Course;
+
 import hirondelle.date4j.DateTime;
 
 /**
@@ -44,5 +46,16 @@ public class Event {
         }
 
         public long id;
+
+
+        public long getForCourse() {
+                return forCourse;
+        }
+
+        public void setForCourse(long forCourse) {
+                this.forCourse = forCourse;
+        }
+
+        public long forCourse;
 
 }

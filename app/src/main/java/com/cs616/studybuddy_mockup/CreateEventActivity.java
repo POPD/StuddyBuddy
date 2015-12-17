@@ -56,7 +56,11 @@ public class CreateEventActivity extends Activity {
                     Event event = new Event();
                     event.setEventDate(myDate);
                     event.setTitle(title);
+                    event.setForCourse(MainActivity.db_courses.get(courseSpinner.getSelectedItemPosition()).getId());
                     databaseHandle.getEventTable().createEvent(event);
+
+                    Intent intent = new Intent();
+                    setResult(RESULT_OK,intent);
                     finish();
                 }
 
@@ -69,6 +73,7 @@ public class CreateEventActivity extends Activity {
                 finish();
             }
         });
+
     }
 
     @Override
