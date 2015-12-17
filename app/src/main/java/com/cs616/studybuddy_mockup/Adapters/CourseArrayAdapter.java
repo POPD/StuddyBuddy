@@ -20,8 +20,12 @@ import java.util.ArrayList;
  * Created by Dominic on 2015-11-24.
  */
 public class CourseArrayAdapter  extends ArrayAdapter<Course>{
+
+
     public CourseArrayAdapter(Context context, List<Course> objects) {
         super(context, -1, objects);
+
+
     }
 
     @Override
@@ -38,6 +42,7 @@ public class CourseArrayAdapter  extends ArrayAdapter<Course>{
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View newRow;
+
         final Course course = getItem(position);
         if(convertView == null) {
             // inflate the new row from the XML layout

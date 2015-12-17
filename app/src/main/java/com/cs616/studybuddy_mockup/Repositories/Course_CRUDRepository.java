@@ -7,14 +7,16 @@ import java.text.ParseException;
 import java.util.List;
 
 /**
- * Created by ian on 15-10-24.
+ * Created by 1102764 on 2015-12-17.
  */
-public interface Registered_CRUDRepository<R, T> {
-
-    boolean add(T element) throws IOException;
+public interface Course_CRUDRepository<R,T> {
 
     T read(R id) throws IOException, JSONException, ParseException;
     List<T> readAll(R url) throws IOException, JSONException, ParseException;
     boolean update(T element) throws IOException;
     boolean delete(T element) throws IOException;
+
+
+
+
 }
