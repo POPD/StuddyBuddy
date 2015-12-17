@@ -51,6 +51,7 @@ public class AccountActivity extends Fragment {
         Button addbtn;
         Button passwdReset;
         Button editText;
+        Button removeClass;
         String userInfo [];
         ArrayAdapter<String> adapter;
 
@@ -71,7 +72,7 @@ public class AccountActivity extends Fragment {
         s           = (Spinner) llLayout.findViewById(R.id.Spinner01);
         adapter     = new ArrayAdapter<String>(super.getActivity(), android.R.layout.simple_spinner_item, c);
         addbtn      = (Button) llLayout.findViewById(R.id.addbtn);
-
+        removeClass = (Button) llLayout.findViewById(R.id.remove);
 
         //add.setOnClickListener(this);
 
@@ -97,29 +98,12 @@ public class AccountActivity extends Fragment {
         //userPasswd = userInfo[0] ;
 
 
+
         // get courses
         for ( Courses temp : MainActivity.db_courses) {
 
-
-            c.add( temp.getClass().toString() );
-
+            c.add(temp.getTitle().toString());
         }
-
-
-
-
-        /*
-        c.add("Chemistry");
-        c.add("Calculus 3");
-        c.add("Programming 4");
-        c.add("Algorithms & DataStructures");
-        c.add("DataBase");
-        */
-
-        String loop =  MainActivity.db_courses.toArray().toString();
-
-
-
 
         update();
 
@@ -131,16 +115,39 @@ public class AccountActivity extends Fragment {
             }
         });
 
+        //s.getSelectedItem();
+        //s.setClickable(true);
+        //s.setSelection(1);
+
+/*
 
         s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> arg0, View v, int arg2, long arg3) {
+
+
                 removeClass(v);
+
+
+
             }
+
 
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
                 //optionally do something here
+            }
+        });
+
+*/
+
+
+        removeClass.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+
+                removeClass(v);
             }
         });
 
@@ -159,6 +166,8 @@ public class AccountActivity extends Fragment {
                 editUserInfo(v);
             }
         });
+
+
 
         return llLayout; // We must return the loaded Layout
     }
@@ -181,7 +190,6 @@ public class AccountActivity extends Fragment {
 
             //noinspection SimplifiableIfStatement
             if (id == R.id.action_settings) {
-
 
                 return true;
             }
@@ -276,7 +284,7 @@ public class AccountActivity extends Fragment {
            JSONObject jsonObject = new JSONObject();
 
            Students s = MainActivity.currentUser;
-           s.setPassword(userInfo[1].toString());
+           s.setFname(userInfo[1].toString());
 
            //jsonObject.put("id", 10);
            //jsonObject.put("name", "myname");
@@ -289,13 +297,13 @@ public class AccountActivity extends Fragment {
                @Override
                public void onUserAsyncFinish(Boolean success) {
                // when done task this runs!!
-
+               MainActivity.currentUser.setFname(userInfo[1].toString());
 
                }
            });
 
 
-           task.execute();
+           task.execute(s);
 
 
        }
@@ -316,13 +324,13 @@ public class AccountActivity extends Fragment {
             @Override
             public void onPasswdAsyncFinish(Boolean success) {
                 /// when done task this runs!!
-
+                MainActivity.currentUser.setPassword(userInfo[0].toString());
 
 
             }
         });
 
-        task.execute();
+        task.execute(s);
 
 
     }
@@ -340,16 +348,17 @@ public class AccountActivity extends Fragment {
                     .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
 
-                public void onClick(DialogInterface dialog, int which) {
+                        public void onClick(DialogInterface dialog, int which) {
 
 
-                    String temp_pass = (pass.getText()).toString();
-                    userInfo[0] = temp_pass;
+                            String temp_pass = (pass.getText()).toString();
+                            userInfo[0] = temp_pass;
 
-                    // now set password in database
+                            // now set password in database
+                            update_Pass();
 
-                }
-            })
+                        }
+                    })
 
                     .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
@@ -396,9 +405,8 @@ public class AccountActivity extends Fragment {
                     // userInfo[0] = temp_id;
                     userInfo[1] = temp_name;
 
-                    //now set user name in databass
-
-
+                    //now set user name in database
+                    update_User();
 
                 }
             });
@@ -441,6 +449,11 @@ public class AccountActivity extends Fragment {
 
 
     public void makeFile(){
+
+
+
+
+
 
 
 

@@ -16,18 +16,9 @@
 
 
 
-    ]]>
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Edit Info"
-        android:id="@+id/editbtn"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:layout_above="@+id/Spinner01"
-        android:layout_alignParentEnd="true"
-        android:background = "#00bfff" />
+
+    ]]>
 
     <Button
         android:layout_width="wrap_content"
@@ -36,8 +27,22 @@
         android:id="@+id/addbtn"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true"
-        android:background = "#00bfff" />
+        android:layout_marginBottom="23dp"
+        style="@style/MyBackgroundColor"
+        android:layout_gravity="center_horizontal" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Edit User Name"
+        android:id="@+id/editbtn"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/Spinner01"
+        android:layout_alignParentEnd="true"
+        android:layout_marginBottom="23dp"
+        style="@style/MyBackgroundColor"
+        android:layout_gravity="center_horizontal" />
 
     <Button
         android:layout_width="wrap_content"
@@ -48,20 +53,29 @@
         android:layout_alignParentStart="true"
         android:layout_above="@+id/Spinner01"
         android:layout_centerHorizontal="true"
-        android:background = "#00bfff"
+        android:layout_marginBottom="23dp"
+        style="@style/MyBackgroundColor"
 
 
-        />
+        android:layout_gravity="center_horizontal" />
+
 
     <Spinner
-        android:layout_width="wrap_content"
+        android:layout_width="234dp"
         android:layout_height="wrap_content"
         android:id="@+id/Spinner01"
-        android:spinnerMode="dropdown"
+        android:spinnerMode="dialog"
         android:layout_marginTop="27dp"
         android:layout_below="@+id/addbtn"
         android:layout_alignParentStart="true" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Remove Class"
+        android:id="@+id/remove"
+        android:layout_marginBottom="23dp"
+        style="@style/MyBackgroundColor"/>
 
 
 </LinearLayout>

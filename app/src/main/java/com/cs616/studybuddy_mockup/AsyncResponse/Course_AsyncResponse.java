@@ -12,4 +12,5 @@ public interface Course_AsyncResponse {
 
     void onLoginAsyncFinish(Boolean success);
     void onLoginAsyncFinish(List<Courses> courses);
+
 }
