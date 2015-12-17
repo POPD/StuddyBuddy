@@ -2,6 +2,7 @@ package com.cs616.studybuddy_mockup;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -11,14 +12,17 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.cs616.studybuddy_mockup.AsyncResponse.Login_AsyncResponse;
+import com.cs616.studybuddy_mockup.AsyncTasks.Sessions_AsyncTask;
+
 import com.cs616.studybuddy_mockup.AsyncTasks.Registered_Courses_ReadAll_AsyncTask;
 import com.cs616.studybuddy_mockup.AsyncTasks.Student_Login_AsyncTask;
 import com.cs616.studybuddy_mockup.Repositories.Courses;
+import com.cs616.studybuddy_mockup.Repositories.Sessions;
 import com.cs616.studybuddy_mockup.Repositories.Students;
 
 import java.util.List;
 
-public class LoginActivity extends Fragment implements Login_AsyncResponse{
+public class LoginActivity extends Fragment implements Login_AsyncResponse {
     View rootView;
     String myPass;
     @Override
@@ -40,9 +44,13 @@ public class LoginActivity extends Fragment implements Login_AsyncResponse{
                 String userId = String.valueOf(username.getText());
                 myPass = String.valueOf(password.getText());
 
+
+
                 Student_Login_AsyncTask login = new Student_Login_AsyncTask();
                 login.setDelegate(LoginActivity.this);
                 login.execute(userId);
+
+
             }
         });
         return rootView;
@@ -67,13 +75,14 @@ public class LoginActivity extends Fragment implements Login_AsyncResponse{
             }
     }
 
+
     @Override
     public void onLoginAsyncFinish(List<Courses> courses) {
         MainActivity.db_courses = courses;
         Intent intent = new Intent(LoginActivity.super.getActivity(),MainDrawerActivity.class);
         startActivity(intent);
         getActivity().finish();
-
     }
+
 
 }

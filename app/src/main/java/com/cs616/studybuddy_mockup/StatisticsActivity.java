@@ -1,7 +1,9 @@
 package com.cs616.studybuddy_mockup;
 
 import android.app.Fragment;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -15,40 +17,24 @@ import android.widget.RelativeLayout;
 import android.widget.Toast;
 
 import com.cs616.studybuddy_mockup.Adapters.courseListAdapter;
+import com.cs616.studybuddy_mockup.AsyncResponse.Statistics_AsyncResponse;
+import com.cs616.studybuddy_mockup.AsyncTasks.Sessions_AsyncTask;
+import com.cs616.studybuddy_mockup.Repositories.Sessions;
+import com.cs616.studybuddy_mockup.Repositories.Students;
 
-public class StatisticsActivity extends Fragment {
+import java.util.List;
+
+public class StatisticsActivity extends Fragment implements Statistics_AsyncResponse{
     RelativeLayout llLayout;
     FragmentActivity faActivity;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         faActivity  = (FragmentActivity)    super.getActivity();
         llLayout    = (RelativeLayout)    inflater.inflate(R.layout.activity_statistics, container, false);
-        refreshcourseAdapter();
-
+        GetSessions();
         return llLayout; // We must return the loaded Layout
     }
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_statistics);
-//        //SETTING UP THE MENU BUTTONS
-//        final Button home = (Button) findViewById(R.id.btn_home);
-//        final Button stats = (Button) findViewById(R.id.btn_stats);
-//        final Button account = (Button) findViewById(R.id.btn_account);
-//
-//        home.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(StatisticsActivity.this, MainActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//        account.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(StatisticsActivity.this, StatisticsActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//    }
+
 
     @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
@@ -80,9 +66,44 @@ public class StatisticsActivity extends Fragment {
         courseSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast toast  = Toast.makeText(StatisticsActivity.super.getActivity(),"Course Details",Toast.LENGTH_SHORT);
-                toast.show();
+
+                if(MainActivity.currentUser.getCourses().get(position).get_studyTime() == 0){
+                    Toast.makeText(getContext(), "You have not studied for this course yet !", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Intent intent = new Intent(StatisticsActivity.super.getActivity(),StatisticsDetails.class);
+                    intent.putExtra("position",position);
+                    startActivity(intent);
+                }
+
             }
         });
+
+        llLayout.findViewById(R.id.circleView).invalidate();
+    }
+
+
+    private void GetSessions(){
+        // Get the corresponding sessions
+        Sessions_AsyncTask getSessions = new Sessions_AsyncTask();
+        getSessions.setDelegate(StatisticsActivity.this);
+        getSessions.execute(MainActivity.currentUser.getUrl());
+    }
+    @Override
+    public void onStatisticAsyncFinish(Boolean success) {
+    }
+
+
+    @Override
+    public void onStatisticAsyncFinish(List<Sessions> sessionsList) {
+        for(Course course: MainActivity.currentUser.getCourses()){
+            for (Sessions sessions : sessionsList) {
+                if(course.getCourseNo().equals(sessions.getCourseNo())){
+                    course.set_studyTime(course.get_studyTime() + sessions.getSecondsStudied());
+                }
+            }
+        }
+        MainActivity.currentUser.setSession(sessionsList);
+        refreshcourseAdapter();
     }
 }

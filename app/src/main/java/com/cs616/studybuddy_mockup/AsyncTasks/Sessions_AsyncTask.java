@@ -2,14 +2,10 @@ package com.cs616.studybuddy_mockup.AsyncTasks;
 
 import android.os.AsyncTask;
 
-import com.cs616.studybuddy_mockup.AsyncResponse.Login_AsyncResponse;
-import com.cs616.studybuddy_mockup.Repositories.CourseRepository;
-import com.cs616.studybuddy_mockup.Repositories.Courses;
-import com.cs616.studybuddy_mockup.Repositories.RegisteredRepository;
+import com.cs616.studybuddy_mockup.LoginActivity;
 import com.cs616.studybuddy_mockup.Repositories.SessionRepository;
 import com.cs616.studybuddy_mockup.Repositories.Sessions;
-import com.cs616.studybuddy_mockup.Repositories.StudentRepository;
-import com.cs616.studybuddy_mockup.Repositories.Students;
+import com.cs616.studybuddy_mockup.StatisticsActivity;
 
 import org.json.JSONException;
 
@@ -18,19 +14,19 @@ import java.text.ParseException;
 import java.util.List;
 
 /**
- * Created by Alex on 12/11/2015.
+ * Created by Dominic on 2015-12-16.
  */
-public class Registered_Courses_ReadAll_AsyncTask extends AsyncTask<String, Integer, Boolean> {
-    private List<Courses> courses;
-    private Login_AsyncResponse delegate;
-    public void setDelegate(Login_AsyncResponse delegate) {
+public class Sessions_AsyncTask extends AsyncTask<String, Integer, Boolean> {
+    private List<Sessions> sessions;
+    private StatisticsActivity delegate;
+    public void setDelegate(StatisticsActivity delegate) {
         this.delegate = delegate;
     }
 
     @Override
     protected Boolean doInBackground(String... params) {
         try {
-            courses = new RegisteredRepository().readAll(params[0]);
+            sessions = new SessionRepository().readAll(params[0]);
         } catch (IOException e) {
             e.printStackTrace();
         } catch (JSONException e) {
@@ -45,6 +41,7 @@ public class Registered_Courses_ReadAll_AsyncTask extends AsyncTask<String, Inte
     @Override
     protected void onPostExecute(Boolean result) {
         if(delegate != null)
-            delegate.onLoginAsyncFinish(courses);
+            delegate.onStatisticAsyncFinish(sessions);
     }
+
 }

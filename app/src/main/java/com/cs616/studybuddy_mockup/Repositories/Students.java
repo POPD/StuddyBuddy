@@ -133,4 +133,13 @@ public class Students {
 
     private List<Course> courses;
 
+    private List<Sessions> session;
+
+    public List<Sessions> getSession() {
+        return session;
+    }
+
+    public void setSession(List<Sessions> session) {
+        this.session = session;
+    }
 }
