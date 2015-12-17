@@ -66,8 +66,16 @@ public class StatisticsActivity extends Fragment implements Statistics_AsyncResp
         courseSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(StatisticsActivity.super.getActivity(),MainDrawerActivity.class);
-                startActivity(intent);
+
+                if(MainActivity.currentUser.getCourses().get(position).get_studyTime() == 0){
+                    Toast.makeText(getContext(), "You have not studied for this course yet !", Toast.LENGTH_SHORT).show();
+                }
+                else{
+                    Intent intent = new Intent(StatisticsActivity.super.getActivity(),StatisticsDetails.class);
+                    intent.putExtra("position",position);
+                    startActivity(intent);
+                }
+
             }
         });
 
@@ -95,7 +103,7 @@ public class StatisticsActivity extends Fragment implements Statistics_AsyncResp
                 }
             }
         }
-
+        MainActivity.currentUser.setSession(sessionsList);
         refreshcourseAdapter();
     }
 }

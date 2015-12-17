@@ -52,5 +52,9 @@
     <string name="title_activity_create">CreateActivity</string>
     <string name="title_activity_login_manager_fragment">Login</string>
     <string name="title_activity_create_event">CreateEventActivity</string>
+    <string name="title_activity_statistics_details">StatisticsDetails</string>
+    <string name="Total_Time_studied">Total Time Studied:</string>
+    <string name="Amount_Of_Study_sessions">Amount of study sessions:</string>
+    <string name="Avg_Time_Per_Session">Average Study Time / Session</string>
 
 </resources>
