@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import com.cs616.studybuddy_mockup.LoginActivity;
 import com.cs616.studybuddy_mockup.Repositories.SessionRepository;
 import com.cs616.studybuddy_mockup.Repositories.Sessions;
+import com.cs616.studybuddy_mockup.StatisticsActivity;
 
 import org.json.JSONException;
 
@@ -17,8 +18,8 @@ import java.util.List;
  */
 public class Sessions_AsyncTask extends AsyncTask<String, Integer, Boolean> {
     private List<Sessions> sessions;
-    private LoginActivity delegate;
-    public void setDelegate(LoginActivity delegate) {
+    private StatisticsActivity delegate;
+    public void setDelegate(StatisticsActivity delegate) {
         this.delegate = delegate;
     }
 
@@ -40,7 +41,7 @@ public class Sessions_AsyncTask extends AsyncTask<String, Integer, Boolean> {
     @Override
     protected void onPostExecute(Boolean result) {
         if(delegate != null)
-            delegate.onLoginAsyncFinish(sessions,null);
+            delegate.onStatisticAsyncFinish(sessions);
     }
 
 }

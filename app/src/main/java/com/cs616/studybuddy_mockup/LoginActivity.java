@@ -98,29 +98,14 @@ public class LoginActivity extends Fragment implements Login_AsyncResponse {
     @Override
     public void onLoginAsyncFinish(List<Courses> courses) {
         MainActivity.db_courses = courses;
-        GetSessions();
         Intent intent = new Intent(LoginActivity.super.getActivity(),MainDrawerActivity.class);
         startActivity(intent);
     }
 
-    public void GetSessions(){
-        // Get the corresponding sessions
-        Sessions_AsyncTask getSessions = new Sessions_AsyncTask();
-        getSessions.setDelegate(LoginActivity.this);
-        getSessions.execute(MainActivity.currentUser.getUrl());
-    }
 
 
-    @Override
-    public void onLoginAsyncFinish(List<Sessions> sessionsList,Nullable n) {
-        for(Course course: MainActivity.currentUser.getCourses()){
-            for (Sessions sessions : sessionsList) {
-                if(course.getCourseNo().equals(sessions.getCourseNo())){
-                    course.set_studyTime(course.get_studyTime() + sessions.getSecondsStudied());
-                }
-            }
-        }
-    }
+
+
 //    @Override
 //    public void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
