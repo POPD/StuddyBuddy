@@ -15,5 +15,4 @@ public interface Session_CRUDRepository<R, T> {
     List<T> readAll(R url) throws IOException, JSONException, ParseException;
     boolean update(T element) throws IOException;
     boolean delete(T element) throws IOException;
-
 }
