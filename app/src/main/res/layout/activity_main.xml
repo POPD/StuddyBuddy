@@ -75,24 +75,82 @@
                 android:layout_width="100dp"
                 android:layout_height="125dp"
                 android:background="@drawable/layout_border"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/text_eventCourse_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="5dp"/>
+
+                <TextView
+                    android:id="@+id/text_eventTitle_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="5dp"/>
+                <TextView
+                    android:id="@+id/text_eventDate_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="5dp"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_margin="5dp"
                 android:layout_width="100dp"
                 android:layout_height="125dp"
                 android:background="@drawable/layout_border"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/text_eventCourse_2"
+                    android:gravity="top"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="5dp" />
+
+                <TextView
+                    android:id="@+id/text_eventTitle_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="5dp"/>
+                <TextView
+                    android:id="@+id/text_eventDate_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="5dp"/>
             </LinearLayout>
             <LinearLayout
                 android:layout_margin="5dp"
                 android:layout_width="100dp"
                 android:layout_height="125dp"
                 android:background="@drawable/layout_border"
-                android:orientation="horizontal">
+                android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/text_eventCourse_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="5dp"/>
+
+                <TextView
+                    android:id="@+id/text_eventTitle_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="5dp"/>
+                <TextView
+                    android:id="@+id/text_eventDate_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="5dp"/>
             </LinearLayout>
         </LinearLayout>
     </HorizontalScrollView>

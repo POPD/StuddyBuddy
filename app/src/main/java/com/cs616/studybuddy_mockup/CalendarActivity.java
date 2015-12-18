@@ -35,6 +35,7 @@ import hirondelle.date4j.DateTime;
 
 public class CalendarActivity extends AppCompatActivity {
     public static SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    public static SimpleDateFormat simpleFormatter = new SimpleDateFormat("MMM dd, yyyy");
     public Menu menus;
     //OUR CALENDAR FRAGMENT
     final CalendarFragment calfragment = new CalendarFragment();
@@ -131,7 +132,7 @@ public class CalendarActivity extends AppCompatActivity {
 
             @Override
             public void onSelectDate(Date date, View view) {
-                
+
                 //move to select cell and display the events for that day in list
 
                 calfragment.clearSelectedDates();
