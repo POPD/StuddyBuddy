@@ -26,7 +26,7 @@ public class SessionRepository implements Session_CRUDRepository<String, Session
     public static final int PORT = 9999;
     public static final String PREFIX = "http://" + SERVER + ":" + String.valueOf(PORT);
 
-    
+
     @Override
     public Sessions read(String id) throws IOException, JSONException, ParseException {
         return null;
