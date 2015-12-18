@@ -177,30 +177,36 @@ public class MainActivity extends Fragment {
         TextView event_date_3 = (TextView) llLayout.findViewById(R.id.text_eventDate_3);
 
         List<Event> events = databaseHandle.getEventTable().getWeekEvents();
-        Course course;
+        Course course = null;
         int i = 0;
         for(Event item: events){
+            course = getCourseById(item.forCourse);
             switch(i){
                 case 0:
-                    course = getCourseById(item.forCourse);
-                    event_course_1.setText(course.get_name());
-                    event_course_1.setTextColor(course.get_paint().getColor());
-                    event_title_1.setText("Event:" + item.getTitle().toString());
-                    event_date_1.setText("Date:"+item.eventDate.getDay()+"-"+item.eventDate.getMonth()+"-"+item.eventDate.getYear());
+                    if(course != null) {
+                        event_course_1.setText(course.get_name());
+                        event_course_1.setTextColor(course.get_paint().getColor());
+                        event_title_1.setText("Event:" + item.getTitle().toString());
+                        event_date_1.setText("Date:" + item.eventDate.getDay() + "-" + item.eventDate.getMonth() + "-" + item.eventDate.getYear());
+                    }
                     break;
                 case 1:
-                    course = getCourseById(item.forCourse);
-                    event_course_2.setText(course.get_name());
-                    event_course_2.setTextColor(course.get_paint().getColor());
-                    event_title_2.setText("Event: " + item.getTitle());
-                    event_date_1.setText("Date:"+item.eventDate.getDay()+"-"+item.eventDate.getMonth()+"-"+item.eventDate.getYear());
+                    if(course != null) {
+                        course = getCourseById(item.forCourse);
+                        event_course_2.setText(course.get_name());
+                        event_course_2.setTextColor(course.get_paint().getColor());
+                        event_title_2.setText("Event: " + item.getTitle());
+                        event_date_1.setText("Date:" + item.eventDate.getDay() + "-" + item.eventDate.getMonth() + "-" + item.eventDate.getYear());
+                    }
                     break;
                 case 2:
-                    course = getCourseById(item.forCourse);
-                    event_course_3.setText(course.get_name());
-                    event_course_3.setTextColor(course.get_paint().getColor());
-                    event_title_3.setText("Event: " + item.getTitle());
-                    event_date_3.setText("Date:"+item.eventDate.format("MMM dd, yyyy",Locale.US));
+                    if(course != null) {
+                        course = getCourseById(item.forCourse);
+                        event_course_3.setText(course.get_name());
+                        event_course_3.setTextColor(course.get_paint().getColor());
+                        event_title_3.setText("Event: " + item.getTitle());
+                        event_date_3.setText("Date:" + item.eventDate.format("MMM dd, yyyy", Locale.US));
+                    }
                     break;
             }
             i++;

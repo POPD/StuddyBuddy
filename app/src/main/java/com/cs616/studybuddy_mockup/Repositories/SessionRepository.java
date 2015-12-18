@@ -35,8 +35,11 @@ public class SessionRepository implements Session_CRUDRepository<String, Session
     @Override
     public List<Sessions> readAll(String url) throws IOException, JSONException, ParseException {
         HttpResponse response = HttpJsonRequest.make(url + "/Sessions", "GET");
-        List<Sessions> receivedSessions = Sessions.fromJson((new JSONObject(new JSONTokener(response.getBody())).getJSONObject("_embedded").getJSONArray("Sessions")));
-        return receivedSessions;
+        if(response.getStatus() == 200) {
+            List<Sessions> receivedSessions = Sessions.fromJson((new JSONObject(new JSONTokener(response.getBody())).getJSONObject("_embedded").getJSONArray("Sessions")));
+            return receivedSessions;
+        }
+        return null;
     }
 
     @Override

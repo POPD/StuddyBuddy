@@ -92,7 +92,7 @@ public class StatisticsActivity extends Fragment implements Statistics_AsyncResp
     public void onSessionAsyncFinish(Boolean success) {
 
         if(!success){
-            Toast toast = Toast.makeText(this.getContext(),"Error retreiving your course list.", Toast.LENGTH_SHORT);
+            Toast toast = Toast.makeText(this.getContext(),"You have not studied for anything yet", Toast.LENGTH_SHORT);
             toast.show();
 
             Fragment fragment = new MainActivity();

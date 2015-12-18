@@ -43,7 +43,7 @@ public class Session_ReadAll_s_AsyncTask extends AsyncTask<String, Integer, Bool
     @Override
     protected void onPostExecute(Boolean result) {
         if(delegate != null){
-            if(result){
+            if(sessions != null){
                 delegate.onSessionAsyncFinish(sessions);
             }else{
                 delegate.onSessionAsyncFinish(false);

@@ -81,7 +81,13 @@ public class PickCoursesActivity extends Fragment implements PickCourses_AsyncRe
                     toast.show();
                 }
                 else{
-                    if(sparseBooleanArray.size() > MainActivity.MAX_COURSES){
+                    int selectedSize = 0;
+                    for(int i = 0; i < cntChoice; i++){
+                        if(sparseBooleanArray.get(i)){
+                            selectedSize++;
+                        }
+                    }
+                    if(selectedSize > MainActivity.MAX_COURSES){
                         Toast toast = Toast.makeText(PickCoursesActivity.super.getActivity(), "You must not go over "+MainActivity.MAX_COURSES+" classes", Toast.LENGTH_SHORT);
                         toast.show();
                     }
