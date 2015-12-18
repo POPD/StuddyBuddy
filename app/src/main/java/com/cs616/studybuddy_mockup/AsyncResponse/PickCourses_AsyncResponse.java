@@ -12,4 +12,5 @@ import java.util.List;
 public interface PickCourses_AsyncResponse {
     void onCourseReadAsyncFinish(List<Courses> courses);
     void onCourseRegisterAsyncFinish(List<Courses> courses);
+    void onCourseReadAsyncFinish(Boolean success);
 }

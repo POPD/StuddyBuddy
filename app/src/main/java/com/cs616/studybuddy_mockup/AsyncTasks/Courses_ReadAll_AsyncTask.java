@@ -16,6 +16,7 @@ import java.util.List;
 
 /**
  * Created by Alex on 12/11/2015.
+ * Modified by Dom on 12/17/2015.
  */
 public class Courses_ReadAll_AsyncTask extends AsyncTask<String, Integer, Boolean> {
     private List<Courses> courses;
@@ -30,10 +31,13 @@ public class Courses_ReadAll_AsyncTask extends AsyncTask<String, Integer, Boolea
             courses = new CourseRepository().readAll();
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         } catch (JSONException e) {
             e.printStackTrace();
+            return false;
         } catch (ParseException e) {
             e.printStackTrace();
+            return false;
         }
 
         return true;
@@ -41,7 +45,13 @@ public class Courses_ReadAll_AsyncTask extends AsyncTask<String, Integer, Boolea
 
     @Override
     protected void onPostExecute(Boolean result) {
-        if(delegate != null)
-            delegate.onCourseReadAsyncFinish(courses);
+        if(delegate != null){
+            if(result){
+                delegate.onCourseReadAsyncFinish(courses);
+            }else{
+                delegate.onCourseReadAsyncFinish(false);
+            }
+        }
+
     }
 }

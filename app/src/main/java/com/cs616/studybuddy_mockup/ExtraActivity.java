@@ -19,36 +19,66 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.cs616.studybuddy_mockup.Adapters.CourseArrayAdapter;
+import com.cs616.studybuddy_mockup.AsyncResponse.Statistics_AsyncResponse;
+import com.cs616.studybuddy_mockup.AsyncTasks.Session_Create_AsyncTask;
+import com.cs616.studybuddy_mockup.Repositories.Sessions;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
-public class ExtraActivity extends Fragment {
+public class ExtraActivity extends Fragment implements Statistics_AsyncResponse{
 
         @Override
         public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
             final FragmentActivity faActivity  = (FragmentActivity)    super.getActivity();
-            RelativeLayout llLayout    = (RelativeLayout)    inflater.inflate(R.layout.activity_extra, container, false);
+            LinearLayout llLayout    = (LinearLayout)    inflater.inflate(R.layout.activity_extra, container, false);
             final Button save = (Button) llLayout.findViewById(R.id.button_save_extra_activity);
             final Button cancel = (Button) llLayout.findViewById(R.id.button_cancel_extra_activity);
-
+            final TimePicker picker = (TimePicker) llLayout.findViewById(R.id.extra_activity_time_picker);
             final Spinner courseSpinner = (Spinner) llLayout.findViewById(R.id.spinner_courseSpinner_extra_activity);
-            final EditText editText = (EditText) llLayout.findViewById(R.id.editText);
             CourseArrayAdapter adapter = new CourseArrayAdapter(super.getActivity(),MainActivity.currentUser.getCourses());
 
             courseSpinner.setAdapter(adapter);
+            picker.setHour(0);
+            picker.setMinute(0);
+            picker.setIs24HourView(true);
 
-
-            setDateDialog fromDate = new setDateDialog(editText, getContext());
             save.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    returnHome();
+                    String courseNo;
+                    long secondsStudied;
+
+
+                    // Get the course number
+                    courseNo = MainActivity.currentUser.getCourses().get(courseSpinner.getSelectedItemPosition()).getCourseNo();
+
+                    // Get the amount of time studied;
+
+
+                    secondsStudied = ((picker.getHour() * 3600) + (picker.getMinute() * 60));
+
+                    if(secondsStudied != 0) {
+
+                        Sessions session = new Sessions(courseNo, secondsStudied, MainActivity.currentUser.getStudentId());
+
+                        Session_Create_AsyncTask createSessions = new Session_Create_AsyncTask();
+                        createSessions.setDelegate(ExtraActivity.this);
+                        createSessions.execute(session);
+                    }
+                    else{
+                        Toast toast = Toast.makeText(getContext(),"Cannot add a session where you did not study.", Toast.LENGTH_SHORT);
+                        toast.show();
+                    }
                 }
             });
 
@@ -68,60 +98,7 @@ public class ExtraActivity extends Fragment {
         fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_extra);
-//        getActionBar().setLogo(R.mipmap.book);
-//        getActionBar().setDisplayShowHomeEnabled(true);
-//
-//        //SETTING UP THE MENU BUTTONS
-//        final Button home = (Button) findViewById(R.id.btn_home);
-//        final Button stats = (Button) findViewById(R.id.btn_stats);
-//        final Button account = (Button) findViewById(R.id.btn_account);
-//        final Button save = (Button) findViewById(R.id.button_save_extra_activity);
-//        final Button cancel = (Button) findViewById(R.id.button_cancel_extra_activity);
-//
-//        final Spinner courseSpinner = (Spinner) findViewById(R.id.spinner_courseSpinner_extra_activity);
-//
-//        Mockup_Database mdb = new Mockup_Database();
-//        CourseArrayAdapter adapter = new CourseArrayAdapter(this,mdb.getCourseList());
-//
-//        courseSpinner.setAdapter(adapter);
-//
-//        home.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(ExtraActivity.this, MainActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//        stats.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(ExtraActivity.this, StatisticsActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//        account.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                Intent intent = new Intent(ExtraActivity.this, AccountActivity.class);
-//                startActivity(intent);
-//            }
-//        });
-//
-//        save.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
-//
-//        cancel.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View v) {
-//                finish();
-//            }
-//        });
-//    }
+
 @Override
     public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -144,6 +121,26 @@ public class ExtraActivity extends Fragment {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onSessionAsyncFinish(Boolean success) {
+        if(!success){
+            Toast toast = Toast.makeText(this.getContext(), "Error Adding a session.", Toast.LENGTH_SHORT);
+            toast.show();
+            returnHome();
+        }
+    }
+
+    @Override
+    public void onSessionAsyncFinish(List<Sessions> sessions) {
+        // Do nothing
+    }
+
+    @Override
+    public void onCreateSessionAsyncFinish(Sessions sessions) {
+        Toast toast = Toast.makeText(this.getContext(),"Succesfully added an extra session !", Toast.LENGTH_SHORT);
+        toast.show();
+        returnHome();
+    }
 }
 
 

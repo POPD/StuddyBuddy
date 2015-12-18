@@ -1,6 +1,8 @@
 package com.cs616.studybuddy_mockup;
 
 import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
@@ -88,6 +90,18 @@ public class StatisticsActivity extends Fragment implements Statistics_AsyncResp
     }
     @Override
     public void onSessionAsyncFinish(Boolean success) {
+
+        if(!success){
+            Toast toast = Toast.makeText(this.getContext(),"Error retreiving your course list.", Toast.LENGTH_SHORT);
+            toast.show();
+
+            Fragment fragment = new MainActivity();
+            FragmentManager fragmentManager = faActivity.getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container, fragment);
+            fragmentTransaction.commit();
+
+        }
     }
 
 
@@ -99,6 +113,9 @@ public class StatisticsActivity extends Fragment implements Statistics_AsyncResp
                     course.set_studyTime(course.get_studyTime() + sessions.getSecondsStudied());
                 }
             }
+        }
+        if(sessionsList.isEmpty()){
+            onSessionAsyncFinish(false);
         }
         MainActivity.currentUser.setSession(sessionsList);
         refreshcourseAdapter();

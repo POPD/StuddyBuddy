@@ -11,6 +11,8 @@ import android.util.AttributeSet;
 import android.view.View;
 
 
+import com.cs616.studybuddy_mockup.Repositories.Courses;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -71,33 +73,41 @@ public class StatsCircleView extends View {
         //oval.set(float left, float top, float right, float bottom)
         oval.set(min/4, 20, min-min/4, (min/2)+20);
 
-        // Get the total time studied
-        int totalStudyTime = 0;
-        for (Course course : courses) {
-            totalStudyTime += course.get_studyTime();
+
+        if(courses == null || courses.isEmpty()) {
+
         }
+        else {
 
-        // Starting angle of the arc
-        double startAngle = 0;
-        // Each sweep angle is proportional to: (Total study time / Course study time)
-        double sweepAngle;
-        // Padding between different arcs
-        int padding = courses.size() == 1 ? 0 : 5;
+            // Get the total time studied
+            int totalStudyTime = 0;
+            for (Course course : courses) {
+                totalStudyTime += course.get_studyTime();
+            }
 
-        // For each course in courses
-        for (Course course : courses) {
-            // Calculate the arc length
-            sweepAngle = FullCircle / (totalStudyTime/course.get_studyTime());
-            // Draw the arc
-            canvas.drawArc(oval, (int)startAngle, (int)sweepAngle - padding, false, course.get_paint());
-            // Increment the starting angle
-            startAngle += sweepAngle;
+            // Starting angle of the arc
+            double startAngle = 0;
+            // Each sweep angle is proportional to: (Total study time / Course study time)
+            double sweepAngle;
+            // Padding between different arcs
+            int padding = courses.size() == 1 ? 0 : 5;
+
+            // For each course in courses
+            for (Course course : courses) {
+                // Calculate the arc length
+                sweepAngle = FullCircle / (totalStudyTime / course.get_studyTime());
+                // Draw the arc
+                canvas.drawArc(oval, (int) startAngle, (int) sweepAngle - padding, false, course.get_paint());
+                // Increment the starting angle
+                startAngle += sweepAngle;
+
+
+
+            TextPaint textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
+            textPaint.setTextSize(80);
+            canvas.drawText("Stats", (min / 2) - 85, (min / 4) + 50, textPaint);
+            }
         }
-
-
-        TextPaint textPaint = new TextPaint(Paint.ANTI_ALIAS_FLAG);
-        textPaint.setTextSize(80);
-        canvas.drawText("Stats",(min/2)-85,(min/4)+50,textPaint);
 
     }
 }

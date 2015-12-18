@@ -47,6 +47,7 @@ public class SessionRepository implements Session_CRUDRepository<String, Session
         if(response.getStatus() == 201){
             return element;
         }
+
         return null;
     }
 

@@ -2,6 +2,7 @@ package com.cs616.studybuddy_mockup.AsyncTasks;
 
 import android.os.AsyncTask;
 
+import com.cs616.studybuddy_mockup.ExtraActivity;
 import com.cs616.studybuddy_mockup.Repositories.SessionRepository;
 import com.cs616.studybuddy_mockup.Repositories.Sessions;
 import com.cs616.studybuddy_mockup.SessionActivity;
@@ -14,9 +15,14 @@ import java.io.IOException;
  */
 public class Session_Create_AsyncTask extends AsyncTask<Sessions, Integer, Boolean> {
     private Sessions sessions;
-    private SessionActivity delegate;
+    private SessionActivity SessionsDelegate;
+    private ExtraActivity ExtraDelegate;
     public void setDelegate(SessionActivity delegate) {
-        this.delegate = delegate;
+        this.SessionsDelegate = delegate;
+    }
+
+    public void setDelegate(ExtraActivity delegate) {
+        this.ExtraDelegate = delegate;
     }
 
     @Override
@@ -25,14 +31,33 @@ public class Session_Create_AsyncTask extends AsyncTask<Sessions, Integer, Boole
             sessions = new SessionRepository().create(params[0]);
         } catch (IOException e) {
             e.printStackTrace();
+
         }
-        return true;
+        if(sessions == null)
+            return false;
+        else
+            return true;
     }
 
     @Override
     protected void onPostExecute(Boolean result) {
-        if(delegate != null)
-            delegate.onCreateSessionAsyncFinish(sessions);
+        if(SessionsDelegate != null){
+            if(result){
+                SessionsDelegate.onCreateSessionAsyncFinish(sessions);
+            }
+            else{
+                SessionsDelegate.onSessionAsyncFinish(false);
+            }
+        }
+        else if(ExtraDelegate != null){
+            if(result){
+                ExtraDelegate.onCreateSessionAsyncFinish(sessions);
+            }
+            else{
+                ExtraDelegate.onSessionAsyncFinish(false);
+            }
+        }
+
     }
 
 }

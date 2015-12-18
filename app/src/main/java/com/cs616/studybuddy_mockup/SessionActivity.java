@@ -210,7 +210,7 @@ public class SessionActivity extends Activity implements Statistics_AsyncRespons
                 //Todo stop timer, add result to database, stop any alarms
                 if(CURRENT_TIME != 0) {
                     String courseNo = intent.getStringExtra("sentCourseNo");
-                    Sessions session = new Sessions(courseNo,CURRENT_SECONDS,MainActivity.currentUser.getStudentId());
+                    Sessions session = new Sessions(courseNo,CURRENT_TIME,MainActivity.currentUser.getStudentId());
 
                     Session_Create_AsyncTask createSessions = new Session_Create_AsyncTask();
                     createSessions.setDelegate(SessionActivity.this);
