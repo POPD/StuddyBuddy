@@ -38,6 +38,7 @@ public class SessionList extends Activity {
                 Intent intent = new Intent(SessionList.this, SessionActivity.class);
                 //Todo: httprequest to get the course and title
                 intent.putExtra("sentCourseTitle", MainActivity.currentUser.getCourses().get(position).get_name());
+                intent.putExtra("sentCourseNo", MainActivity.currentUser.getCourses().get(position).getCourseNo());
                 startActivity(intent);
                 finish();
 

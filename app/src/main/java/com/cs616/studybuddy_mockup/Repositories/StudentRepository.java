@@ -30,6 +30,8 @@ public class StudentRepository implements Students_CRUDRepository<String, Studen
         HttpResponse response = HttpJsonRequest.make(PREFIX + "/Students/", "POST", element.toJson());
         if(response.getStatus() == 201){
             element.setUrl(response.getHeaders().get("Location").get(0)); // Header from POST contains the URL of the new user
+
+
             return element;
         }
         return null;
@@ -40,6 +42,7 @@ public class StudentRepository implements Students_CRUDRepository<String, Studen
         HttpResponse response = HttpJsonRequest.make(PREFIX + "/Students/" + id, "GET");
         if(response.getStatus() == 200) {
             Students receivedUser = Students.fromJson((new JSONObject(new JSONTokener(response.getBody()))));
+            receivedUser.setStudentId(Long.valueOf(id));
             return receivedUser;
         }
         return null;

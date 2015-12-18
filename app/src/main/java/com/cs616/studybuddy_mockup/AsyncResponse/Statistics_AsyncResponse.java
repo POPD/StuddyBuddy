@@ -11,7 +11,7 @@ import java.util.List;
  */
 
 public interface Statistics_AsyncResponse {
-    void onStatisticAsyncFinish(Boolean success);
-    void onStatisticAsyncFinish(List<Sessions> sessions);
-
+    void onSessionAsyncFinish(Boolean success);
+    void onSessionAsyncFinish(List<Sessions> sessions);
+    void onCreateSessionAsyncFinish(Sessions sessions);
 }

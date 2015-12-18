@@ -29,9 +29,16 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.cs616.studybuddy_mockup.AsyncResponse.Statistics_AsyncResponse;
+import com.cs616.studybuddy_mockup.AsyncTasks.Session_Create_AsyncTask;
+import com.cs616.studybuddy_mockup.AsyncTasks.Student_Login_AsyncTask;
+import com.cs616.studybuddy_mockup.Repositories.Sessions;
+
+import java.util.List;
+
 import static android.app.PendingIntent.getActivity;
 
-public class SessionActivity extends Activity {
+public class SessionActivity extends Activity implements Statistics_AsyncResponse{
 
     public static int OVERLAY_PERMISSION_REQ_CODE = 1234;
     //value determining length of timer created by user,
@@ -67,7 +74,7 @@ public class SessionActivity extends Activity {
                 .build();
 
         //Get intent data
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
 
         //CONSTANTS
         final long[] lastPause = {SystemClock.elapsedRealtime()};
@@ -196,7 +203,14 @@ public class SessionActivity extends Activity {
         finish.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Todo stop timer, add result to database, stop any alarms
-                finish();
+
+                String courseNo = intent.getStringExtra("sentCourseNo");
+                Sessions session = new Sessions(courseNo,CURRENT_SECONDS,MainActivity.currentUser.getStudentId());
+
+                Session_Create_AsyncTask createSessions = new Session_Create_AsyncTask();
+                createSessions.setDelegate(SessionActivity.this);
+                createSessions.execute(session);
+
             }
         });
 
@@ -259,5 +273,21 @@ public class SessionActivity extends Activity {
         });
         dialogBuilder.create();
         dialogBuilder.show();
+    }
+
+    @Override
+    public void onSessionAsyncFinish(Boolean success) {
+
+    }
+
+    @Override
+    public void onSessionAsyncFinish(List<Sessions> sessions) {
+
+    }
+
+    @Override
+    public void onCreateSessionAsyncFinish(Sessions sessions) {
+        Toast.makeText(getApplicationContext(), "Session Saved !", Toast.LENGTH_SHORT).show();
+        finish();
     }
 }

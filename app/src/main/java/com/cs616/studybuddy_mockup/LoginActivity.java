@@ -2,7 +2,6 @@ package com.cs616.studybuddy_mockup;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,12 +11,10 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.cs616.studybuddy_mockup.AsyncResponse.Login_AsyncResponse;
-import com.cs616.studybuddy_mockup.AsyncTasks.Sessions_AsyncTask;
 
 import com.cs616.studybuddy_mockup.AsyncTasks.Registered_Courses_ReadAll_AsyncTask;
 import com.cs616.studybuddy_mockup.AsyncTasks.Student_Login_AsyncTask;
 import com.cs616.studybuddy_mockup.Repositories.Courses;
-import com.cs616.studybuddy_mockup.Repositories.Sessions;
 import com.cs616.studybuddy_mockup.Repositories.Students;
 
 import java.util.List;
