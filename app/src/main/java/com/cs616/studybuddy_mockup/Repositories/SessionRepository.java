@@ -1,6 +1,11 @@
 package com.cs616.studybuddy_mockup.Repositories;
 
+
+import android.util.Log;
+
+
 import com.cs616.studybuddy_mockup.MainActivity;
+
 import com.cs616.studybuddy_mockup.utility.HttpJsonRequest;
 import com.cs616.studybuddy_mockup.utility.HttpResponse;
 
@@ -23,25 +28,6 @@ public class SessionRepository implements Session_CRUDRepository<String, Session
 
 
     @Override
-    public boolean add(Sessions element) throws Exception {
-            Students usr = MainActivity.currentUser;
-            String[] studentBits = usr.getUrl().split("/");
-            long studentid = Long.valueOf(studentBits[studentBits.length-1]);
-
-            Sessions session = new Sessions();
-
-            //GETTING THE CORRECT VALUES FROM THE URL
-
-            //NOW FOR STUDENTID
-
-            HttpResponse response = HttpJsonRequest.make(PREFIX + "/Sessions", "POST", element.toJson());
-            if(response.getStatus() != 201){
-                throw new Exception("Unable to add this session");
-            }
-            return true;
-    }
-
-    @Override
     public Sessions read(String id) throws IOException, JSONException, ParseException {
         return null;
     }
@@ -51,6 +37,17 @@ public class SessionRepository implements Session_CRUDRepository<String, Session
         HttpResponse response = HttpJsonRequest.make(url + "/Sessions", "GET");
         List<Sessions> receivedSessions = Sessions.fromJson((new JSONObject(new JSONTokener(response.getBody())).getJSONObject("_embedded").getJSONArray("Sessions")));
         return receivedSessions;
+    }
+
+    @Override
+    public Sessions create(Sessions element) throws IOException {
+        HttpResponse response = HttpJsonRequest.make(PREFIX + "/Sessions", "POST", element.toJson());
+
+        Log.d(element.toJson(), "create");
+        if(response.getStatus() == 201){
+            return element;
+        }
+        return null;
     }
 
     @Override

@@ -29,14 +29,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
-import com.cs616.studybuddy_mockup.AsyncResponse.Session_AsyncResponse;
-import com.cs616.studybuddy_mockup.AsyncTasks.Send_Session_AsyncTask;
+import com.cs616.studybuddy_mockup.AsyncResponse.Statistics_AsyncResponse;
+import com.cs616.studybuddy_mockup.AsyncTasks.Session_Create_AsyncTask;
+import com.cs616.studybuddy_mockup.AsyncTasks.Student_Login_AsyncTask;
 import com.cs616.studybuddy_mockup.Repositories.Sessions;
 import com.cs616.studybuddy_mockup.Repositories.Students;
 
+import java.util.List;
+
 import static android.app.PendingIntent.getActivity;
 
-public class SessionActivity extends Activity implements Session_AsyncResponse {
+public class SessionActivity extends Activity implements Statistics_AsyncResponse{
 
     public static int OVERLAY_PERMISSION_REQ_CODE = 1234;
     //value determining length of timer created by user,
@@ -74,7 +77,7 @@ public class SessionActivity extends Activity implements Session_AsyncResponse {
                 .build();
 
         //Get intent data
-        Intent intent = getIntent();
+        final Intent intent = getIntent();
 
         //CONSTANTS
         final long[] lastPause = {SystemClock.elapsedRealtime()};
@@ -206,21 +209,18 @@ public class SessionActivity extends Activity implements Session_AsyncResponse {
             public void onClick(View v) {
                 //Todo stop timer, add result to database, stop any alarms
                 if(CURRENT_TIME != 0) {
-                    Sessions session = new Sessions();
-                    session.setSecondsStudied(CURRENT_TIME);
-                    session.setStudentId(usr);
-                    session.setCourseNo(CLASS_TITLE);
+                    String courseNo = intent.getStringExtra("sentCourseNo");
+                    Sessions session = new Sessions(courseNo,CURRENT_SECONDS,MainActivity.currentUser.getStudentId());
 
-                    Send_Session_AsyncTask sendSession = new Send_Session_AsyncTask();
-                    sendSession.setDelegate(SessionActivity.this);
-                    sendSession.execute(session);
+                    Session_Create_AsyncTask createSessions = new Session_Create_AsyncTask();
+                    createSessions.setDelegate(SessionActivity.this);
+                    createSessions.execute(session);
                 }
                 else
                 {
                     Toast toast = Toast.makeText(SessionActivity.this, "Session not logged", Toast.LENGTH_SHORT);
                     toast.show();
                 }
-                finish();
             }
         });
 
@@ -289,4 +289,16 @@ public class SessionActivity extends Activity implements Session_AsyncResponse {
     public void onSessionAsyncFinish(Boolean success) {
 
     }
+
+    @Override
+    public void onSessionAsyncFinish(List<Sessions> sessions) {
+
+    }
+
+    @Override
+    public void onCreateSessionAsyncFinish(Sessions sessions) {
+        Toast.makeText(getApplicationContext(), "Session Saved !", Toast.LENGTH_SHORT).show();
+        finish();
+    }
+
 }

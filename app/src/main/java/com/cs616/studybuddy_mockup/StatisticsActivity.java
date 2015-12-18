@@ -3,7 +3,6 @@ package com.cs616.studybuddy_mockup;
 import android.app.Fragment;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 import android.view.Menu;
@@ -18,9 +17,8 @@ import android.widget.Toast;
 
 import com.cs616.studybuddy_mockup.Adapters.courseListAdapter;
 import com.cs616.studybuddy_mockup.AsyncResponse.Statistics_AsyncResponse;
-import com.cs616.studybuddy_mockup.AsyncTasks.Sessions_AsyncTask;
+import com.cs616.studybuddy_mockup.AsyncTasks.Session_ReadAll_s_AsyncTask;
 import com.cs616.studybuddy_mockup.Repositories.Sessions;
-import com.cs616.studybuddy_mockup.Repositories.Students;
 
 import java.util.List;
 
@@ -67,12 +65,11 @@ public class StatisticsActivity extends Fragment implements Statistics_AsyncResp
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
-                if(MainActivity.currentUser.getCourses().get(position).get_studyTime() == 0){
+                if (MainActivity.currentUser.getCourses().get(position).get_studyTime() == 0) {
                     Toast.makeText(getContext(), "You have not studied for this course yet !", Toast.LENGTH_SHORT).show();
-                }
-                else{
-                    Intent intent = new Intent(StatisticsActivity.super.getActivity(),StatisticsDetails.class);
-                    intent.putExtra("position",position);
+                } else {
+                    Intent intent = new Intent(StatisticsActivity.super.getActivity(), StatisticsDetails.class);
+                    intent.putExtra("position", position);
                     startActivity(intent);
                 }
 
@@ -85,17 +82,17 @@ public class StatisticsActivity extends Fragment implements Statistics_AsyncResp
 
     private void GetSessions(){
         // Get the corresponding sessions
-        Sessions_AsyncTask getSessions = new Sessions_AsyncTask();
+        Session_ReadAll_s_AsyncTask getSessions = new Session_ReadAll_s_AsyncTask();
         getSessions.setDelegate(StatisticsActivity.this);
         getSessions.execute(MainActivity.currentUser.getUrl());
     }
     @Override
-    public void onStatisticAsyncFinish(Boolean success) {
+    public void onSessionAsyncFinish(Boolean success) {
     }
 
 
     @Override
-    public void onStatisticAsyncFinish(List<Sessions> sessionsList) {
+    public void onSessionAsyncFinish(List<Sessions> sessionsList) {
         for(Course course: MainActivity.currentUser.getCourses()){
             for (Sessions sessions : sessionsList) {
                 if(course.getCourseNo().equals(sessions.getCourseNo())){
@@ -105,5 +102,10 @@ public class StatisticsActivity extends Fragment implements Statistics_AsyncResp
         }
         MainActivity.currentUser.setSession(sessionsList);
         refreshcourseAdapter();
+    }
+
+    @Override
+    public void onCreateSessionAsyncFinish(Sessions sessions) {
+
     }
 }
