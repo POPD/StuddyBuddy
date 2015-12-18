@@ -29,9 +29,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ToggleButton;
 
+import com.cs616.studybuddy_mockup.AsyncResponse.Session_AsyncResponse;
+import com.cs616.studybuddy_mockup.AsyncTasks.Send_Session_AsyncTask;
+import com.cs616.studybuddy_mockup.Repositories.Sessions;
+import com.cs616.studybuddy_mockup.Repositories.Students;
+
 import static android.app.PendingIntent.getActivity;
 
-public class SessionActivity extends Activity {
+public class SessionActivity extends Activity implements Session_AsyncResponse {
 
     public static int OVERLAY_PERMISSION_REQ_CODE = 1234;
     //value determining length of timer created by user,
@@ -43,7 +48,9 @@ public class SessionActivity extends Activity {
     public static int MINUTE = 60;
     public static int HOUR = 60*MINUTE;
     public static int DAY = 24*HOUR;
-
+    public static int CURRENT_TIME=0;
+    public static String CLASS_TITLE;
+    Students usr = MainActivity.currentUser;
 
 
 
@@ -82,7 +89,8 @@ public class SessionActivity extends Activity {
 
         //SETTING UP TITLE
         final TextView title = (TextView) findViewById(R.id.text_Title);
-        title.setText((String) intent.getExtras().get("sentCourseTitle"));
+        CLASS_TITLE = (String) intent.getExtras().get("sentCourseTitle");
+        title.setText(CLASS_TITLE);
 
         timer.setVisibility(View.INVISIBLE);
         //Time Functionality
@@ -105,14 +113,15 @@ public class SessionActivity extends Activity {
             public void onChronometerTick(Chronometer chronometer) {
                 DisplayTimer.setText(timer.getText());
                 //if timer has been started and user set an alarm
-                if(timer.getText() != null && USERTIMER > 0 && CURRENT_SECONDS != 0) {
+                if(timer.getText() != null ){ //$%^&*&^%$%^&^%$%^&*&^%$^&*^%^&*&^%^&*&^%^&*&& USERTIMER > 0 && CURRENT_SECONDS != 0) {
                     //Check current time in the timer
                     long millisecondsElapsed = (SystemClock.elapsedRealtime() - timer.getBase());
                     int secondsElapsed = (int)millisecondsElapsed/1000;
+                    CURRENT_TIME = secondsElapsed;
 //                    Toast toast = Toast.makeText(SessionActivity.this, timer.getText(), Toast.LENGTH_SHORT);
 //                    toast.show();
-                    //make sure that it equals the amoun
-                    if (USERTIMER + CURRENT_SECONDS == secondsElapsed) {
+                    //make sure that the alarm + the number of seconds it was set at equals the amount of seconds on the timer
+                    if (USERTIMER + CURRENT_SECONDS == CURRENT_TIME) {
                         Toast toast = Toast.makeText(SessionActivity.this, "UserTime matches timer", Toast.LENGTH_SHORT);
                         toast.show();
                         defaultRingtone.setAudioAttributes(aa);
@@ -196,6 +205,21 @@ public class SessionActivity extends Activity {
         finish.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
                 //Todo stop timer, add result to database, stop any alarms
+                if(CURRENT_TIME != 0) {
+                    Sessions session = new Sessions();
+                    session.setSecondsStudied(CURRENT_TIME);
+                    session.setStudentId(usr);
+                    session.setCourseNo(CLASS_TITLE);
+
+                    Send_Session_AsyncTask sendSession = new Send_Session_AsyncTask();
+                    sendSession.setDelegate(SessionActivity.this);
+                    sendSession.execute(session);
+                }
+                else
+                {
+                    Toast toast = Toast.makeText(SessionActivity.this, "Session not logged", Toast.LENGTH_SHORT);
+                    toast.show();
+                }
                 finish();
             }
         });
@@ -259,5 +283,10 @@ public class SessionActivity extends Activity {
         });
         dialogBuilder.create();
         dialogBuilder.show();
+    }
+
+    @Override
+    public void onSessionAsyncFinish(Boolean success) {
+
     }
 }
