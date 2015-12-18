@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="utf-8"?>
 <shape xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/overflow_cell"
-    android:shape="oval"
+    android:shape="rectangle"
     android:drawable="@drawable/overflow_cell">
     <padding android:left="2dp" />
     <solid android:color="@color/red" />
     <size
-        android:height="20dp"
-        android:width="20dp" />
+        android:height="41dp"
+        android:width="41dp" />
 </shape>

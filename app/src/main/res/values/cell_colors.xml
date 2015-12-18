@@ -8,4 +8,13 @@
     <color name="orange">#FF751A</color>
     <color name="grey">#C2D6D6</color>
     <color name="darkgreen">#4D9900</color>
+    <color name="lightblue">#BAE4F0</color>
+    <color name="course_color1">#FF4E00</color>
+    <color name="course_color2">#8EA604</color>
+    <color name="course_color3">#EC9F05</color>
+    <color name="course_color4">#BF3100</color>
+    <color name="course_color5">#F5BB00</color>
+    <color name="course_color6">#FF1A1A</color>
+    <color name="course_color7">#4D9900</color>
+    <color name="course_color8">#66CCFF</color>
 </resources>

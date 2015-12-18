@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <style name="AppTheme" parent="android:Theme.Material.Light">
-        <item name="android:actionBarStyle">@style/MyActionBar</item>
+    <style name="AppTheme" parent="Theme.AppCompat.Light">
+        <item name="actionBarStyle">@style/ActionBarTheme</item>
     </style>
+
+    <style name="ActionBarTheme" parent="@style/Widget.AppCompat.Light.ActionBar.Solid">
+        <item name="background">@color/lightblue</item>
+    </style>
+
     <style name="MyTheme" parent="@android:style/Theme.Holo.Light">
         <item name="android:actionBarStyle">@style/MyActionBar</item>
     </style>

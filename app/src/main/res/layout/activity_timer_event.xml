@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:weightSum="1">
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Select alarm time:"
+        android:id="@+id/textView4"
+        android:layout_weight="0.07"
+        android:gravity="center_vertical|center_horizontal"
+        android:textStyle="bold|italic" />
+
+    <RadioGroup
+        android:layout_width="203dp"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.54"
+        android:paddingLeft="20dp">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="5 Minutes"
+            android:id="@+id/Rad5min"
+            android:layout_weight="0.07"
+            android:checked="true" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="15 Minutes"
+            android:id="@+id/Rad15min"
+            android:layout_weight="0.07"
+            android:checked="false" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="30 minutes"
+            android:id="@+id/Rad30min"
+            android:layout_weight="0.07"
+            android:checked="false" />
+    </RadioGroup>
+</LinearLayout>

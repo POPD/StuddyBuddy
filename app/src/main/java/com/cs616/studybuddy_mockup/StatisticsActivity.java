@@ -1,53 +1,47 @@
 package com.cs616.studybuddy_mockup;
 
-import android.app.Activity;
+import android.app.Fragment;
+import android.app.FragmentManager;
+import android.app.FragmentTransaction;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
+import android.view.LayoutInflater;
 import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
-import android.widget.ListAdapter;
 import android.widget.ListView;
-import android.widget.Spinner;
+import android.widget.RelativeLayout;
 import android.widget.Toast;
 
-public class StatisticsActivity extends Activity {
+import com.cs616.studybuddy_mockup.Adapters.courseListAdapter;
+import com.cs616.studybuddy_mockup.AsyncResponse.Statistics_AsyncResponse;
+import com.cs616.studybuddy_mockup.AsyncTasks.Session_ReadAll_s_AsyncTask;
+import com.cs616.studybuddy_mockup.Repositories.Sessions;
 
+import java.util.List;
+
+public class StatisticsActivity extends Fragment implements Statistics_AsyncResponse{
+    RelativeLayout llLayout;
+    FragmentActivity faActivity;
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_statistics);
-        //SETTING UP THE MENU BUTTONS
-        final Button home = (Button) findViewById(R.id.btn_home);
-        final Button stats = (Button) findViewById(R.id.btn_stats);
-        final Button account = (Button) findViewById(R.id.btn_account);
-
-        home.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(StatisticsActivity.this, MainActivity.class);
-                startActivity(intent);
-            }
-        });
-        account.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View v) {
-                Intent intent = new Intent(StatisticsActivity.this, StatisticsActivity.class);
-                startActivity(intent);
-            }
-        });
+    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
+        faActivity  = (FragmentActivity)    super.getActivity();
+        llLayout    = (RelativeLayout)    inflater.inflate(R.layout.activity_statistics, container, false);
+        GetSessions();
+        return llLayout; // We must return the loaded Layout
     }
 
+
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
+    public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
         // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.menu_statistics, menu);
-
-        refreshcourseAdapter();
-        return true;
+        this.getActivity().getMenuInflater().inflate(R.menu.menu_main, menu);
+        super.onCreateOptionsMenu(menu, inflater);
     }
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // Handle action bar item clicks here. The action bar will
@@ -64,18 +58,71 @@ public class StatisticsActivity extends Activity {
     }
 
     public void refreshcourseAdapter(){
-        ListView courseSpinner = (ListView) findViewById(R.id.spinner_courseSpinner_statistics_activity);
-        Mockup_Database mdb = new Mockup_Database();
-        courseListAdapter adapter = new courseListAdapter(this,mdb.getCourseList());
+        ListView courseSpinner = (ListView) llLayout.findViewById(R.id.spinner_courseSpinner_statistics_activity);
+        courseListAdapter adapter = new courseListAdapter(super.getActivity(),MainActivity.currentUser.getCourses());
 
         courseSpinner.setAdapter(adapter);
 
         courseSpinner.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Toast toast  = Toast.makeText(StatisticsActivity.this,"Course Details",Toast.LENGTH_SHORT);
-                toast.show();
+
+                if (MainActivity.currentUser.getCourses().get(position).get_studyTime() == 0) {
+                    Toast.makeText(getContext(), "You have not studied for this course yet !", Toast.LENGTH_SHORT).show();
+                } else {
+                    Intent intent = new Intent(StatisticsActivity.super.getActivity(), StatisticsDetails.class);
+                    intent.putExtra("position", position);
+                    startActivity(intent);
+                }
+
             }
         });
+
+        llLayout.findViewById(R.id.circleView).invalidate();
+    }
+
+
+    private void GetSessions(){
+        // Get the corresponding sessions
+        Session_ReadAll_s_AsyncTask getSessions = new Session_ReadAll_s_AsyncTask();
+        getSessions.setDelegate(StatisticsActivity.this);
+        getSessions.execute(MainActivity.currentUser.getUrl());
+    }
+    @Override
+    public void onSessionAsyncFinish(Boolean success) {
+
+        if(!success){
+            Toast toast = Toast.makeText(this.getContext(),"Error retreiving your course list.", Toast.LENGTH_SHORT);
+            toast.show();
+
+            Fragment fragment = new MainActivity();
+            FragmentManager fragmentManager = faActivity.getFragmentManager();
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.replace(R.id.container, fragment);
+            fragmentTransaction.commit();
+
+        }
+    }
+
+
+    @Override
+    public void onSessionAsyncFinish(List<Sessions> sessionsList) {
+        for(Course course: MainActivity.currentUser.getCourses()){
+            for (Sessions sessions : sessionsList) {
+                if(course.getCourseNo().equals(sessions.getCourseNo())){
+                    course.set_studyTime(course.get_studyTime() + sessions.getSecondsStudied());
+                }
+            }
+        }
+        if(sessionsList.isEmpty()){
+            onSessionAsyncFinish(false);
+        }
+        MainActivity.currentUser.setSession(sessionsList);
+        refreshcourseAdapter();
+    }
+
+    @Override
+    public void onCreateSessionAsyncFinish(Sessions sessions) {
+
     }
 }

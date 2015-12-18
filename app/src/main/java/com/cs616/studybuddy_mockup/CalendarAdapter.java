@@ -1,19 +1,17 @@
 package com.cs616.studybuddy_mockup;
 
-import android.app.Application;
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Color;
-import android.graphics.drawable.Drawable;
-import android.graphics.drawable.ShapeDrawable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.cs616.studybuddy_mockup.Repositories.Courses;
+import com.cs616.studybuddy_mockup.SQLite.Event;
 import com.roomorama.caldroid.CaldroidFragment;
 import com.roomorama.caldroid.CaldroidGridAdapter;
-import com.roomorama.caldroid.CellView;
 
 import java.util.HashMap;
 import java.util.List;
@@ -65,7 +63,7 @@ public class CalendarAdapter extends CaldroidGridAdapter {
         boolean shouldResetDiabledView = false;
         boolean shouldResetSelectedView = false;
 
-        // Customize for disabled dates and date outside min/max dates
+        // Customize for disabled dates and eventDate outside min/max dates
         if ((minDateTime != null && dateTime.lt(minDateTime))
                 || (maxDateTime != null && dateTime.gt(maxDateTime))
                 || (disableDates != null && disableDates.indexOf(dateTime) != -1)) {
@@ -120,29 +118,40 @@ public class CalendarAdapter extends CaldroidGridAdapter {
             // do whatever you want with cellView
             for (int i = 0; i < eventlist.size(); i++) {
                 Event event = eventlist.get(i);
-                switch(i)  {
-                    case 0:
-                        event1.setText(event.title);
-                        //  **** NOTE **** We will replace this with the class color
-                        event1.setBackgroundColor(cellView.getResources().getColor(R.color.blue));
-                        break;
-                    case 1:
-                        event2.setText(event.title);
-                        //  **** NOTE **** We will replace this with the class color
-                        event2.setBackgroundColor(cellView.getResources().getColor(R.color.green));
-                        break;
-                    case 2:
-                        event3.setText(event.title);
-                        //  **** NOTE **** We will replace this with the class color
-                        event3.setBackgroundColor(cellView.getResources().getColor(R.color.red));
-                        break;
-                    default:
-                        event1.setVisibility(View.GONE);
-                        event2.setVisibility(View.GONE);
-                        event3.setVisibility(View.GONE);
-                        overflow.setVisibility(View.VISIBLE);
-                        overflow.setText(String.valueOf(i+1));
+                Course course = null;
+                int courseIndex = 0;
+                for(Courses item : MainActivity.db_courses){
+                    if(item.getId() == event.getForCourse()) {
+                        course = MainActivity.currentUser.getCourses().get(courseIndex);
+                    }
+                    courseIndex++;
                 }
+                if(course != null){
+                    switch(i)  {
+                        case 0:
+                            event1.setText(event.title);
+                            //  **** NOTE **** We will replace this with the class color
+                            event1.setBackgroundColor(course.get_paint().getColor());
+                            break;
+                        case 1:
+                            event2.setText(event.title);
+                            //  **** NOTE **** We will replace this with the class color
+                            event2.setBackgroundColor(course.get_paint().getColor());
+                            break;
+                        case 2:
+                            event3.setText(event.title);
+                            //  **** NOTE **** We will replace this with the class color
+                            event3.setBackgroundColor(course.get_paint().getColor());
+                            break;
+                        default:
+                            event1.setVisibility(View.GONE);
+                            event2.setVisibility(View.GONE);
+                            event3.setVisibility(View.GONE);
+                            overflow.setVisibility(View.VISIBLE);
+                            overflow.setText(String.valueOf(i+1));
+                    }
+                }
+
             }
         }
 

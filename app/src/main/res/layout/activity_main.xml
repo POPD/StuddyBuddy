@@ -6,38 +6,6 @@
     android:paddingBottom="0dp" tools:context=".MainActivity"
     android:background="@android:color/background_light">
 
-    <!-- **** BOTTOM ACTION BAR **** -->
-    <LinearLayout android:id="@+id/footer"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:layout_alignParentBottom="true"
-        style="@android:style/ButtonBar">
-        <Button android:id="@+id/btn_home"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/home"
-            style="@style/MyBackgroundColor"
-            android:layout_margin="5dp" />
-
-        <Button android:id="@+id/btn_stats"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/Stats"
-            style="@style/MyBackgroundColor"
-            android:layout_margin="5dp" />
-        <Button android:id="@+id/btn_account"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:text="@string/Account"
-            style="@style/MyBackgroundColor"
-            android:layout_margin="5dp" />
-    </LinearLayout>
-    <!-- ********************************************** -->
-
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -84,5 +52,107 @@
         android:layout_margin="20dp"
         android:textSize="20sp"
         style="@style/MyBackgroundColor"/>
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="@string/event_week"
+        android:textSize="18sp"
+        android:layout_below="@+id/btn_calendar"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/events_text" />
+    <HorizontalScrollView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/events_view"
+        android:layout_below="@+id/events_text"
+        android:layout_alignStart="@+id/btn_calendar" >
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_margin="5dp"
+                android:layout_width="100dp"
+                android:layout_height="125dp"
+                android:background="@drawable/layout_border"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/text_eventCourse_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="5dp"/>
+
+                <TextView
+                    android:id="@+id/text_eventTitle_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="5dp"/>
+                <TextView
+                    android:id="@+id/text_eventDate_1"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="5dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_margin="5dp"
+                android:layout_width="100dp"
+                android:layout_height="125dp"
+                android:background="@drawable/layout_border"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/text_eventCourse_2"
+                    android:gravity="top"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="5dp" />
+
+                <TextView
+                    android:id="@+id/text_eventTitle_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="5dp"/>
+                <TextView
+                    android:id="@+id/text_eventDate_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="5dp"/>
+            </LinearLayout>
+            <LinearLayout
+                android:layout_margin="5dp"
+                android:layout_width="100dp"
+                android:layout_height="125dp"
+                android:background="@drawable/layout_border"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/text_eventCourse_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="5dp"/>
+
+                <TextView
+                    android:id="@+id/text_eventTitle_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="5dp"/>
+                <TextView
+                    android:id="@+id/text_eventDate_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:paddingTop="10dp"
+                    android:paddingLeft="5dp"/>
+            </LinearLayout>
+        </LinearLayout>
+    </HorizontalScrollView>
 
 </RelativeLayout>

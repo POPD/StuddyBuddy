@@ -9,15 +9,16 @@
     <string name="Choose_A_Class">Choose a class:</string>
     <string name="Time_Studied">Time Studied:</string>
     <string name="Date" >Date:</string>
+    <string name="Title" >Exam Title:</string>
     <string name="cancel_button_extra_activity">Cancel</string>
     <string name="save_button_extra_activity">Save</string>
-    <string name="title_activity_extra">ExtraActivity</string>
-    <string name="title_activity_session">SessionActivity</string>
-    <string name="session">Session</string>
+    <string name="title_activity_extra">Extra Sessions</string>
+    <string name="title_activity_session">Study Session</string>
+    <string name="session">Study Session</string>
     <string name="extraSession">Extra Session</string>
     <string name="calendar">Exam Calendar</string>
-    <string name="title_activity_statistics">StatisticsActivity</string>
-    <string name="title_activity_calendar">CalendarActivity</string>
+    <string name="title_activity_statistics">Statistics</string>
+    <string name="title_activity_calendar">Calendar</string>
     <string name="monday">MON</string>
     <string name="tuesday">TUE</string>
     <string name="wednesday">WED</string>
@@ -33,5 +34,35 @@
     <string name="Finish">Finish</string>
     <string name="title_activity_login">login</string>
     <string name="button_login">Login</string>
+    <string name="title_activity_main_drawer">Study Buddy</string>
+    <string name="button_create">Create</string>
+    <string name="button_finish">Finish</string>
+    <string name="title_section1">Section 1</string>
+    <string name="title_section2">Section 2</string>
+    <string name="title_section3">Section 3</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_example">Example action</string>
+    <string name="title_activity_bubble">BubbleActivity</string>
+    <string name="event_week">Upcoming Events This Week:</string>
+    <string name="student_info">Student Information:</string>
+    <string name="student_pickcourse">What Courses are you studying?</string>
+
+    <!-- Notification -->
+    <string name="notificationTitle">Study Session ongoing</string>
+    <string name="notificationText">You can do it!</string>
+    <string name="title_activity_create">CreateActivity</string>
+    <string name="title_activity_login_manager_fragment">Login</string>
+    <string name="title_activity_create_event">CreateEventActivity</string>
+    <string name="title_activity_statistics_details">StatisticsDetails</string>
+    <string name="Total_Time_studied">Total Time Studied:</string>
+    <string name="Amount_Of_Study_sessions">Amount of study sessions:</string>
+    <string name="Avg_Time_Per_Session">Average Study Time / Session</string>
+    <string name="title_activity_setup">SetupActivity</string>
+    <string name="title_activity_student_info">StudentInfoActivity</string>
+    <string name="title_activity_pick_courses">PickCoursesActivity</string>
+>>>>>>> master
 
 </resources>

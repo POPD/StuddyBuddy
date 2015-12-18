@@ -28,7 +28,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="CONTENT"
         android:id="@+id/CategoryContent_TextView_Activity_Note_List"
         android:textColor="#676767"
         android:layout_marginLeft="20dp" />

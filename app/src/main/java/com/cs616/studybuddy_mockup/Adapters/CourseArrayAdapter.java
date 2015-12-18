@@ -1,4 +1,4 @@
-package com.cs616.studybuddy_mockup;
+package com.cs616.studybuddy_mockup.Adapters;
 
 import android.content.Context;
 import android.database.DataSetObserver;
@@ -10,14 +10,17 @@ import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
 
+import com.cs616.studybuddy_mockup.Course;
+import com.cs616.studybuddy_mockup.R;
+
 import java.util.List;
 import java.util.ArrayList;
 
 /**
  * Created by Dominic on 2015-11-24.
  */
-public class courseListAdapter  extends ArrayAdapter<Course>{
-    public courseListAdapter(Context context, List<Course> objects) {
+public class CourseArrayAdapter  extends ArrayAdapter<Course>{
+    public CourseArrayAdapter(Context context, List<Course> objects) {
         super(context, -1, objects);
     }
 
@@ -51,8 +54,13 @@ public class courseListAdapter  extends ArrayAdapter<Course>{
 
         titleTextView.setText(course.get_name());
         titleTextView.setTextColor(course.get_paint().getColor());
-        commentTextView.setText(String.valueOf(course.get_studyTime()) );
+        //commentTextView.setText(String.valueOf(course.get_studyTime()) );
 
         return newRow;
+    }
+
+    @Override
+    public View getDropDownView(int position, View convertView, ViewGroup parent) {
+        return getView(position,convertView,parent);
     }
 }
