@@ -16,7 +16,6 @@ import java.util.List;
 public class SessionList extends Activity {
 
     public static final int MAX_COURSES = 8;
-    private Mockup_Database mdb;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -29,7 +28,6 @@ public class SessionList extends Activity {
 //
 //        }
         ListView courseList = (ListView) findViewById(R.id.Course_List);
-        mdb = new Mockup_Database();
         CourseArrayAdapter adapter = new CourseArrayAdapter(this,MainActivity.currentUser.getCourses());
         courseList.setAdapter(adapter);
         courseList.setOnItemClickListener(new AdapterView.OnItemClickListener() {

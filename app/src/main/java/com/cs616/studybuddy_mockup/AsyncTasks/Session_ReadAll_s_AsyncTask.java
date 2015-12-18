@@ -28,10 +28,13 @@ public class Session_ReadAll_s_AsyncTask extends AsyncTask<String, Integer, Bool
             sessions = new SessionRepository().readAll(params[0]);
         } catch (IOException e) {
             e.printStackTrace();
+            return false;
         } catch (JSONException e) {
             e.printStackTrace();
+            return false;
         } catch (ParseException e) {
             e.printStackTrace();
+            return false;
         }
 
         return true;
@@ -39,8 +42,14 @@ public class Session_ReadAll_s_AsyncTask extends AsyncTask<String, Integer, Bool
 
     @Override
     protected void onPostExecute(Boolean result) {
-        if(delegate != null)
-            delegate.onSessionAsyncFinish(sessions);
+        if(delegate != null){
+            if(result){
+                delegate.onSessionAsyncFinish(sessions);
+            }else{
+                delegate.onSessionAsyncFinish(false);
+            }
+        }
+
     }
 
 }

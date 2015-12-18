@@ -73,6 +73,8 @@ public class PickCoursesActivity extends Fragment implements PickCourses_AsyncRe
             public void onClick(View v) {
                 List<Courses> registerCourses = new ArrayList<Courses>();
                 int cntChoice = courseList.getCount();
+
+
                 SparseBooleanArray sparseBooleanArray = courseList.getCheckedItemPositions();
                 if(sparseBooleanArray.size() == 0){
                     Toast toast = Toast.makeText(PickCoursesActivity.super.getActivity(), "You must pick at least 1 course!", Toast.LENGTH_SHORT);
@@ -113,5 +115,13 @@ public class PickCoursesActivity extends Fragment implements PickCourses_AsyncRe
                 startActivity(intent);
                 getActivity().finish();
             }
+    }
+
+    @Override
+    public void onCourseReadAsyncFinish(Boolean success) {
+        if(!success){
+            Toast toast = Toast.makeText(super.getActivity(), "Error registering for classes, please try later!", Toast.LENGTH_SHORT);
+            toast.show();
+        }
     }
 }
