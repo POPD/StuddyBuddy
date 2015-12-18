@@ -12,6 +12,4 @@ public interface User_AsyncResponse {
 
         void onUserAsyncFinish(Boolean success);
 
-
-
 }

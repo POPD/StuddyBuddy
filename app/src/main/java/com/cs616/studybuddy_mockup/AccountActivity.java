@@ -86,17 +86,8 @@ public class AccountActivity extends Fragment {
         //  6) Style the UI
 
 
-        //Toast.makeText(this.getContext(), MainActivity.currentUser.getFname().toString(), Toast.LENGTH_LONG).show();
-        //Toast.makeText(this.getContext(), MainActivity.db_courses.getClass().toString(), Toast.LENGTH_LONG).show();
-
-
-
         userInfo[1] = MainActivity.currentUser.getFname().toString();    // name
         userInfo[0] = MainActivity.currentUser.getPassword().toString(); // password
-
-        //userFname  = userInfo[1] ;
-        //userPasswd = userInfo[0] ;
-
 
 
         // get courses
@@ -114,32 +105,6 @@ public class AccountActivity extends Fragment {
                 addClass(v);
             }
         });
-
-        //s.getSelectedItem();
-        //s.setClickable(true);
-        //s.setSelection(1);
-
-/*
-
-        s.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View v, int arg2, long arg3) {
-
-
-                removeClass(v);
-
-
-
-            }
-
-
-            @Override
-            public void onNothingSelected(AdapterView<?> arg0) {
-                //optionally do something here
-            }
-        });
-
-*/
 
 
         removeClass.setOnClickListener(new View.OnClickListener() {
@@ -201,15 +166,24 @@ public class AccountActivity extends Fragment {
 
         public void addClass(View v) {
 
+
+            List<Course> courses = new ArrayList<>();
+            int i=0;
+            for(Courses item: MainActivity.db_courses){
+                courses.add(new Course(item.getId(),item.getTitle(),0,MainActivity.colors.get(i++)));
+            }
+
+
+
             AlertDialog.Builder builder =  new AlertDialog.Builder(super.getActivity());
 
-            builder.setTitle("Add entry");
+            builder.setTitle("Add A Course");
 
             // Set up the input
             final EditText in = new EditText(super.getActivity());
             builder.setView(in);
 
-            builder.setMessage("Add entry?");
+            builder.setMessage("Please choose an account");
 
 
 
@@ -223,8 +197,6 @@ public class AccountActivity extends Fragment {
 
                 }
             });
-
-
 
 
             builder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
@@ -250,7 +222,6 @@ public class AccountActivity extends Fragment {
                             String text = s.getSelectedItem().toString();
                             c.remove(text);
                             update();
-
                         }
                     })
 
@@ -273,10 +244,9 @@ public class AccountActivity extends Fragment {
             adapter.notifyDataSetChanged();
             s.setAdapter(adapter);
 
-
-
-
         }
+
+
 
        public void update_User(){
 
@@ -296,8 +266,8 @@ public class AccountActivity extends Fragment {
 
                @Override
                public void onUserAsyncFinish(Boolean success) {
-               // when done task this runs!!
-               MainActivity.currentUser.setFname(userInfo[1].toString());
+                   // when done task this runs!!
+                   MainActivity.currentUser.setFname(userInfo[1].toString());
 
                }
            });
@@ -326,7 +296,6 @@ public class AccountActivity extends Fragment {
                 /// when done task this runs!!
                 MainActivity.currentUser.setPassword(userInfo[0].toString());
 
-
             }
         });
 
@@ -338,18 +307,18 @@ public class AccountActivity extends Fragment {
 
         public void resetPassword(View v){
 
-
+            AlertDialog.Builder builder =  new AlertDialog.Builder(super.getActivity());
             final EditText pass = new EditText(super.getActivity());
+            builder.setView(pass);
 
-            new AlertDialog.Builder(super.getActivity())
 
-                    .setTitle("Resset password")
-                    .setMessage("reset your password")
-                    .setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    builder.setTitle("Resset password");
+                    builder.setMessage("reset your password");
+
+                    builder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
 
 
                         public void onClick(DialogInterface dialog, int which) {
-
 
                             String temp_pass = (pass.getText()).toString();
                             userInfo[0] = temp_pass;
@@ -358,22 +327,20 @@ public class AccountActivity extends Fragment {
                             update_Pass();
 
                         }
-                    })
+                    });
 
-                    .setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
+                    builder.setNegativeButton(android.R.string.no, new DialogInterface.OnClickListener() {
                         public void onClick(DialogInterface dialog, int which) {
                             // do nothing
                         }
-                    })
+                    });
 
-                    .setIcon(android.R.drawable.ic_dialog_alert)
-                    .show();
+            builder.setIcon(android.R.drawable.ic_dialog_alert);
+            builder.show();
         }
 
 
         public void editUserInfo(View v){
-
-
 
             AlertDialog.Builder builder =  new AlertDialog.Builder(super.getActivity());
             //
@@ -400,7 +367,7 @@ public class AccountActivity extends Fragment {
 
 
                     //String temp_id   = (id.getText()).toString();
-                      String temp_name = (name.getText()).toString();
+                    String temp_name = (name.getText()).toString();
 
                     // userInfo[0] = temp_id;
                     userInfo[1] = temp_name;
@@ -415,43 +382,31 @@ public class AccountActivity extends Fragment {
         }
 
 
-    protected void sendEmail() {
-
-        /*
-
-        Log.i("Send email", "");
-
-        String[] TO = {"someone@gmail.com"};
-        String[] CC = {"xyz@gmail.com"};
-        Intent emailIntent = new Intent(Intent.ACTION_SEND);
-        emailIntent.setData(Uri.parse("mailto:"));
-        emailIntent.setType("text/plain");
-
-
-        emailIntent.putExtra(Intent.EXTRA_EMAIL, TO);
-        emailIntent.putExtra(Intent.EXTRA_CC, CC);
-        emailIntent.putExtra(Intent.EXTRA_SUBJECT, "Your subject");
-        emailIntent.putExtra(Intent.EXTRA_TEXT, "Email message goes here");
-
-        try {
-            startActivity(Intent.createChooser(emailIntent, "Send mail..."));
-            finish();
-            Log.i("Finished sending email...", "");
-        } catch (android.content.ActivityNotFoundException ex) {
-            Toast.makeText(MainActivity.this,
-                    "There is no email client installed.", Toast.LENGTH_SHORT).show();
-        }
-
-        */
-    }
+    public void  updateAddClass(){
 
 
 
 
-    public void makeFile(){
 
 
 
+        Students s = MainActivity.currentUser;
+        s.setPassword(userInfo[0].toString());
+
+
+        Update_Passwd_AsyncTask task = new Update_Passwd_AsyncTask();
+
+        task.setDelegate(new Passwd_AsyncResponse() {
+
+            @Override
+            public void onPasswdAsyncFinish(Boolean success) {
+                /// when done task this runs!!
+                MainActivity.currentUser.setPassword(userInfo[0].toString());
+
+            }
+        });
+
+        task.execute(s);
 
 
 
@@ -461,6 +416,23 @@ public class AccountActivity extends Fragment {
 
 
     }
+
+
+    public void updateRemoveClass(){
+
+
+
+
+
+
+
+
+    }
+
+
+
+
+
 
 
     }

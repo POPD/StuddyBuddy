@@ -18,7 +18,7 @@ public class CourseRepository implements Course_CRUDRepository<String, Courses>{
 
 
     public static final String SERVER = "159.203.29.133";
-    public static final int PORT = 9999;
+    public static final int PORT      = 9999;
     public static final String PREFIX = "http://" + SERVER + ":" + String.valueOf(PORT);
 //    public static final String SERVER = "10.0.2.2";
 //    public static final int PORT = 9999;
@@ -30,7 +30,7 @@ public class CourseRepository implements Course_CRUDRepository<String, Courses>{
     public Courses read(String id) throws IOException, JSONException {
 
         HttpResponse response = HttpJsonRequest.make(PREFIX + "/Courses/" + id, "GET");
-        Courses receivedUser = Courses.fromJson((new JSONObject(new JSONTokener(response.getBody()))));
+        Courses receivedUser  = Courses.fromJson((new JSONObject(new JSONTokener(response.getBody()))));
 
         return receivedUser;
 
@@ -62,8 +62,6 @@ public class CourseRepository implements Course_CRUDRepository<String, Courses>{
 
         return null;
     }
-
-
 
 
 

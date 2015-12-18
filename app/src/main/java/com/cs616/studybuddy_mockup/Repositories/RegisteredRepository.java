@@ -26,7 +26,14 @@ public class RegisteredRepository implements Registered_CRUDRepository<String, C
 
     @Override
     public boolean add(Courses element) throws IOException {
+
+        HttpResponse response = HttpJsonRequest.make(PREFIX + "/RegisteredCourses/", "POST", element.toJson());
+        if(response.getStatus() == 201){
+            //element.setUrl(response.getHeaders().get("Location").get(0)); // Header from POST contains the URL of the new user
+            return true;
+        }
         return false;
+
     }
 
     @Override

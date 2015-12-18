@@ -39,7 +39,7 @@ public class Update_Passwd_AsyncTask extends AsyncTask<Students, Integer, Boolea
         boolean valid=false;
 
         try {
-           if(( new StudentRepository().update(params[0])==true))
+           if(( new StudentRepository().update(params[0])== true))
                 valid=true;
 
         } catch (IOException e) {
